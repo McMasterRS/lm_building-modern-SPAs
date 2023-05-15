@@ -22,12 +22,12 @@ At the end of this workshop, attendees will be able to:
 
 ## Table of Content
 
-1. [Typography](#typography.md)
-2. [Navigation Bar](#navigation-bar)
-3. [Breadcrumbs With Universal Back Button](#breadcrumbs-back.md)
-4. [Interactive UI Elements](#interactive-ui-elements.md)
-	1. [Buttons](#buttons)
-	2. [File Input Widget](#file-input-widget)
-5. [Displaying Information to the User](#displaying-information.md)
-	1. [Cards vs. Data Grids](#cards-grids.md)
+1. [Typography](typography.md)
+2. [Navigation Bar](navigation-bar)
+3. [Breadcrumbs With Universal Back Button](breadcrumbs-back.md)
+4. [Interactive UI Elements](interactive-ui-elements.md)
+	1. [Buttons](interactive-ui-elements.md#buttons)
+	2. [File Input Widget](interactive-ui-elements.md#file-input-widget)
+5. [Displaying Information to the User](displaying-information.md)
+	1. [Cards vs. Data Grids](cards-grids.md)
 6. [Forms](#forms.md)
