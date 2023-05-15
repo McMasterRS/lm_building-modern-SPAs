@@ -217,12 +217,12 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href="/"
-                        sx={{
+                        sx={ {
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
-                        }}
+                        } }
                         className={styles.title}
                     >
                         MacApp
