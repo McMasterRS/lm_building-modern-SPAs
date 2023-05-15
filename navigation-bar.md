@@ -200,8 +200,8 @@ export default function Navbar() {
         <AppBar
             position="static"
             enableColorOnDark
-            style={{backgroundImage: 'none'}}
-            sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
+            style={ {backgroundImage: 'none'} }
+            sx={ {zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0} }
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -227,7 +227,7 @@ export default function Navbar() {
                     >
                         MacApp
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                    <Box sx={ {flexGrow: 1, display: {xs: 'flex', md: 'none'} }}>
                         <IconButton
                             size="large"
                             aria-controls="menu-appbar"
@@ -243,15 +243,13 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href=""
-			{% raw %}
-                        sx={{
+                        sx={ {
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             color: 'inherit',
                             textDecoration: 'none',
-                        }}
-			{% endraw %}
+                        } }
                     >
                         MacApp
                     </Typography>
@@ -420,20 +418,20 @@ In the `Navbar` function of `Navbar.tsx`, add the following lines of code after 
 <Menu
     id="menu-appbar"
     anchorEl={anchorElNav as Element}
-    anchorOrigin={{
+    anchorOrigin={ {
         vertical: 'bottom',
         horizontal: 'left',
-    }}
+    } }
     keepMounted
-    transformOrigin={{
+    transformOrigin={ {
         vertical: 'top',
         horizontal: 'left',
-    }}
+    } }
     open={Boolean(anchorElNav)}
     onClose={handleCloseNavMenu}
-    sx={{
+    sx={ {
         display: {xs: 'block', md: 'none'},
-    }}
+    } }
 >
     {pages.map(page => (
         <MenuItem
@@ -451,7 +449,7 @@ The code adds a `Menu` component with a `MenuItem` for each page defined in the 
 
 Next, we will add the navigation button links shown on medium-sized displays. Add the following code right after the second `Typography` component:
 ```
-<Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+<Box sx={ {flexGrow: 1, display: {xs: 'none', md: 'flex'} }}>
     {pages.map(page => (
         <MacNavButton
             key={page[0]}
@@ -463,7 +461,7 @@ Next, we will add the navigation button links shown on medium-sized displays. Ad
                     ? styles.active
                     : styles.nonActive
             }
-            sx={{my: 2, color: 'white', display: 'block'}}
+            sx={ {my: 2, color: 'white', display: 'block'} }
         >
             {page[0]}
         </MacNavButton>
@@ -526,8 +524,8 @@ export default function Navbar() {
         <AppBar
             position="static"
             enableColorOnDark
-            style={{backgroundImage: 'none'}}
-            sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
+            style={ {backgroundImage: 'none'} }
+            sx={ {zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0} }
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -543,17 +541,17 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href="/"
-                        sx={{
+                        sx={ {
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
-                        }}
+                        } }
                         className={styles.title}
                     >
                         MacApp
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                    <Box sx={ {flexGrow: 1, display: {xs: 'flex', md: 'none'} }}>
                         <IconButton
                             size="large"
                             aria-controls="menu-appbar"
@@ -566,20 +564,20 @@ export default function Navbar() {
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav as Element}
-                            anchorOrigin={{
+                            anchorOrigin={ {
                                 vertical: 'bottom',
                                 horizontal: 'left',
-                            }}
+                            } }
                             keepMounted
-                            transformOrigin={{
+                            transformOrigin={ {
                                 vertical: 'top',
                                 horizontal: 'left',
-                            }}
+                            } }
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={{
+                            sx={ {
                                 display: {xs: 'block', md: 'none'},
-                            }}
+                            } }
                         >
                             {pages.map(page => (
                                 <MenuItem
@@ -600,17 +598,17 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href=""
-                        sx={{
+                        sx={ {
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             color: 'inherit',
                             textDecoration: 'none',
-                        }}
+                        } }
                     >
                         MacApp
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    <Box sx={ {flexGrow: 1, display: {xs: 'none', md: 'flex'} }}>
                         {pages.map(page => (
                             <MacNavButton
                                 key={page[0]}
@@ -622,7 +620,7 @@ export default function Navbar() {
                                         ? styles.active
                                         : styles.nonActive
                                 }
-                                sx={{my: 2, color: 'white', display: 'block'}}
+                                sx={ {my: 2, color: 'white', display: 'block'} }
                             >
                                 {page[0]}
                             </MacNavButton>
@@ -653,7 +651,7 @@ We are importing the MUI "Settings" icon (gear icon) for use in our navigation b
 
 Add the following lines of code immediately after the `Box` component containing the `MacNavButtons`for "Page 1" and "Page 2":
 ```
-<Box sx={{paddingRight: 1}}>
+<Box sx={ {paddingRight: 1} }>
     <Tooltip
         title= "Settings"
     >
@@ -729,8 +727,8 @@ export default function Navbar() {
         <AppBar
             position="static"
             enableColorOnDark
-            style={{backgroundImage: 'none'}}
-            sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
+            style={ {backgroundImage: 'none'} }
+            sx={ {zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0} }
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -746,17 +744,17 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href="/"
-                        sx={{
+                        sx={ {
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
-                        }}
+                        } }
                         className={styles.title}
                     >
                         MacApp
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                    <Box sx={ {flexGrow: 1, display: {xs: 'flex', md: 'none'} }}>
                         <IconButton
                             size="large"
                             aria-controls="menu-appbar"
@@ -769,20 +767,20 @@ export default function Navbar() {
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav as Element}
-                            anchorOrigin={{
+                            anchorOrigin={ {
                                 vertical: 'bottom',
                                 horizontal: 'left',
-                            }}
+                            } }
                             keepMounted
-                            transformOrigin={{
+                            transformOrigin={ {
                                 vertical: 'top',
                                 horizontal: 'left',
-                            }}
+                            } }
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={{
+                            sx={ {
                                 display: {xs: 'block', md: 'none'},
-                            }}
+                            } }
                         >
                             {pages.map(page => (
                                 <MenuItem
@@ -803,17 +801,17 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href=""
-                        sx={{
+                        sx={ {
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             color: 'inherit',
                             textDecoration: 'none',
-                        }}
+                        } }
                     >
                         MacApp
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    <Box sx={ {flexGrow: 1, display: {xs: 'none', md: 'flex'} }}>
                         {pages.map(page => (
                             <MacNavButton
                                 key={page[0]}
@@ -825,13 +823,13 @@ export default function Navbar() {
                                         ? styles.active
                                         : styles.nonActive
                                 }
-                                sx={{my: 2, color: 'white', display: 'block'}}
+                                sx={ {my: 2, color: 'white', display: 'block'} }
                             >
                                 {page[0]}
                             </MacNavButton>
                         ))}
                     </Box>
-                    <Box sx={{paddingRight: 1}}>
+                    <Box sx={ {paddingRight: 1} }>
                         <Tooltip
                             title= "Settings"
                         >
@@ -891,7 +889,7 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{p: 3}}>
+                <Box sx={ {p: 3} }>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -914,14 +912,14 @@ export default function VerticalTabs() {
     }
 
     return (
-        <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex'}}>
+        <Box sx={ {flexGrow: 1, bgcolor: 'background.paper', display: 'flex'} }>
             <Tabs
                 orientation="vertical"
                 variant="scrollable"
                 value={value}
                 onChange={handleChange}
                 aria-label="Vertical tabs"
-                sx={{borderRight: 1, borderColor: 'divider'}}
+                sx={ {borderRight: 1, borderColor: 'divider'} }
             >
                 <Tab label="Tab 1" {...a11yProps(0)} />
                 <Tab label="Tab 2" {...a11yProps(1)} />
@@ -995,13 +993,13 @@ export default function ViewTranscript() {
         <main className={styles.settings}>
             <Container>
                 <Typography
-                    sx={{display: 'flex', justifyContent: 'center'}}
+                    sx={ {display: 'flex', justifyContent: 'center'} }
                     variant="h2"
                     gutterBottom
                 >
                     Settings
                 </Typography>
-                <Box sx={{width: '100%', maxWidth: 1000}}>
+                <Box sx={ {width: '100%', maxWidth: 1000} }>
                     <VerticalTabs />
                 </Box>
             </Container>
