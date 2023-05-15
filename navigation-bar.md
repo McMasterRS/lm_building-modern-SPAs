@@ -173,7 +173,7 @@ const pages = [
 We will create the the `.tsx` files shortly.
 
 We will now create the `Navbar` function which returns the `AppBar` component:
-```
+```ts
 export default function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState<EventTarget | null>(
         null
@@ -217,12 +217,12 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href="/"
-                        sx={ {
+                        sx={{
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
-                        } }
+                        }}
                         className={styles.title}
                     >
                         MacApp
