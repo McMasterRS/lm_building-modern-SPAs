@@ -243,6 +243,7 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href=""
+			{% raw %}
                         sx={{
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
@@ -250,6 +251,7 @@ export default function Navbar() {
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
+			{% endraw %}
                     >
                         MacApp
                     </Typography>
