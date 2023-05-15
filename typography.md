@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Outline
+title: Typography
 nav_order: 4
 ---
 
