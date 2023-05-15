@@ -1,3 +1,11 @@
+---
+layout: default
+title: Outline
+nav_order: 4
+---
+
+# Typography
+
 McMaster recommends the use of the Roboto family of fonts on all websites associated with the university. Roboto is a neo-grotesque sans-serif typeface family developed by Google. There are multiple variants of the Roboto font that are used for different headlines, subheads and body text when designing a new webpage. In this section, we will learn how to use the MUI Typography component to define different heading styles.
 
 ### Create theme.ts
