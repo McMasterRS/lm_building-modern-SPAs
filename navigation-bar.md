@@ -173,7 +173,8 @@ const pages = [
 We will create the the `.tsx` files shortly.
 
 We will now create the `Navbar` function which returns the `AppBar` component:
-```ts
+```
+{% raw %}
 export default function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState<EventTarget | null>(
         null
@@ -217,12 +218,12 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href="/"
-                        sx={ {
+                        sx={{
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
-                        } }
+                        }}
                         className={styles.title}
                     >
                         MacApp
@@ -258,6 +259,7 @@ export default function Navbar() {
         </AppBar>
     )
 }
+{% endraw %}
 ```
 So far, our code creates an `AppBar` component with the McMaster logo on the left hand side, the title of our application (MacApp). The title is a button that can be clicked to go back to the main index page of our application, which in this case is the 'Hello World!' page.
 Notice that the navigation bar has two `Typography` components containing the title of our application. The first `Typography` component is used for medium-sized screen (e.g., tablets, laptops, desktop computers, etc.) whereas the second `Typography` component is used for small screens (e.g., smartphones). The second `Typography` component is also preceded by an `IconButton` component that will house the navigation links once we implement them. The `handleOpenNavMenu` and `handleCloseNavMenu` functions are used to handle opening and closing the menu shown in the navigation bar on small-sized screens.
