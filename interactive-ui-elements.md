@@ -113,4 +113,16 @@ Delete the line containing the `Typography` component and replace it with the fo
     </Stack>
 </Stack>
 ```
-We used the MUI `Stack` component to stack the "Hello World!" message vertically on top of another `Stack` containing two buttons in a row. The `Snackbar` component is used to display the popup message shown after clicking a button. The MUI guidelines recommend displaying only one `Snackbar` message at a time. Hence, if your application has multiple `Snackbar` messages, you should dismiss the current message before displaying the next one. You can find out more about the MUI `Snackbar` component by visiting the  [official documentation](https://mui.com/material-ui/react-snackbar/).
+We used the MUI `Stack` component to stack the "Hello World!" message vertically on top of another `Stack` containing two buttons in a row. The `Snackbar` component is used to display the popup message shown after clicking a button. The MUI guidelines recommend displaying only one `Snackbar` message at a time. Hence, if your application has multiple `Snackbar` messages, you should dismiss the current message before displaying the next one. You can find out more about the MUI `Snackbar` component by visiting the [Snackbar official documentation](https://mui.com/material-ui/react-snackbar/).
+
+Notice that the `mainColor` on the first button is `"primary"`, whereas the second button uses the `"secondary"` color.
+
+Go back to your browser, your homepage should now look like this:
+![buttons](assets/img/buttons.png)
+
+Hovering over the Heritage Maroon button will turn cause it to turn dark grey:
+![hover-maroon](assets/img/hover-maroon.png)
+Simiarly, hovering ove the "Secondary" button will turn cause it to turn light grey:
+![hover-gold](assets/img/hover-gold.png)
+
+
