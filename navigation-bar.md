@@ -201,8 +201,8 @@ export default function Navbar() {
         <AppBar
             position="static"
             enableColorOnDark
-            style={ {backgroundImage: 'none'} }
-            sx={ {zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0} }
+            style={{backgroundImage: 'none'}}
+            sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -228,7 +228,7 @@ export default function Navbar() {
                     >
                         MacApp
                     </Typography>
-                    <Box sx={ {flexGrow: 1, display: {xs: 'flex', md: 'none'} }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
                             aria-controls="menu-appbar"
@@ -244,13 +244,13 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href=""
-                        sx={ {
+                        sx={{
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             color: 'inherit',
                             textDecoration: 'none',
-                        } }
+                        }}
                     >
                         MacApp
                     </Typography>
@@ -276,6 +276,7 @@ Add the following line of code before `<CssBaseline />`:
 ```
 Yout `_app.tsx` file should now look like this:
 ```
+{% raw %}
 import type { AppProps } from 'next/app'  
 import CssBaseline from '@mui/material/CssBaseline'  
 import {createTheme, ThemeProvider} from '@mui/material/styles'  
@@ -293,6 +294,7 @@ export default function App({ Component, pageProps }: AppProps) {
 		</ThemeProvider>  
 	</>  
 }
+{% endraw %}
 ```
 
 Go back to your browser, the page should now have a McMaster-branded navigation bar:
@@ -319,6 +321,7 @@ We reduced the padding compared to the `main` style.
 In the `pages` directory of your project, create a new directory called `page_1`. Create an `index.tsx` file in the `page_1` directory.
 Add the following code to the `page_1/index.tsx` file:
 ```
+{% raw %}
 import styles from '@/styles/Home.module.css'
 import Typography from '@mui/material/Typography'
 import {useEffect} from "react";
@@ -374,6 +377,7 @@ export default function Home() {
     </>
   )
 }
+{% endraw %}
 ```
 These two files create two simple pages that show a title in the middle akin to the main "Hello World!" page. We use the React Effect Hook to add a document title on each page that will be shown as the tab name in your browser.
 
@@ -381,6 +385,7 @@ These two files create two simple pages that show a title in the middle akin to 
 We will now proceed to create a stylized `Button` and `IconButton` for use in our navigation bar.
 Create a new directory called `MacComponents` inside the `components` directory. Create a new file in this directory called `MacNavButton.tsx` and add the following code to it:
 ```
+{% raw %}
 import {styled, useTheme} from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
@@ -404,6 +409,7 @@ export const MacIconNavButton = styled(IconButton)(props => ({
         backgroundColor: "#D6D6D6",
     },
 })) as typeof IconButton
+{% endraw %}
 ```
 The `MacNavButton` component is a stylized MUI `Button` where we set the text color when hovering over the button to heritage gold and make the background transparent when hovering over the button. We also added a ripple affect to the button that appears when the user clicks the button. The `MacIconNavButton` component is a stylized MUI `IconButton` component with the same properties discussed above.
 
@@ -417,23 +423,24 @@ import {
 ```
 In the `Navbar` function of `Navbar.tsx`, add the following lines of code after the `IconButton` containing the `MenuItem`:
 ```
+{% raw %}
 <Menu
     id="menu-appbar"
     anchorEl={anchorElNav as Element}
-    anchorOrigin={ {
+    anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'left',
-    } }
+    }}
     keepMounted
-    transformOrigin={ {
+    transformOrigin={{
         vertical: 'top',
         horizontal: 'left',
-    } }
+    }}
     open={Boolean(anchorElNav)}
     onClose={handleCloseNavMenu}
-    sx={ {
+    sx={{
         display: {xs: 'block', md: 'none'},
-    } }
+    }}
 >
     {pages.map(page => (
         <MenuItem
@@ -446,12 +453,14 @@ In the `Navbar` function of `Navbar.tsx`, add the following lines of code after 
         </MenuItem>
     ))}
 </Menu>
+{% endraw %}s
 ```
 The code adds a `Menu` component with a `MenuItem` for each page defined in the `pages` array. The menu will only be used on small-sized displays.
 
 Next, we will add the navigation button links shown on medium-sized displays. Add the following code right after the second `Typography` component:
 ```
-<Box sx={ {flexGrow: 1, display: {xs: 'none', md: 'flex'} }}>
+{% raw %}
+<Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
     {pages.map(page => (
         <MacNavButton
             key={page[0]}
@@ -463,17 +472,19 @@ Next, we will add the navigation button links shown on medium-sized displays. Ad
                     ? styles.active
                     : styles.nonActive
             }
-            sx={ {my: 2, color: 'white', display: 'block'} }
+            sx={{my: 2, color: 'white', display: 'block'}}
         >
             {page[0]}
         </MacNavButton>
     ))}
 </Box>
+{% endraw %}s
 ```
 We modify the `className` of the `MacNavButton` component depending on which page the user is currently on to specify if the button should use the `active` style or the `nonActive` style.
 
 The `Navbar.tsx` file should now contain the following code:
 ```
+{% raw %}
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -526,8 +537,8 @@ export default function Navbar() {
         <AppBar
             position="static"
             enableColorOnDark
-            style={ {backgroundImage: 'none'} }
-            sx={ {zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0} }
+            style={{backgroundImage: 'none'}}
+            sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -543,17 +554,17 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href="/"
-                        sx={ {
+                        sx={{
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
-                        } }
+                        }}
                         className={styles.title}
                     >
                         MacApp
                     </Typography>
-                    <Box sx={ {flexGrow: 1, display: {xs: 'flex', md: 'none'} }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
                             aria-controls="menu-appbar"
@@ -566,20 +577,20 @@ export default function Navbar() {
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav as Element}
-                            anchorOrigin={ {
+                            anchorOrigin={{
                                 vertical: 'bottom',
                                 horizontal: 'left',
-                            } }
+                            }}
                             keepMounted
-                            transformOrigin={ {
+                            transformOrigin={{
                                 vertical: 'top',
                                 horizontal: 'left',
-                            } }
+                            }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={ {
+                            sx={{
                                 display: {xs: 'block', md: 'none'},
-                            } }
+                            }}
                         >
                             {pages.map(page => (
                                 <MenuItem
@@ -600,17 +611,17 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href=""
-                        sx={ {
+                        sx={{
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             color: 'inherit',
                             textDecoration: 'none',
-                        } }
+                        }}
                     >
                         MacApp
                     </Typography>
-                    <Box sx={ {flexGrow: 1, display: {xs: 'none', md: 'flex'} }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {pages.map(page => (
                             <MacNavButton
                                 key={page[0]}
@@ -622,7 +633,7 @@ export default function Navbar() {
                                         ? styles.active
                                         : styles.nonActive
                                 }
-                                sx={ {my: 2, color: 'white', display: 'block'} }
+                                sx={{my: 2, color: 'white', display: 'block'}}
                             >
                                 {page[0]}
                             </MacNavButton>
@@ -633,6 +644,7 @@ export default function Navbar() {
         </AppBar>
     )
 }
+{% endraw %}
 ```
 
 Your webpage should now have two button links in the navigation bar. The buttons should turn heritage gold when you hover over them. Clicking on a button will take you to the corresponding page. 
@@ -653,7 +665,8 @@ We are importing the MUI "Settings" icon (gear icon) for use in our navigation b
 
 Add the following lines of code immediately after the `Box` component containing the `MacNavButtons`for "Page 1" and "Page 2":
 ```
-<Box sx={ {paddingRight: 1} }>
+{% raw %}
+<Box sx={{paddingRight: 1}}>
     <Tooltip
         title= "Settings"
     >
@@ -672,11 +685,13 @@ Add the following lines of code immediately after the `Box` component containing
         </MacIconNavButton>
     </Tooltip>
 </Box>
+{% endraw %}
 ```
 We are effectively adding a new `Box` component that contains an instance of the `MacIconNavButton` styled component that we created earlier. The `MacIconNavButton` contains the `SettingsIcon` component that appears as a gear icon. Notice the `MacIconNavButton` is wrapped in a `Tooltip` component which allows us to present the user with a tooltip message when they hover over the gear icon. Currently, the settings icon button is set to redirect the user to the `settings` page, which we will create shortly.
 
 Your `Navbar.tsx` file should now look like this:
 ```
+{% raw %}
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -729,8 +744,8 @@ export default function Navbar() {
         <AppBar
             position="static"
             enableColorOnDark
-            style={ {backgroundImage: 'none'} }
-            sx={ {zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0} }
+            style={{backgroundImage: 'none'}}
+            sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -746,17 +761,17 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href="/"
-                        sx={ {
+                        sx={{
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
-                        } }
+                        }}
                         className={styles.title}
                     >
                         MacApp
                     </Typography>
-                    <Box sx={ {flexGrow: 1, display: {xs: 'flex', md: 'none'} }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
                             aria-controls="menu-appbar"
@@ -769,20 +784,20 @@ export default function Navbar() {
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav as Element}
-                            anchorOrigin={ {
+                            anchorOrigin={{
                                 vertical: 'bottom',
                                 horizontal: 'left',
-                            } }
+                            }}
                             keepMounted
-                            transformOrigin={ {
+                            transformOrigin={{
                                 vertical: 'top',
                                 horizontal: 'left',
-                            } }
+                            }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={ {
+                            sx={{
                                 display: {xs: 'block', md: 'none'},
-                            } }
+                            }}
                         >
                             {pages.map(page => (
                                 <MenuItem
@@ -803,17 +818,17 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         href=""
-                        sx={ {
+                        sx={{
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             color: 'inherit',
                             textDecoration: 'none',
-                        } }
+                        }}
                     >
                         MacApp
                     </Typography>
-                    <Box sx={ {flexGrow: 1, display: {xs: 'none', md: 'flex'} }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {pages.map(page => (
                             <MacNavButton
                                 key={page[0]}
@@ -825,13 +840,13 @@ export default function Navbar() {
                                         ? styles.active
                                         : styles.nonActive
                                 }
-                                sx={ {my: 2, color: 'white', display: 'block'} }
+                                sx={{my: 2, color: 'white', display: 'block'}}
                             >
                                 {page[0]}
                             </MacNavButton>
                         ))}
                     </Box>
-                    <Box sx={ {paddingRight: 1} }>
+                    <Box sx={{paddingRight: 1}}>
                         <Tooltip
                             title= "Settings"
                         >
@@ -855,6 +870,7 @@ export default function Navbar() {
         </AppBar>
     )
 }
+{% endraw %}
 ```
 
 Your navigation bar should now contain a settings icon on the right hand side. Hovering your mouse over the settings icon will turn it heritage gold and display a tooltip message.
@@ -866,6 +882,7 @@ In the `components` directory, create a subdirectory called `TabPanel`. Inside t
 
 Add the following code to `VerticalTabs.tsx`:
 ```
+{% raw %}
 import * as React from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -891,7 +908,7 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={ {p: 3} }>
+                <Box sx={{p: 3}}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -914,14 +931,14 @@ export default function VerticalTabs() {
     }
 
     return (
-        <Box sx={ {flexGrow: 1, bgcolor: 'background.paper', display: 'flex'} }>
+        <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex'}}>
             <Tabs
                 orientation="vertical"
                 variant="scrollable"
                 value={value}
                 onChange={handleChange}
                 aria-label="Vertical tabs"
-                sx={ {borderRight: 1, borderColor: 'divider'} }
+                sx={{borderRight: 1, borderColor: 'divider'}}
             >
                 <Tab label="Tab 1" {...a11yProps(0)} />
                 <Tab label="Tab 2" {...a11yProps(1)} />
@@ -955,6 +972,7 @@ export default function VerticalTabs() {
         </Box>
     )
 }
+{% endraw %}
 ```
 
 We created a custom `TabPanel` component that will house the content of each tab in our panel. We also made use of the MUI `Tabs` component that contains several `Tab` components containing the label of each tab. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple string. We will add stylized form controls to some of the panels in a later section of this workshop.
@@ -978,6 +996,7 @@ Now that our `VerticalTabs` component is complete, we will create the settings p
 
 Add the following code to `settings/index.tsx`:
 ```
+{% raw %}
 import styles from '@/styles/Home.module.css'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
@@ -995,19 +1014,20 @@ export default function ViewTranscript() {
         <main className={styles.settings}>
             <Container>
                 <Typography
-                    sx={ {display: 'flex', justifyContent: 'center'} }
+                    sx={{display: 'flex', justifyContent: 'center'}}
                     variant="h2"
                     gutterBottom
                 >
                     Settings
                 </Typography>
-                <Box sx={ {width: '100%', maxWidth: 1000} }>
+                <Box sx={{width: '100%', maxWidth: 1000}}>
                     <VerticalTabs />
                 </Box>
             </Container>
         </main>
     )
 }
+{% endraw %}
 ```
 We added `Container` that includes a `Typography` component to display the title of the page using the `h2` variant. We also added a `Box` component containing the `VerticalTabs`. The Effect Hook is used to change the document title shown in the browser tab.
 
