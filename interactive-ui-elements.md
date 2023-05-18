@@ -123,7 +123,8 @@ Notice that the buttons are always rounded and not rectangular in shape as recom
 
 Hovering over the Heritage Maroon button will turn cause it to turn dark grey:
 ![hover-maroon](assets/img/hover-maroon.png)
-Simiarly, hovering ove the "Secondary" button will turn cause it to turn light grey:
+
+Similarly, hovering over the "Secondary" button will turn cause it to turn light grey:
 ![hover-gold](assets/img/hover-gold.png)
 ### File Input Widget
 Material UI does not offer a native file input widget. However, there exists a third-party widget called [MUI file input](https://viclafouch.github.io/mui-file-input/) that follows the Material Design guidelines and allows the end user to upload files to a website. We will now explain how to use this widget and how to style it to conform to the McMaster Digital Standards.
