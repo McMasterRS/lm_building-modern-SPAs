@@ -4,7 +4,7 @@ title: Introduction
 nav_order: 1
 ---
 
-The following PDF document provides a good overview of the [McMaster Digital Brand Standards](https://brand.mcmaster.ca/app/uploads/2019/04/digital-guidelines.pdf). The design guidelines presented in this workshop were pulled from the PDF document and modified to apply to Material UI (MUI) components.
+The [McMaster Digital Brand Standards](https://brand.mcmaster.ca/app/uploads/2019/04/digital-guidelines.pdf) PDF document provides a good overview of the brand guidelines designed to ensure recognition of the McMaster University brand and consistency of its message. The design guidelines presented in this workshop were pulled from this PDF document and modified to apply to Material UI (MUI) components.
 
 # Introduction to Material UI (MUI)
 
