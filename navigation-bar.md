@@ -301,7 +301,7 @@ Go back to your browser, the page should now have a McMaster-branded navigation 
 ![navbar-1](assets/img/navbar-1.png)
 If you hover over the "MacApp" button, the text should turn heritage gold indicating that this is a clickable link.
 
-Try decreasing the width of your window and notice how the title of the app will be centered and a new menu icon should be shown:
+Try decreasing the width of your window and notice how the title of the app title will be centered and a new menu icon will be shown:
 ![navbar-2](assets/img/navbar-2.png)
 
 ### Create Additional Pages
