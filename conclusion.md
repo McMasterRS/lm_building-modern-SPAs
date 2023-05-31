@@ -5,14 +5,14 @@ nav_order: 11
 ---
 
 Throughout this workshop, we learned the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. You created a website using Next.js and MUI that contains the following UI elements and features:
-- Stylized text using the `Typography` component
-- A responsive navigation bar with stylized buttons and icon buttons
+- Styled text using the `Typography` component
+- A responsive navigation bar with styled buttons and icon buttons
 - A persistent footer
 - Support for dark and light mode (in addition to following the user preference)
-- Breadcrumbs with a stylized universal back button
-- Stylized buttons
-- A stylized file input widget
-- A stylized dropdown menu
+- Breadcrumbs with a styled universal back button
+- Styled buttons
+- A styled file input widget
+- A styled dropdown menu
 - AODA compliance
 
 While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this workshop provided you with the basic knowledge needed create your McMaster-branded website. 

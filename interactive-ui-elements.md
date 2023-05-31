@@ -4,12 +4,12 @@ title: Interactive UI Elements
 nav_order: 9
 ---
 
-# Interative UI Elements
+# Interactive UI Elements
 
 Modern websites requires the use of UI elements that not only allow the user to perform a wide range of functions, but also react to the user's actions in an intuitive manner. MUI offers a wide range of customizable built-in components that adhere to the Material Design Language. In this section, we will learn how to style certain MUI components to conform to the stylistic guidelines set by McMaster Digital Brand Standards Manual. The aim of this section is not to provide a comprehensive tutorial on how to use these different MUI components (this information is covered in the [Material UI Documentation](https://mui.com/material-ui/getting-started/overview/) ), but to modify the components' behavior and appearance to fit the McMaster Digital Brand Standards. 
 
 ### Buttons
-We have already create a stylized `MuiButton` component called `MacButton` in the "Breadcrumbs With a Universal Back Button" section. We will now show a couple more examples of how we can use the stylized `MacButton` component in different ways.
+We have already create a styled `MuiButton` component called `MacButton` in the "Breadcrumbs With a Universal Back Button" section. We will now show a couple more examples of how we can use the styled `MacButton` component in different ways.
 
 Open the `pages/index.tsx` file and add the following import statements:
 ```
@@ -438,3 +438,439 @@ Navigate to the settings page in your browser, and you will see that the first t
 The borders on the dropdown menu are rounded as recommended by the McMaster branding guidelines. The rounded borders are due to the global `borderRadius` attribute being set to 28 in our theme. Clicking on the dropdown menu allows you to select an option. The borders of the dropdown list are significantly less rounded to maintain readability and avoid clipping the options text. We reduced the border radius of the dropdown list by setting the `borderRadius` attribute of the `MuiPaper` component to 8 in `theme.ts`.
 
 ![dropdown-list](assets/img/dropdown-list.png)
+
+### Buttons With a Dropdown Menu
+The styled `MacButton` that we created earlier can be combined with a dropdown menu to create a button that allows the user to execute mutually exclusive functions that fall under the same category e.g., a download button that lets the user choose the file format. We will add this type of button to the "Page 1".
+
+Open the `pages/page_1/index.tsx` file and add the following import statements:
+```
+import React from "react";
+import {MacButton} from "@/components/MacComponents/MacButton";  
+import Menu, {MenuProps} from '@mui/material/Menu';  
+import MenuItem from '@mui/material/MenuItem';  
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'; 
+import DownloadIcon from '@mui/icons-material/Download';  
+import {alpha, styled} from '@mui/material/styles';
+```
+
+Next we will create a styled menu that follows the standards recommended by the official MUI documentation.
+Add the `StyledMenu` constant declaration before the `Page_1()` function declaration:
+```
+const StyledMenu = styled((props: MenuProps) => (
+    <Menu
+        elevation={0}
+        disableScrollLock={true}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+        }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+        }}
+        {...props}
+    />
+))(({theme}) => ({
+    '& .MuiPaper-root': {
+        borderRadius: 6,
+        marginTop: theme.spacing(1),
+        minWidth: 180,
+        color:
+            theme.palette.mode === 'light'
+                ? 'rgb(55, 65, 81)'
+                : theme.palette.grey[300],
+        boxShadow:
+            'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+        '& .MuiMenu-list': {
+            padding: '4px 0',
+        },
+        '& .MuiMenuItem-root': {
+            '& .MuiSvgIcon-root': {
+                fontSize: 18,
+                color: theme.palette.text.secondary,
+                marginRight: theme.spacing(1.5),
+            },
+            '&:active': {
+                backgroundColor: alpha(
+                    theme.palette.primary.main,
+                    theme.palette.action.selectedOpacity
+                ),
+            },
+        },
+    },
+}))
+```
+
+We will now use the React State Hook to create the anchor element used when opening and closing the download menu.
+Add the following lines of code inside the body of the `Page_1()` function (before the return statement): 
+```
+const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+const openMenu = Boolean(anchorEl)
+const handleClickMenu = (event: React.MouseEvent<HTMLElement>) => {
+	setAnchorEl(event.currentTarget)
+}
+const handleCloseMenu = () => {
+	setAnchorEl(null)
+}
+```
+
+Modify the `Box` component containing the "Page 1" `Typography` component by adding the `sx` property as shown below:
+```
+<Box sx={{height: 78, transform: 'translateZ(0px)', flexGrow: 1}}
+	  display="flex"
+	  justifyContent="center"
+	  alignItems="center">
+```
+
+Finally, add the "Download" `MacButton` and the `StyledMenu` containing the different file formats inside the `Box` component:
+```
+  <MacButton
+    id="download-button"
+    sx={{
+        position: 'fixed',
+        top: 10,
+        right: 100,
+        zIndex: 2000,
+    }}
+    aria-controls={
+        openMenu ? 'download-menu' : undefined
+    }
+    aria-haspopup="true"
+    aria-expanded={openMenu ? 'true' : undefined}
+    variant="contained"
+    mainColor="secondary"
+    onClick={handleClickMenu}
+    startIcon={<DownloadIcon />}
+    endIcon={<KeyboardArrowDownIcon />}
+>
+    Download
+</MacButton>
+<StyledMenu
+    id="download-menu"
+    MenuListProps={{
+        'aria-labelledby': 'download-button',
+    }}
+    anchorEl={anchorEl}
+    open={openMenu}
+    onClose={handleCloseMenu}
+>
+    <MenuItem onClick={handleClickMenu}>
+        Format 1
+    </MenuItem>
+    <MenuItem onClick={handleClickMenu}>
+        Format 2
+    </MenuItem>
+    <MenuItem onClick={handleClickMenu}>
+        Format 3
+    </MenuItem>
+</StyledMenu>
+```
+
+Notice that we used the "secondary" variant of the `MacButton` component. The button also has a `startIcon` indicating its function (i.e., the `DownloadIcon`) as well as an `endIcon` consisting of a downwards pointing arrow to inform the user that it is a menu button. The "Download" button is positioned in the top right corner of the page using the `sx` property.
+
+Your `pages/page_1/index.tsx` file should now look like this:
+```
+import React from "react";
+import styles from '@/styles/Home.module.css'
+import Typography from '@mui/material/Typography'
+import {useEffect} from "react";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
+import {MacButton} from "@/components/MacComponents/MacButton";
+import Menu, {MenuProps} from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import DownloadIcon from '@mui/icons-material/Download';
+import {alpha, styled} from '@mui/material/styles';
+
+const StyledMenu = styled((props: MenuProps) => (
+    <Menu
+        elevation={0}
+        disableScrollLock={true}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+        }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+        }}
+        {...props}
+    />
+))(({theme}) => ({
+    '& .MuiPaper-root': {
+        borderRadius: 6,
+        marginTop: theme.spacing(1),
+        minWidth: 180,
+        color:
+            theme.palette.mode === 'light'
+                ? 'rgb(55, 65, 81)'
+                : theme.palette.grey[300],
+        boxShadow:
+            'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+        '& .MuiMenu-list': {
+            padding: '4px 0',
+        },
+        '& .MuiMenuItem-root': {
+            '& .MuiSvgIcon-root': {
+                fontSize: 18,
+                color: theme.palette.text.secondary,
+                marginRight: theme.spacing(1.5),
+            },
+            '&:active': {
+                backgroundColor: alpha(
+                    theme.palette.primary.main,
+                    theme.palette.action.selectedOpacity
+                ),
+            },
+        },
+    },
+}))
+
+export default function Page_1() {
+    useEffect(() => {
+        document.title = 'Page 1'
+    }, [])
+
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+    const openMenu = Boolean(anchorEl)
+    const handleClickMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget)
+    }
+    const handleCloseMenu = () => {
+        setAnchorEl(null)
+    }
+
+  return (
+    <>
+      <main className={styles.page}>
+          <Container>
+              <BreadCrumbs />
+              <Box sx={{height: 78, transform: 'translateZ(0px)', flexGrow: 1}}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center">
+                  <Typography variant="h1">Page 1</Typography>
+
+                  <MacButton
+                      id="download-button"
+                      sx={{
+                          position: 'fixed',
+                          top: 10,
+                          right: 100,
+                          zIndex: 2000,
+                      }}
+                      aria-controls={
+                          openMenu ? 'download-menu' : undefined
+                      }
+                      aria-haspopup="true"
+                      aria-expanded={openMenu ? 'true' : undefined}
+                      variant="contained"
+                      mainColor="secondary"
+                      onClick={handleClickMenu}
+                      startIcon={<DownloadIcon />}
+                      endIcon={<KeyboardArrowDownIcon />}
+                  >
+                      Download
+                  </MacButton>
+                  <StyledMenu
+                      id="download-menu"
+                      MenuListProps={{
+                          'aria-labelledby': 'download-button',
+                      }}
+                      anchorEl={anchorEl}
+                      open={openMenu}
+                      onClose={handleCloseMenu}
+                  >
+                      <MenuItem onClick={handleClickMenu}>
+                          Format 1
+                      </MenuItem>
+                      <MenuItem onClick={handleClickMenu}>
+                          Format 2
+                      </MenuItem>
+                      <MenuItem onClick={handleClickMenu}>
+                          Format 3
+                      </MenuItem>
+                  </StyledMenu>
+              </Box>
+          </Container>
+      </main>
+    </>
+  )
+}
+```
+
+Save the file and go back to your browser. Navigate to "Page 1" and you will see the button that we just added.
+
+![download](assets/img/download.png)
+
+### Speed Dials
+Material UI offers a speed `SpeedDial` component that allows developers to create a floating action button, which can display related actions. The `SpeedDial` component is often used to group action that manipulate the state of an object e.g., "edit", "delete", and "save". We will now learn how to create a styled `SpeedDial` component that adheres to McMaster Branding Standards.
+
+Create a `MacSpeedDial.tsx` file in the `components/MacComponents` directory and add the following lines of code to it:
+```
+import {useTheme} from '@mui/material/styles'
+import styled from '@emotion/styled'
+import SpeedDial, {SpeedDialProps} from '@mui/material/SpeedDial'
+
+interface MacSpeedDialProps extends SpeedDialProps {
+    mainColor: string
+}
+
+export const MacSpeedDial = styled(SpeedDial, {shouldForwardProp: (prop) => prop !== "mainColor"})<MacSpeedDialProps>(props => ({
+    '& .MuiFab-primary': {
+        backgroundColor: props.open
+            ? props.mainColor === 'secondary'
+                ? '#DBDBDD'
+                : '#5E6A71'
+            : props.mainColor === 'secondary'
+            ? useTheme().palette.secondary.main
+            : useTheme().palette.primary.main,
+        color: props.mainColor === 'secondary' ? '#262626' : '',
+        '&:hover': {
+            backgroundColor:
+                props.mainColor === 'secondary' ? '#DBDBDD' : '#5E6A71',
+        },
+    },
+}))
+```
+
+We added a `mainColor` prop to the `MacSpeedDial` component that will determine the background color, text/icon color and hover color of the button. Akin to the `MacButton` component, if the `mainColor` prop is `'primary'`, then the background color will be Heritage Maroon, the text/icon color will be white and the speed dial will turn a medium shade of grey when the user hovers over it as required by the McMaster Digital Brand Standards guide. Otherwise, if the `mainColor` prop is `'secondary'`, then the background color will be Heritage Gold, the text/icon color will be dark grey and the button will turn light grey when the user hovers the mouse over it.
+
+We will now use the `MacSpeedDial` component on "Page 2". Open the `pages/page_2/index.tsx` file and add the following import statements:
+```
+import React from "react";
+import {MacSpeedDial} from '@/components/MacComponents/MacSpeedDial'  
+import EditIcon from '@mui/icons-material/Edit';  
+import SaveIcon from '@mui/icons-material/Save';  
+import DeleteIcon from '@mui/icons-material/Delete'  
+import {SpeedDialAction, SpeedDialIcon} from "@mui/material";
+```
+
+Next, we will create the `openSD` constant used to track the state of the speed dial using the React State Hook. We will also create the functions that open and close the speed dial in addition to the `action` array containing the option that should appear inside the speed dial. 
+
+Add the following lines of code inside the `Page_2()` function (before the return statement):
+```
+const [openSD, setOpenSD] = React.useState(false)  
+const handleOpenSD = () => setOpenSD(true)  
+const handleCloseSD = () => setOpenSD(false)  
+  
+const actions = [  
+	{icon: <EditIcon />, name: 'Edit', action: handleCloseSD},  
+	{icon: <SaveIcon />, name: 'Save', action: handleCloseSD},  
+	{icon: <DeleteIcon />, name: 'Delete', action: handleCloseSD},  
+]
+```
+
+Modify the `Box` component containing the "Page 22" `Typography` component by adding the `sx` property as shown below:
+```
+<Box sx={{height: 78, transform: 'translateZ(0px)', flexGrow: 1}}
+	  display="flex"
+	  justifyContent="center"
+	  alignItems="center">
+```
+
+Finally, add the `MacSpeedDial` containing the actions defined in the `actions` array inside the `Box` component:
+```
+<MacSpeedDial
+    ariaLabel="Demo SpeedDial"
+    sx={{
+        position: 'fixed',
+        top: 10,
+        right: 100,
+        zIndex: 2000,
+    }}
+    icon={<SpeedDialIcon />}
+    onClose={handleCloseSD}
+    onOpen={handleOpenSD}
+    open={openSD}
+    direction="down"
+    mainColor="primary"
+>
+    {actions.map(action => (
+        <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={action.action}
+        />
+    ))}
+</MacSpeedDial>
+```
+
+Your `pages/page_2/index.tsx` file should now look like this:
+```
+import React from "react";
+import styles from '@/styles/Home.module.css'
+import Typography from '@mui/material/Typography'
+import {useEffect} from "react";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
+import {MacSpeedDial} from '@/components/MacComponents/MacSpeedDial'
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import DeleteIcon from '@mui/icons-material/Delete'
+import {SpeedDialAction, SpeedDialIcon} from "@mui/material";
+
+export default function Page_2() {
+    useEffect(() => {
+        document.title = 'Page 2'
+    }, [])
+
+    const [openSD, setOpenSD] = React.useState(false)
+    const handleOpenSD = () => setOpenSD(true)
+    const handleCloseSD = () => setOpenSD(false)
+
+    const actions = [
+        {icon: <EditIcon />, name: 'Edit', action: handleCloseSD},
+        {icon: <SaveIcon />, name: 'Save', action: handleCloseSD},
+        {icon: <DeleteIcon />, name: 'Delete', action: handleCloseSD},
+    ]
+
+    return (
+        <>
+          <main className={styles.page}>
+              <Container>
+                  <BreadCrumbs />
+                  <Box sx={{height: 78, transform: 'translateZ(0px)', flexGrow: 1}}
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center">
+                      <Typography variant="h1">Page 2</Typography>
+                      <MacSpeedDial
+                          ariaLabel="Demo SpeedDial"
+                          sx={{
+                              position: 'fixed',
+                              top: 10,
+                              right: 100,
+                              zIndex: 2000,
+                          }}
+                          icon={<SpeedDialIcon />}
+                          onClose={handleCloseSD}
+                          onOpen={handleOpenSD}
+                          open={openSD}
+                          direction="down"
+                          mainColor="primary"
+                      >
+                          {actions.map(action => (
+                              <SpeedDialAction
+                                  key={action.name}
+                                  icon={action.icon}
+                                  tooltipTitle={action.name}
+                                  onClick={action.action}
+                              />
+                          ))}
+                      </MacSpeedDial>
+                  </Box>
+              </Container>
+          </main>
+        </>
+    )
+}
+```
+
+Save the file and go back to your browser. Navigate to "Page 2" and you will see the `MacSpeedDial` that we just added. Hovering over the speed dial will turn it grey and show the options defined in the `actions` array.
+
+![speed-dial](assets/img/speed-dial.png)

@@ -190,7 +190,7 @@ import {useEffect} from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 
-export default function Home() {
+export default function Support() {
     useEffect(() => {
         document.title = 'Support'
     }, [])

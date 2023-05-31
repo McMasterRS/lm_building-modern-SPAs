@@ -140,8 +140,8 @@ Add the following lines to `Navbar.module.css`:
 Download the McMaster logo using the [Brand Standards](https://brand-resources.mcmaster.ca/asset-bank/action/viewAsset?id=7000&index=3&total=17&view=viewSearchItem)website. Note that you will need to sign in with your MacID to download the logo. Rename the downloaded file to `logo.png`.
 In the `public` directory of your project, create a new directory called `assets`. Place `logo.png` in the `assets` directory.
 
-### Create Stylized Icon Buttons
-We will now proceed to create a stylized  `IconButton` for use in our navigation bar.
+### Create Styled Icon Buttons
+We will now proceed to create a styled  `IconButton` for use in our navigation bar.
 Create a new directory called `MacComponents` inside the `components` directory. Create a new file in this directory called `MacNavButton.tsx` and add the following code to it:
 ```
 {% raw %}
@@ -159,7 +159,7 @@ export const MacIconNavButton = styled(IconButton)(props => ({
 })) as typeof IconButton
 {% endraw %}
 ```
-The `MacIconNavButton` component is a stylized MUI `IconButton`. We set the icon color to heritage gold and make the background transparent when hovering over the icon button. We also added a ripple affect to the icon button that appears when the user clicks on it. 
+The `MacIconNavButton` component is a styled MUI `IconButton`. We set the icon color to heritage gold and make the background transparent when hovering over the icon button. We also added a ripple affect to the icon button that appears when the user clicks on it. 
 
 ### Create the `NavBar` Component
 In the root directory of your project, create a `components` directory. Create another directory inside the `components` directory called `Navbar`. Create a file named `Navbar.tsx` in this directory.
@@ -353,7 +353,7 @@ import {useEffect} from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 
-export default function Home() {
+export default function Page_1() {
     useEffect(() => {
         document.title = 'Page 1'
     }, [])
@@ -383,7 +383,7 @@ import {useEffect} from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 
-export default function Home() {
+export default function Page_2() {
     useEffect(() => {
         document.title = 'Page 2'
     }, [])
@@ -406,14 +406,14 @@ export default function Home() {
 ```
 These two files create two simple pages that show a title in the middle akin to the main "Hello World!" page. We use the React Effect Hook to add a document title on each page that will be shown as the tab name in your browser.
 
-### Create Stylized Buttons
-We will now create a stylized `Button` for use in our navigation bar.
+### Create Styled Buttons
+We will now create a styled `Button` for use in our navigation bar.
 Inside the previously created `MacComponents/MacNavButton.tsx` file, add the following import statement:
 ```
 import Button from '@mui/material/Button'
 ```
 
-Next, create and export the stylized `MacNavButton` component:
+Next, create and export the styled `MacNavButton` component:
 ```
 export const MacNavButton = styled(Button)(props => ({
     ':hover': {
@@ -454,7 +454,7 @@ export const MacIconNavButton = styled(IconButton)(props => ({
 })) as typeof IconButton
 {% endraw %}
 ```
-The `MacNavButton` component is a stylized MUI `Button` that behaves similarly to the `MacIconNavButton`. The text color of the button turns to heritage gold when hovering over it. We also added a ripple affect to the button that appears when the user clicks the button. 
+The `MacNavButton` component is a styled MUI `Button` that behaves similarly to the `MacIconNavButton`. The text color of the button turns to heritage gold when hovering over it. We also added a ripple affect to the button that appears when the user clicks the button. 
 
 ### Add Links to the Navigation Bar
 Import the `MacNavButton` components in `Navbar.tsx` by updating the import statement of the `MacIconNavButton` as shown below:
@@ -1024,7 +1024,7 @@ export default function VerticalTabs() {
 {% endraw %}
 ```
 
-We created a custom `TabPanel` component that will house the content of each tab in our panel. We also made use of the MUI `Tabs` component with several children `Tab` components containing the label of each tab. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple string. We will add stylized form controls to some of the panels in a later section of this workshop.
+We created a custom `TabPanel` component that will house the content of each tab in our panel. We also made use of the MUI `Tabs` component with several children `Tab` components containing the label of each tab. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple string. We will add styled form controls to some of the panels in a later section of this workshop.
 
 ### Create the Settings Page
 Start by creating a CSS style for the settings page. Add the following lines to `styles/Home.module.css`:
@@ -1054,7 +1054,7 @@ import Box from '@mui/material/Box'
 import VerticalTabs from '@/components/TabPanel/VerticalTabs'
 import {Container} from '@mui/material'
 
-export default function ViewTranscript() {
+export default function Settings() {
     useEffect(() => {
         document.title = 'Settings'
     }, [])
