@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Navigation Bar
+title: Footer
 nav_order: 6
 ---
 
