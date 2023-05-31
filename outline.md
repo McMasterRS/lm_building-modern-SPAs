@@ -30,5 +30,7 @@ At the end of this workshop, attendees will be able to:
 6. [Interactive UI Elements](interactive-ui-elements.md)
 	1. [Buttons](interactive-ui-elements.md#buttons)
 	2. [File Input Widget](interactive-ui-elements.md#file-input-widget)
+	3. [Buttons With a Dropdown Menu](interactive-ui-elements.md#buttons-with-a-dropdown-menu)
+	4. [Speed Dials](interactive-ui-elements.md#speed-dials)
 7. [AODA Compliance](aoda.md)
 8. [Conclusion](conclusion.md)
