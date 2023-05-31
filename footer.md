@@ -13,6 +13,7 @@ Create a new directory inside the `components` directory of your project called 
 
 Add the following import statements to to `Footer.tsx`:
 ```
+{% raw %}
 import React from 'react'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
@@ -172,6 +173,7 @@ export default function Footer() {
         </Paper>
     )
 }
+{% endraw %}
 ```
 
 We used the `outlined` variant of the MUI `Paper` component to create a footer that is fixed at the bottom of the page. Akin to the navigation bar, the footer has two different layouts depending on the screen size. On large screens, the footer contains a `Grid` with three evenly spaced `Grid items`. The first `Grid item` is a link to the `Help and Support` page. The middle `Grid item` contains the copyright notice, whereas the last `Grid item` is a "Contact Us" link that starts a new email to the specified email address. On the other hand, small screens will show the same three links stacked vertically using the MUI `Stack` component. 
@@ -181,6 +183,7 @@ We will now create a the "Help and Support" page used in the first link of the f
 
 Add the following lines of code the `pages/support/index.tsx`:
 ```
+{% raw %}
 import styles from '@/styles/Home.module.css'
 import Typography from '@mui/material/Typography'
 import {useEffect} from "react";
@@ -209,6 +212,7 @@ export default function Home() {
         </>
     )
 }
+{% endraw %}
 ```
 
 This file creates a simple page that shows a title in the middle of the screen. We use the React Effect Hook to add a document title on the page that will be shown as the tab name in your browser.
@@ -226,6 +230,7 @@ Add the following line of code after `<Component {...pageProps} />`:
 ```
 Your `_app.tsx` file should now look like this:
 ```
+{% raw %}
 import React from 'react'
 import type { AppProps } from 'next/app'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -300,6 +305,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </ColorModeContext.Provider>
     </>
 }
+{% endraw %}
 ```
 
 Save the file and go back to your browser. Your page should now have a footer that appears on all pages. 
