@@ -8,7 +8,7 @@ nav_order: 4
 
 McMaster recommends the use of the Roboto family of fonts on all websites associated with the university. Roboto is a neo-grotesque sans-serif typeface family developed by Google. There are multiple variants of the Roboto font that are used for different headlines, subheads and body text when designing a new webpage. In this section, we will learn how to use the MUI Typography component to define different heading styles.
 
-### Create theme.ts
+### Create `theme.ts`
 In the root directory of your project, create a new directory named `config`. You can create the folder using the command line (`mkdir config`) or the GUI.
 Navigate to the newly created `config` directory, and create a new file called `theme.ts` in this directory.
 
@@ -88,7 +88,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles'
 import themeOptions from '@/config/theme'
 ```
 
-Create `theme` in the `App` function (before the `return` statement):
+Create the `theme` constant in the `App` function (before the `return` statement):
 ```
 const theme = createTheme({  
 ...themeOptions  
@@ -124,6 +124,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	</>  
 }
 ```
+
 ### Using the Typography Component
 Open the `index.tsx` file and add the following import statement to import the MUI Typography component:
 ```

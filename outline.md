@@ -13,12 +13,12 @@ The goal of this workshop is to learn how to style **some** MUI components using
 
 At the end of this workshop, attendees will be able to:
 
-- Create a Next JS application
-- Add the MUI library to a Next JS application
+- Create a Next.js application
+- Add the MUI library to a Next.js application
 - Use the recommended McMaster typography fonts and styles
-- Create navigation elements for your webpage including a navigation bar, breadcrumbs and a universal back button.
+- Create navigation elements for your webpage including a navigation bar, footer, breadcrumbs and a universal back button.
 - Style common interactive UI elements like buttons and file input widgets
-- Display information to the user using MUI cards and/or a data grid
+- Evaluate your website for AODA compliance and fix common accessibility errors
 
 ## Table of Content
 
@@ -31,3 +31,4 @@ At the end of this workshop, attendees will be able to:
 	1. [Buttons](interactive-ui-elements.md#buttons)
 	2. [File Input Widget](interactive-ui-elements.md#file-input-widget)
 7. [AODA Compliance](aoda.md)
+8. [Conclusion](conclusion.md)

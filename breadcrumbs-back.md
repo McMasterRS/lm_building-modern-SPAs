@@ -6,21 +6,22 @@ nav_order: 8
 
 # Breadcrumbs With a Universal Back Button
 
-Modern websites consist of multiple linked pages that create a hierarchical structure. Allowing the user to easily understand their current location on your website and giving them an easy way to navigate back to previous pages is imperative to providing an intuitive and responsive browsing experience. Breadcrumbs are a list of links that help the user visualize a page's location within the hierarchical structure of a website, in addition to enabling navigation to previously visited pages. Complementing breadcrumbs with a universal back button helps the user easily go back to the previous page they were and decreases their reliance on the browser back button (whose behavior can be unpredictable at times). In this section, we will learn how to implement and style breadcrumbs and a universal back button in MUI.
+Modern websites consist of multiple linked pages that create a hierarchical structure. Allowing the user to easily understand their current location on your website and giving them an easy way to navigate back to previous pages is imperative to providing an intuitive and responsive browsing experience. Breadcrumbs are a list of links that help the user visualize a page's location within the hierarchical structure of a website, in addition to enabling navigation to previously visited pages. Complementing breadcrumbs with a universal back button helps the user easily go back to the previous page they were on and decreases their reliance on the browser back button (whose behavior can be unpredictable at times). In this section, we will learn how to implement and style breadcrumbs and a universal back button in MUI.
 
 ### Create a Stylized `MacButton` Component
-We will start by creating a stylized `MacButton` Component based on the standard `MuiButton` button. We will add a `mainColor` prop to the `MacButton` component that will determine the background color, text color and hover color of the button. If the `mainColor` prop is `'primary'`, then the background color will be Heritage Maroon, the text color will be white and the button will turn a medium shade of grey when the user hovers over it as required by the McMaster Digital Brand Standards guide. On the other hand, if the `mainColor` prop is `'secondary'`, then the background color will be Heritage Gold, the text color will be dark grey and the button will turn light grey when the user hovers the mouse over it.
+We will start by creating a stylized `MacButton` component based on the standard `MuiButton` button. We will add a `mainColor` prop to the `MacButton` component that will determine the background color, text color and hover color of the button. If the `mainColor` prop is `'primary'`, then the background color will be Heritage Maroon, the text color will be white and the button will turn a medium shade of grey when the user hovers over it as required by the McMaster Digital Brand Standards guide. On the other hand, if the `mainColor` prop is `'secondary'`, then the background color will be Heritage Gold, the text color will be dark grey and the button will turn light grey when the user hovers the mouse over it.
 
 Create a `MacButton.tsx` file in the `components/MacComponents` directory and the following lines of code to it:
 ```
-import {styled, useTheme} from '@mui/material/styles'
+import {useTheme} from '@mui/material/styles'
+import styled from '@emotion/styled'
 import MuiButton, {ButtonProps} from '@mui/material/Button'
 
 interface MacButtonProps extends ButtonProps {
     mainColor: string
 }
 
-export const MacButton = styled(MuiButton)<MacButtonProps>(props => ({
+export const MacButton = styled(MuiButton, {shouldForwardProp: (prop) => prop !== "mainColor"})<MacButtonProps>(props => ({
     backgroundColor: props.mainColor === 'secondary' ? useTheme().palette.secondary.main:  useTheme().palette.primary.main,
     color: props.mainColor === 'secondary' ? '#262626':  '',
     ':hover': {
@@ -100,12 +101,13 @@ export default function BreadCrumbs() {
     )
 }
 ```
+
 The `breadcrumbNameMap` maps the subdirectory of each page to the corresponding string that should appear in the breadcrumbs list. As you add more pages to your website, you will need to update this map to ensure that each page subdirectory is mapped to an appropriate name. The `LinkRouter` returns a `Link` component wrapped in a `Typography` component, i.e., a stylized string that redirects the user to a page when clicked.
 
 The `BreadCrumbs` function returns a `Box` component containing a horizontal `Stack` consisting of the back button (`MacButton` containing an `ArrowBackIcon`) and the list of `Breadcrumbs`. We use the `back()` method of the `next/router` when defining the `OnClick` behavior of the `MacButton`, which allows us to return the user to the previous page. The last element of the breadcrumbs list is the page that the user is currently on, and as such we use a simple `Typography` component for it (i.e., it should not be clickable), whereas the other elements in the breadcrumbs list are `LinkRounter` components  (i.e., they should be clickable links that redirect the user to a particular page). Notice that we use the `slice` method, which returns a shallow copy of a portion of the `pathnames` array (end element not included) and `join` them with a `/` to build the URL that each breadcrumb points to. 
 
 ### Add `BreadCrumbs` to Pages
-Now that our `BreadCrumbs` component is ready, we will import and use on all pages that require breadcrumbs. The `pages/index.tsx` is our homepage, and as such should not contain breadcrumbs. We will add the `BreadCrumbs` component to `page_1`, `page_2` and the `settings` page.
+Now that our `BreadCrumbs` component is ready, we will import and use on all pages that require breadcrumbs. The `pages/index.tsx` is our homepage, and as such should not contain breadcrumbs. We will add the `BreadCrumbs` component to "Page 1", "Page 2", the "Help and Support" page and the "Settings" page.
 
 Add the following import statement to `pages/page_1/index.tsx`:
 ```
@@ -144,9 +146,10 @@ export default function Home() {
 }
 ```
 
-Repeat this process for  `pages/page_2/index.tsx` and `pages/settings/index.tsx`.
+Repeat this process for  `pages/page_2/index.tsx`, `pages/support/index.tsx` and `pages/settings/index.tsx`.
 
 Open `localhost:3000` in your browser and navigate to "Page 1". You will see that the top left corner of the page has a breadcrumbs list along with a back button. Click the "Home" link will take you back to the homepage.
 ![breadcrumbs-1](assets/img/breadcrumbs-1.png)
+
 Go back to "Page 1", then navigate to the "Settings" page. Try hovering over the back button and notice how it turns grey. Clicking the back button will take you back to "Page 1".
 ![breadcrumbs-2](assets/img/breadcrumbs-2.png)

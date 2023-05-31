@@ -11,7 +11,7 @@ A website footer provides users with a sense of consistency, as the same informa
 ### Create the `Footer` Component
 Create a new directory inside the `components` directory of your project called `Footer`. Create a file named `Footer.tsx` in this directory.
 
-Add the following import statements to to `Footer.tsx`:
+Add the following code to `Footer.tsx`:
 ```
 {% raw %}
 import React from 'react'
@@ -176,7 +176,7 @@ export default function Footer() {
 {% endraw %}
 ```
 
-We used the `outlined` variant of the MUI `Paper` component to create a footer that is fixed at the bottom of the page. Akin to the navigation bar, the footer has two different layouts depending on the screen size. On large screens, the footer contains a `Grid` with three evenly spaced `Grid items`. The first `Grid item` is a link to the `Help and Support` page. The middle `Grid item` contains the copyright notice, whereas the last `Grid item` is a "Contact Us" link that starts a new email to the specified email address. On the other hand, small screens will show the same three links stacked vertically using the MUI `Stack` component. 
+We used the `outlined` variant of the MUI `Paper` component to create a footer that is affixed to the bottom of the page. Akin to the navigation bar, the footer has two different layouts depending on the screen size. On large screens, the footer contains a `Grid` with three evenly spaced horizontal `Grid items`. The first `Grid item` is a link to the "Help and Support" page. The middle `Grid item` contains the copyright notice, whereas the last `Grid item` is a "Contact Us" link that starts a new email to the specified email address. On the other hand, small screens will show the same three links stacked vertically using the MUI `Stack` component. 
 
 ### Create the Support Page
 We will now create a the "Help and Support" page used in the first link of the footer. Create a new subdirectory under the `pages` directory called `support`. Create a new `index.tsx` file inside the `support` directory. 
@@ -189,7 +189,6 @@ import Typography from '@mui/material/Typography'
 import {useEffect} from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
 
 export default function Home() {
     useEffect(() => {
@@ -200,7 +199,6 @@ export default function Home() {
         <>
             <main className={styles.page}>
                 <Container>
-                    <BreadCrumbs />
                     <Box
                         display="flex"
                         justifyContent="center"

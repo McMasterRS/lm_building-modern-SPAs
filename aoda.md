@@ -31,7 +31,7 @@ After inspecting the code, we can find that the empty button in the "Menu" butto
 Open the `Navbar.tsx` file located under `Components/Navbar`, and wrap the `IconButton` component containing a `MenuIcon` with a `Tooltip` component as shown below:
 ```
 <Tooltip title={"Menu"}>
-	<IconButton
+	<MacIconNavButton
 		size="large"
 		aria-controls="menu-appbar"
 		aria-haspopup="true"
@@ -39,7 +39,7 @@ Open the `Navbar.tsx` file located under `Components/Navbar`, and wrap the `Icon
 		color="inherit"
 >
 		<MenuIcon />
-	</IconButton>
+	</MacIconNavButton>
 </Tooltip>
 ```
 
@@ -82,6 +82,7 @@ Add an `htmlFor` prop to the `InputLabel` component as shown below:
 	Demo Dropdown Menu
 </InputLabel>
 ```
+
 Next, we will add an `id` to the `Select` component using `inputProps`. The `id` of the `Select` component has to match the one enter in the `htmlFor` field of the `InputLabel`:
 ```
 <Select

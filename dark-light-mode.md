@@ -6,12 +6,12 @@ nav_order: 7
 
 # Dark and Light Mode
 
-A responsive website should follow the theme preference set by the user on their operating system (OS) or web browser. Material UI allows us to switch between light and dark themes based on user preference by using the `ThemeProvider` component and a toggle switch. In this section, we will add  a light/dark mode toggle to our navigation bar and we will learn how to leverage the `useMediaQuery` hook and the `prefers-color-scheme` media query to enable dark mode automatically by checking the user's preference in their OS or browser settings.
+A responsive website should follow the theme preference set by the user on their operating system (OS) or web browser. Material UI allows us to switch between light and dark themes based on user preference by using the `ThemeProvider` component and a toggle switch. In this section, we will add a light/dark mode toggle to our navigation bar and we will learn how to leverage the `useMediaQuery` hook and the `prefers-color-scheme` media query to enable dark mode automatically by checking the user's preference in their OS or browser settings.
 
 ### Modify `theme.ts`
 We had previously set the primary and secondary colors of our theme in the `config/theme.ts` file. However, when using dark mode in our website, we will need to desaturate these colors to maintain a satisfactory level of contrast between the elements on screen and improve readability. Therefore, we will need to remove the primary and secondary color definitions from `theme.ts` since these values will now be set programmatically depending on the theme mode used.
 
-Delete the following lines from `theme.ts`:
+**Delete** the following lines from `theme.ts`:
 ```
 palette: {
     primary: {
@@ -41,7 +41,6 @@ export const ColorModeContext = React.createContext({
 Next, we will read the value of the media `prefers-color-scheme` query and save it as a Boolean constant whose value is true if the user currently has dark mode enabled on their system. We will also use the React state hook to create a `mode` constant with a `null` initial value and a `setColor` function that is used to update the `mode` constant.
 
 Add the following lines of the code at the top of the `App` function:
-
 ```
 const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
@@ -191,6 +190,7 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
 }
 ```
+
 ### Add Light/Dark Mode Toggle to Navigation Bar
 We will now add a responsive toggle to our navigation bar that allows the user to easily switch between dark and light mode. 
 Start by adding the following import statement to `Navbar.tsx`:
@@ -202,8 +202,8 @@ import {ColorModeContext} from '@/pages/_app'
 ```
 
 Next, we will use the `useTheme` hook to access the theme variables in `Navbar.tsx` in addition to the `useContext` hook to grab the current context value of the `ColorModeContext` imported from `pages/_app.tsx`.
-Add the following two lines to the top of the `Navbar` function:
 
+Add the following two lines to the top of the `Navbar` function:
 ```
 const theme = useTheme()
 const colorMode = React.useContext(ColorModeContext)
@@ -237,6 +237,7 @@ We are a use the custom `MacIconNavButton` component that we created earlier and
 
 Go back to your browser and try switching mode by using the sundial icon in the navigation bar.
 ![dark-mode](assets/img/dark-mode.png)
+
 ![light-mode](assets/img/light-mode.png)
 
 The chosen mode is automatically applied to all pages of the website. Try navigating to "Page1", "Page 1" and the "Settings" page. They will all automatically use the chosen mode and the text and UI element colors will change to maintain readibility.

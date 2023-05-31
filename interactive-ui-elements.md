@@ -19,6 +19,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';  
 import CloseIcon from '@mui/icons-material/Close';
 ```
+
 Declare and export these two interfaces above the `Home` function:
 ```
 export interface SnackbarMessage {
@@ -33,6 +34,7 @@ export interface State {
 }
 
 ```
+
 Add the following lines of code at the top of the `Home` function:
 ```
 const [snackPack, setSnackPack] = React.useState<readonly SnackbarMessage[]>([]);
@@ -133,6 +135,7 @@ Start by installing the MUI file input widget by navigating to the root director
 ```
 npm install mui-file-input --save
 ```
+
 Next, open the `pages/index.tsx` file and add the following import statement:
 ```
 import {MuiFileInput} from 'mui-file-input'
@@ -142,13 +145,15 @@ Declare the `selectedFiles` constant and `setSelectedFiles` function at the top 
 ```
 const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
 ```
+
 We will also need to create a `handleChange` function inside the `Home` function to handle the file upload:
 ```
 const handleChange = (newFiles: File[]) => {
 	setSelectedFiles(newFiles);
 }
 ```
-Finally add the following lines of code right after the closing tag of the `Stack` containg the two buttons:
+
+Finally add the following lines of code right after the closing tag of the `Stack` containing the two buttons:
 ```
 <MuiFileInput  
 	multiple  
@@ -290,7 +295,7 @@ Go back to your browser, your website shold now contain a file input widget afte
 Clicking on the widget allows you to select one or more files to upload.
 
 ### Dropdown Menu
-Dropdown menus allow the user to select an option from a given list. Material UI provides a `Select` component that can be used to generate dropdown menus. In this section how to implement a dropdown menu in MUI and how to style it to fit the McMaster Digital Brand Standards. We will add the dropdown menu to the first tab of the settings page.
+Dropdown menus allow the user to select an option from a given list. Material UI provides a `Select` component that can be used to generate dropdown menus. In this section, we will learn how to implement a dropdown menu in MUI and how to style it to fit the McMaster Digital Brand Standards. We will add the dropdown menu to the first tab of the settings page.
 
 Open the `components/TabPanel/VerticalTabs.tsx` file and add the following import statement:
 ```

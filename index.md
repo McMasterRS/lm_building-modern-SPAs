@@ -8,13 +8,15 @@ The [McMaster Digital Brand Standards](https://brand.mcmaster.ca/app/uploads/201
 
 # Introduction to Material UI (MUI)
 
+![NextJS-MUI](assets/img/nextjs-mui.png)_Image retrieved from [itnext.io](https://itnext.io/next-js-with-material-ui-7a7f6485f671)_
+
 Learn the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. Material UI is a widely used open-source React component library that implements Google's [Material Design](https://m2.material.io/). The library includes an extensive collection of prebuilt components that are ready for use in production right out of the box. Material UI offers comprehensive styling tools that allow you to customize the design system of its components. Material UI allows you to build websites faster and enjoys a great deal of support in the React community given that it is the largest UI community in the React ecosystem. MUI also reduces the barrier to entry by providing an intuitive development experience for less technical designers and developers. The official MUI documentation includes code snippets for all its components to help developers use them effectively when creating their websites.
 
-In this beginner workshop, participants will learn how to create a Next JS application, add the MUI library to it, and style MUI components to fit the McMaster Digital Brand Standards. No previous experience with Next JS or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
+In this beginner workshop, participants will learn how to create a Next JS application, add the MUI library to it, and style MUI components to fit the McMaster Digital Brand Standards. No previous experience with Next.js or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
 
 ## Pre-workshop Setup
 
-Please follow these steps to install Node.js and create a Next JS application **before** starting the workshop.
+Please follow these steps to install Node.js and create a Next.js application **before** starting the workshop.
 
 If you are using Windows or MacOS, use one of the installers from the [Node.js download page](https://nodejs.org/en/download/). Be sure to install the version labeled **LTS**. Other versions have not yet been tested with `npm`.
 
@@ -37,8 +39,8 @@ node -v
 sudo apt install npm
 ~~~
 
-### Create a Next JS Application
-Once you have Node.js installed, you can create a template Next JS application using the following command:
+### Create a Next.js Application
+Once you have Node.js installed, you can create a template Next.js application using the following command:
 ```npx create-next-app```
 You will need to pick a name for your application and specify a few preferences as shown below:
 ![npm-create](assets/img/npx-create.png)
@@ -63,12 +65,16 @@ Open the `_app.tsx_` file located in the `pages` directory and **delete** the fo
 ~~~
 import '@/styles/globals.css'
 ~~~
+
 ### Modify the Index Page
 Using the text editor or IDE of your choice, modify the `index.tsx` file located in the `pages` directory by selecting and deleting lines 2, 3, and 6 as well as lines 18-110. Next, change line 13 to `<main className={styles.main}>` 
 
-Change the title of the application by modifying line 8. Enter the new title between the two `title` tags: `<title> MacMaster Branding</title>`.
+Change the title of the application by modifying line 8.
+Enter the new title between the two `title` tags: 
+`<title>MacMaster Branding</title>`.
 
-Add the following line of code under line 13: `<h1> Hello World!</h1>`
+Add the following line of code under line 13: 
+`<h1> Hello World!</h1>`
 
 Your `index.tsx` file should now look like this:
 ```
