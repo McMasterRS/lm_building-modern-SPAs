@@ -439,6 +439,7 @@ In the `Navbar` function of `Navbar.tsx`, add the following lines of code after 
     }}
     open={Boolean(anchorElNav)}
     onClose={handleCloseNavMenu}
+    disableScrollLock={true}
     sx={{
         display: {xs: 'block', md: 'none'},
     }}
@@ -449,7 +450,7 @@ In the `Navbar` function of `Navbar.tsx`, add the following lines of code after 
             onClick={handleCloseNavMenu}
         >
             <Typography textAlign="center">
-                {page}
+                {page[0]}
             </Typography>
         </MenuItem>
     ))}
@@ -566,7 +567,7 @@ export default function Navbar() {
                         MacApp
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <IconButton
+                        <MacIconNavButton
                             size="large"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
@@ -574,7 +575,7 @@ export default function Navbar() {
                             color="inherit"
                         >
                             <MenuIcon />
-                        </IconButton>
+                        </MacIconNavButton>
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav as Element}
@@ -589,6 +590,7 @@ export default function Navbar() {
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
+                            disableScrollLock={true}
                             sx={{
                                 display: {xs: 'block', md: 'none'},
                             }}
