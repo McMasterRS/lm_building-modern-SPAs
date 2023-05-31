@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Breadcrumbs With a Universal Back Button
-nav_order: 7
+nav_order: 8
 ---
 
 # Breadcrumbs With a Universal Back Button
@@ -48,6 +48,7 @@ const breadcrumbNameMap: {[key: string]: string} = {
     '/page_1': 'Page 1',
     '/page_2': 'Page 2',
     '/settings': 'Settings',
+    '/support': 'Help and Support',
 }
 
 interface LinkRouterProps extends LinkProps {

@@ -140,7 +140,7 @@ Add the following lines to `Navbar.module.css`:
 Download the McMaster logo using the [Brand Standards](https://brand-resources.mcmaster.ca/asset-bank/action/viewAsset?id=7000&index=3&total=17&view=viewSearchItem)website. Note that you will need to sign in with your MacID to download the logo. Rename the downloaded file to `logo.png`.
 In the `public` directory of your project, create a new directory called `assets`. Place `logo.png` in the `assets` directory.
 
-### Create Navbar.tsx
+### Create the `NavBar` Component
 In the root directory of your project, create a `components` directory. Create another directory inside the `components` directory called `Navbar`. Create a file named `Navbar.tsx` in this directory.
 
 Add the following import statements to to `Navbar.tsx`:
@@ -266,6 +266,7 @@ Notice that the navigation bar has two `Typography` components containing the ti
 
 ### Import and Use `Navbar`
 The navigation bar should appear on all pages of our website. As such, we will import and use it in the `_app.tsx` file, given that components used in this file are shown on all pages. 
+
 Open the `_app.tsx` file and import `NavBar`:
 ```
 import Navbar from "@/components/Navbar/Navbar";
@@ -274,7 +275,7 @@ Add the following line of code before `<CssBaseline />`:
 ```
 <Navbar />
 ```
-Yout `_app.tsx` file should now look like this:
+Your `_app.tsx` file should now look like this:
 ```
 {% raw %}
 import type { AppProps } from 'next/app'  
