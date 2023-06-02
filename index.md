@@ -12,7 +12,7 @@ The [McMaster Digital Brand Standards](https://brand.mcmaster.ca/app/uploads/201
 
 Learn the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. Material UI is a widely used open-source React component library that implements Google's [Material Design](https://m2.material.io/). The library includes an extensive collection of prebuilt components that are ready for use in production right out of the box. Material UI offers comprehensive styling tools that allow you to customize the design system of its components. Material UI allows you to build websites faster and enjoys a great deal of support in the React community given that it is the largest UI community in the React ecosystem. MUI also reduces the barrier to entry by providing an intuitive development experience for less technical designers and developers. The official MUI documentation includes code snippets for all its components to help developers use them effectively when creating their websites.
 
-In this beginner workshop, participants will learn how to create a Next JS application, add the MUI library to it, and style MUI components to fit the McMaster Digital Brand Standards. No previous experience with Next.js or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
+In this beginner workshop, participants will learn how to create a Next.js application, add the MUI library to it, and style MUI components to fit the McMaster Digital Brand Standards. No previous experience with Next.js or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
 
 ## Pre-workshop Setup
 
