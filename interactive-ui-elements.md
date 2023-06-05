@@ -528,8 +528,8 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
     id="download-button"
     sx={{
         position: 'fixed',
-        top: 10,
-        right: 100,
+        top: 20,
+        right: 10,
         zIndex: 2000,
     }}
     aria-controls={
@@ -545,6 +545,29 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
 >
     Download
 </MacButton>
+<Tooltip title={"Download"} >
+  <MacButton
+	  id="download-button"
+	  sx={{
+		  position: 'fixed',
+		  top: 20,
+		  right: 10,
+		  zIndex: 2000,
+		  display: {xs: 'flex', md: 'none'}
+	  }}
+	  aria-controls={
+		  openMenu ? 'download-menu' : undefined
+	  }
+	  aria-haspopup="true"
+	  aria-expanded={openMenu ? 'true' : undefined}
+	  variant="contained"
+	  mainColor="secondary"
+	  onClick={handleClickMenu}
+	  endIcon={<KeyboardArrowDownIcon />}
+>
+	  <DownloadIcon />
+  </MacButton>
+</Tooltip>
 <StyledMenu
     id="download-menu"
     MenuListProps={{
@@ -566,7 +589,7 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
 </StyledMenu>
 ```
 
-Notice that we used the "secondary" variant of the `MacButton` component. The button also has a `startIcon` indicating its function (i.e., the `DownloadIcon`) as well as an `endIcon` consisting of a downwards pointing arrow to inform the user that it is a menu button. The "Download" button is positioned in the top right corner of the page using the `sx` property.
+We used the "secondary" variant of the `MacButton` component. Notice that we used two different variants of the "Download" button depending on the screen size determined using the `display` attribute of the `sx` property. On medium and large displays, the button shows a "Download" text sandwiched between a `startIcon` indicating its function (i.e., the `DownloadIcon`) and an `endIcon` consisting of a downwards pointing arrow to inform the user that it is a menu button. On small screens, we removed the "Download" text from the button and replaced it with a tooltip message. The "Download" button is positioned in the top right corner of the page using the `sx` property on all screen sizes.
 
 Your `pages/page_1/index.tsx` file should now look like this:
 ```
@@ -583,6 +606,7 @@ import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import DownloadIcon from '@mui/icons-material/Download';
 import {alpha, styled} from '@mui/material/styles';
+import Tooltip from "@mui/material/Tooltip";
 
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -652,14 +676,14 @@ export default function Page_1() {
                   justifyContent="center"
                   alignItems="center">
                   <Typography variant="h1">Page 1</Typography>
-
                   <MacButton
                       id="download-button"
                       sx={{
                           position: 'fixed',
-                          top: 10,
-                          right: 100,
+                          top: 20,
+                          right: 10,
                           zIndex: 2000,
+                          display: {xs: 'none', md: 'flex'}
                       }}
                       aria-controls={
                           openMenu ? 'download-menu' : undefined
@@ -674,6 +698,30 @@ export default function Page_1() {
                   >
                       Download
                   </MacButton>
+
+                  <Tooltip title={"Download"} >
+                      <MacButton
+                          id="download-button"
+                          sx={{
+                              position: 'fixed',
+                              top: 20,
+                              right: 10,
+                              zIndex: 2000,
+                              display: {xs: 'flex', md: 'none'}
+                          }}
+                          aria-controls={
+                              openMenu ? 'download-menu' : undefined
+                          }
+                          aria-haspopup="true"
+                          aria-expanded={openMenu ? 'true' : undefined}
+                          variant="contained"
+                          mainColor="secondary"
+                          onClick={handleClickMenu}
+                          endIcon={<KeyboardArrowDownIcon />}
+                      >
+                          <DownloadIcon />
+                      </MacButton>
+                  </Tooltip>
                   <StyledMenu
                       id="download-menu"
                       MenuListProps={{
@@ -704,6 +752,10 @@ export default function Page_1() {
 Save the file and go back to your browser. Navigate to "Page 1" and you will see the button that we just added.
 
 ![download](assets/img/download.png)
+
+Try shrinking your browser window horizontally and notice how the button is automatically resized by removing the "Download" text and adding a tooltip message.
+
+![download](assets/img/download-small.png)
 
 ### Speed Dials
 Material UI offers a speed `SpeedDial` component that allows developers to create a floating action button, which can display related actions. The `SpeedDial` component is often used to group action that manipulate the state of an object e.g., "edit", "delete", and "save". We will now learn how to create a styled `SpeedDial` component that adheres to McMaster Branding Standards.
@@ -778,7 +830,7 @@ Finally, add the `MacSpeedDial` containing the actions defined in the `actions` 
     sx={{
         position: 'fixed',
         top: 10,
-        right: 100,
+        right: 10,
         zIndex: 2000,
     }}
     icon={<SpeedDialIcon />}
@@ -874,3 +926,7 @@ export default function Page_2() {
 Save the file and go back to your browser. Navigate to "Page 2" and you will see the `MacSpeedDial` that we just added. Hovering over the speed dial will turn it grey and show the options defined in the `actions` array.
 
 ![speed-dial](assets/img/speed-dial.png)
+
+On small screens, the speed dial remains in the top right corner as shown in the screenshot below.
+
+![speed-dial](assets/img/speed-dial-small.png)

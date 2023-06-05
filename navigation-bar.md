@@ -267,7 +267,7 @@ export default function Navbar() {
                         variant="h3"
                         noWrap
                         component={Link}
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
@@ -275,6 +275,7 @@ export default function Navbar() {
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
+                        className={styles.title}
                     >
                         MacApp
                     </Typography>
@@ -656,7 +657,7 @@ export default function Navbar() {
                         variant="h3"
                         noWrap
                         component={Link}
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
@@ -664,6 +665,7 @@ export default function Navbar() {
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
+                        className={styles.title}
                     >
                         MacApp
                     </Typography>
@@ -867,7 +869,7 @@ export default function Navbar() {
                         variant="h3"
                         noWrap
                         component={Link}
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
@@ -875,6 +877,7 @@ export default function Navbar() {
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
+                        className={styles.title}
                     >
                         MacApp
                     </Typography>
