@@ -26,7 +26,7 @@ Pull the website's HTML code by clicking on the turquoise "Code" button at the b
 ![empty-button](assets/img/empty-button.png)
 
 ### Empty Button Error
-After inspecting the code, we can find that the empty button in the "Menu" button that appears on the navigation bar on smaller screens. To fix the issue, we will add a tooltip message to the "Menu" button.
+After inspecting the code, we found that the empty button is the "Menu" button that appears on the navigation bar on smaller screens. To fix the issue, we will add a tooltip message to the "Menu" button.
 
 Open the `Navbar.tsx` file located under `Components/Navbar`, and wrap the `IconButton` component containing a `MenuIcon` with a `Tooltip` component as shown below:
 ```
@@ -66,7 +66,31 @@ Re-run the Wave tool on "Page 1". The empty button error will no longer be shown
 ![page-1-wave-fixed](assets/img/page-1-wave-fixed.png)
 
 ### Contrast Error
-TODO
+Go back to the main index page and run the Wave tool. You will notice that the tool identifies a contrast error on this page. The contrast error is caused by the shade of grey used for the placeholder text on the file input widget that appears on the main index page of our website. To fix the error, we will modify the file input widget to use a slightly darker shade of grey in light mode that is AODA-compliant for the placeholder text. Dark mode uses a light grey color for the placeholder text to maintain visibility against a dark background.
+
+Open the `pages/index.tsx` file and add the following import statement:
+```
+import {useTheme} from '@mui/material/styles'
+```
+Modify the `MuiFileInput` component by adding an `sx` prop as shown below:
+```
+<MuiFileInput  
+	multiple  
+	placeholder="Click here and select file(s)"  
+	value={selectedFiles}  
+	onChange={handleChange}  
+	hideSizeText  
+	sx={{  
+		"& .MuiFileInput-placeholder": {  
+		color:  useTheme().palette.mode === 'light' ? '#767676' : '#d3d3d3' + '!important', 
+		},  
+	}}  
+/>
+```
+
+Reload the main page in your browser and re-run the Wave tool. The contrast error should now be fixed.
+
+![contrast-error-fixed](assets/img/contrast-error-fixed.png)
 
 ### Missing Form Label Error
 

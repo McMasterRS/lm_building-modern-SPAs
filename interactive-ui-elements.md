@@ -295,14 +295,14 @@ Go back to your browser, your website shold now contain a file input widget afte
 Clicking on the widget allows you to select one or more files to upload.
 
 ### Dropdown Menu
-Dropdown menus allow the user to select an option from a given list. Material UI provides a `Select` component that can be used to generate dropdown menus. In this section, we will learn how to implement a dropdown menu in MUI and how to style it to fit the McMaster Digital Brand Standards. We will add the dropdown menu to the first tab of the settings page.
+Dropdown menus allow the user to select an option from a given list. Material UI provides a `Select` component that can be used to generate dropdown menus. In this section, we will learn how to implement a dropdown menu in MUI and how to style it to fit the McMaster Digital Brand Standards. We will add the dropdown menu to the "Notifications" tab of the settings page.
 
 Open the `components/TabPanel/VerticalTabs.tsx` file and add the following import statement:
 ```
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material'
 ```
 
-Next, replace the `Settings Pane One` line after `<TabPanel value={value} index={0}>` with the following lines of code:
+Next, replace the `Placeholder 1` line after `<TabPanel value={value} index={0}>` with the following lines of code:
 ```
 {% raw %}
 <FormControl sx={{m: 1, minWidth: 300}}>  
@@ -332,6 +332,18 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material'
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import SettingsAccessibilityOutlinedIcon from '@mui/icons-material/SettingsAccessibilityOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
+import IconButton from "@mui/material/IconButton";
 
 interface TabPanelProps {
     children?: React.ReactNode
@@ -366,6 +378,7 @@ function a11yProps(index: number) {
     }
 }
 
+
 export default function VerticalTabs() {
     const [value, setValue] = React.useState(0)
 
@@ -373,71 +386,163 @@ export default function VerticalTabs() {
         setValue(newValue)
     }
 
-    return (
-        <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex'}}>
-            <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                onChange={handleChange}
-                aria-label="Vertical tabs"
-                sx={{borderRight: 1, borderColor: 'divider'}}
-            >
-                <Tab label="Tab 1" {...a11yProps(0)} />
-                <Tab label="Tab 2" {...a11yProps(1)} />
-                <Tab label="Tab 3" {...a11yProps(2)} />
-                <Tab label="Tab 4" {...a11yProps(3)} />
-                <Tab label="Tab 5" {...a11yProps(4)} />
-                <Tab label="Tab 6" {...a11yProps(5)} />
-                <Tab label="Tab 7" {...a11yProps(6)} />
-            </Tabs>
-            <TabPanel value={value} index={0}>
-                <FormControl sx={{m: 1, minWidth: 300}}>
-                    <InputLabel id="demo-simple-select-label">
-                        Demo Dropdown Menu
-                    </InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Demo Dropdown Menu"
-                    >
-                        <MenuItem value={1}>Option 1</MenuItem>
-                        <MenuItem value={2}>Option 2</MenuItem>
-                        <MenuItem value={3}>Option 3</MenuItem>
-                    </Select>
-                </FormControl>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                Settings Pane Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                Settings Pane Three
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                Settings Pane Four
-            </TabPanel>
-            <TabPanel value={value} index={4}>
-                Settings Pane Five
-            </TabPanel>
-            <TabPanel value={value} index={5}>
-                Settings Pane Six
-            </TabPanel>
-            <TabPanel value={value} index={6}>
-                Settings Pane Seven
-            </TabPanel>
+    const tabs = ['Notifications', 'Privacy', 'Accessibility', 'Account'];
+    const icons = [<NotificationsNoneOutlinedIcon key={'notifications'}/>, <LockOutlinedIcon key={'privacy'}/>, <SettingsAccessibilityOutlinedIcon key={'accessibility'}/>, <ManageAccountsOutlinedIcon key={'account'}/>]
+
+    const handleChangeDrawer = (e: React.MouseEvent<HTMLDivElement>, newValue: number) => {
+        setValue(newValue);
+    }
+
+    const [state, setState] = React.useState(false);
+
+    const toggleDrawer =
+        (open: boolean) =>
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event.type === 'keydown' &&
+                    ((event as React.KeyboardEvent).key === 'Tab' ||
+                        (event as React.KeyboardEvent).key === 'Shift')
+                ) {
+                    return;
+                }
+                setState(open);
+            };
+
+    const list = () => (
+        <Box
+            sx={{ width:  250 }}
+            role="presentation"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+        >
+            <List>
+                {tabs.map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton selected= {value === index} onClick={(e) => handleChangeDrawer(e, index)}>
+                            <ListItemIcon>
+                                {icons[index]}
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
         </Box>
+    );
+
+    return (
+        <>
+            <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex'}}>
+                <Tabs
+                    orientation="vertical"
+                    variant="scrollable"
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="Vertical tabs"
+                    sx={{borderRight: 1, borderColor: 'divider', display: {xs: 'none', md: 'flex'}}}
+                >
+                    {tabs.map((text, index) => (
+                        <Tab key={text} label={text} icon={icons[index]} iconPosition="start" {...a11yProps(index)} />
+                    ))}
+                </Tabs>
+                <Box sx={{paddingTop: '19px'}}>
+                    <IconButton title="Settings Drawer" aria-label="settings-menu" onClick={toggleDrawer(true)} sx={{ display: {xs: 'inline', md: 'none'}, height:'40px'}}> <FormatListBulletedOutlinedIcon /> </IconButton>
+                </Box>
+                <Drawer
+                    anchor={"left"}
+                    open={state}
+                    onClose={toggleDrawer(false)}
+                    sx={{
+                        '& .MuiDrawer-root': {
+                            position: 'absolute'
+                        },
+                        '& .MuiPaper-root': {
+                            position: 'absolute'
+                        },
+                        minWidth: 100,
+                        width: "20%",
+                        position: "absolute",
+                        top: '230px',
+                        left: '2%',
+                        height: '50%',
+                        display: {xs: 'flex', md: 'none'}
+                    }}                        >
+                    {list()}
+                </Drawer>
+                <TabPanel value={value} index={0}>
+                    <Typography
+                        sx={{display: {xs: 'flex', md: 'none'}, justifyContent: 'left', paddingLeft: '10px'}}
+                        variant="settingTitle"
+                        gutterBottom
+                    >
+                        Notifications
+                    </Typography>
+                    <FormControl sx={{m: 1, minWidth: 300}}>
+                        <InputLabel id="demo-simple-select-label" htmlFor="demo-simple-select">
+                            Demo Dropdown Menu
+                        </InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Demo Dropdown Menu"
+                            inputProps={{
+                                id:'demo-simple-select',
+                            }}
+                        >
+                            <MenuItem value={1}>Option 1</MenuItem>
+                            <MenuItem value={2}>Option 2</MenuItem>
+                            <MenuItem value={3}>Option 3</MenuItem>
+                        </Select>
+                    </FormControl>
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <Typography
+                        sx={{display: {xs: 'flex', md: 'none'}, justifyContent: 'left', paddingLeft: '10px'}}
+                        variant="settingTitle"
+                        gutterBottom
+                    >
+                        Privacy
+                    </Typography>
+                    Placeholder 2
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                    <Typography
+                        sx={{display: {xs: 'flex', md: 'none'}, justifyContent: 'left', paddingLeft: '10px'}}
+                        variant="settingTitle"
+                        gutterBottom
+                    >
+                        Accessibility
+                    </Typography>
+                    Placeholder 3
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                    <Typography
+                        sx={{display: {xs: 'flex', md: 'none'}, justifyContent: 'left', paddingLeft: '10px'}}
+                        variant="settingTitle"
+                        gutterBottom
+                    >
+                        Account
+                    </Typography>
+                    Placeholder 4
+                </TabPanel>
+            </Box>
+        </>
     )
 }
 {% endraw %}
 ```
 
-Navigate to the settings page in your browser, and you will see that the first tab now contains a dropdown menu.
+Navigate to the settings page by clicking on the gear icon in the navigation bar, and you will see that the "Notifications" tab now contains a dropdown menu.
 
 ![dropdown-menu](assets/img/dropdown-menu.png)
 
 The borders on the dropdown menu are rounded as recommended by the McMaster branding guidelines. The rounded borders are due to the global `borderRadius` attribute being set to 28 in our theme. Clicking on the dropdown menu allows you to select an option. The borders of the dropdown list are significantly less rounded to maintain readability and avoid clipping the options text. We reduced the border radius of the dropdown list by setting the `borderRadius` attribute of the `MuiPaper` component to 8 in `theme.ts`.
 
-![dropdown-list](assets/img/dropdown-list.png)
+![dropdown-list-medium](assets/img/dropdown-list-medium.png)
+
+Try shrinking the browser window to see how the dropdown menu looks on devices with a small-sized screen. 
+
+![dropdown-list-small](assets/img/dropdown-list-small.png)
 
 ### Buttons With a Dropdown Menu
 The styled `MacButton` that we created earlier can be combined with a dropdown menu to create a button that allows the user to execute mutually exclusive functions that fall under the same category e.g., a download button that lets the user choose the file format. We will add this type of button to the "Page 1".

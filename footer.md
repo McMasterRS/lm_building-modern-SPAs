@@ -27,11 +27,18 @@ export default function Footer() {
     return (
         <Paper
             sx={{
-                mt: 'calc(10% + 60px)',
-                position: 'fixed',
+                [useTheme().breakpoints.between('xs', 'md')]: {
+                    position: 'relative',
+                },
+                [useTheme().breakpoints.up('md')]: {
+                    position: 'fixed',
+                },
                 bottom: 0,
                 width: '100%',
                 borderRadius: 0,
+                [useTheme().breakpoints.between('xs', 'md')]: {
+                    height: '93',
+                },
             }}
             component="footer"
             square

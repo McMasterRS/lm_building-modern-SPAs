@@ -4,6 +4,8 @@ title: Conclusion
 nav_order: 11
 ---
 
+# Conclusion
+
 Throughout this workshop, we learned the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. You created a website using Next.js and MUI that contains the following UI elements and features:
 - Styled text using the `Typography` component
 - A responsive navigation bar with styled buttons and icon buttons

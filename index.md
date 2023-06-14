@@ -66,6 +66,21 @@ Open the `_app.tsx_` file located in the `pages` directory and **delete** the fo
 import '@/styles/globals.css'
 ~~~
 
+### Modify `Home.module.css`
+Open the `Home.module.css` file located in the `styles` directory and change the `min-height` value from `100vh` to `calc(100vh - 164px)`:
+```
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: calc(100vh - 164px);
+  margin-top: auto;
+}
+```
+This change will reduce the amount of whitespace on the main page.
+
 ### Modify the Index Page
 Using the text editor or IDE of your choice, modify the `index.tsx` file located in the `pages` directory by selecting and deleting lines 2, 3, and 6 as well as lines 18-110. Next, change line 13 to `<main className={styles.main}>` 
 

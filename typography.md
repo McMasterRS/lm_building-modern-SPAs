@@ -46,8 +46,14 @@ export default function Document() {
 }
 ```
 
-Add the following code snipper to the `theme.ts`:
+Add the following code snippet to  `theme.ts`:
 ```
+declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+        settingTitle: true;
+    }
+}
+
 const themeOptions = {
     typography: {
         h1: {
@@ -72,13 +78,17 @@ const themeOptions = {
             fontFamily: 'Roboto Condensed',
             fontWeight: 700,
         },
+        settingTitle: {  
+			fontFamily: 'Roboto Condensed',  
+			fontSize: '15pt',  
+		},
     },
 }
 
 export default themeOptions
 ```
 
-In this code snippet, we are defining the different typography variant that can be use in our application. The heading styles conform to the McMaster Digital Brand Standards. The `button` typography defines the font style to use for text located in buttons. We will cover styling buttons in a later section of this workshop.
+In this code snippet, we are defining the different typography variant that can be use in our application. The heading styles conform to the McMaster Digital Brand Standards. The `button` and `settingTitle` typographies define the font style to use for text located in buttons and setting titles respectively. We will cover styling buttons and setting pages in later sections of this workshop.
 
 ### Creating a Theme Provider
 Open the `_app.tsx_` file located in the `pages` directory and add the following import statements:

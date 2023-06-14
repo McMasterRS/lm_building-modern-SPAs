@@ -43,6 +43,12 @@ Note that the shape `borderRadius` sets the global value of the border radius fo
 
 Your `theme.ts` file should now look like this:
 ```
+declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+        settingTitle: true;
+    }
+}
+
 const themeOptions = {
 	palette: {  
 		primary: {  
@@ -140,6 +146,8 @@ Add the following lines to `Navbar.module.css`:
 Download the McMaster logo using the [Brand Standards](https://brand-resources.mcmaster.ca/asset-bank/action/viewAsset?id=7000&index=3&total=17&view=viewSearchItem)website. Note that you will need to sign in with your MacID to download the logo. Rename the downloaded file to `logo.png`.
 In the `public` directory of your project, create a new directory called `assets`. Place `logo.png` in the `assets` directory.
 
+We will also need the McMaster crest logo that can be downloaded from the following [link](https://www.pngwing.com/en/free-png-mqbcf).   Rename the downloaded file to `logo-small.png` and place it in the `assets` directory.
+
 ### Create Styled Icon Buttons
 We will now proceed to create a styled  `IconButton` for use in our navigation bar.
 Create a new directory called `MacComponents` inside the `components` directory. Create a new file in this directory called `MacNavButton.tsx` and add the following code to it:
@@ -170,21 +178,18 @@ import * as React from 'react'
 import AppBar from '@mui/material/AppBar'  
 import Box from '@mui/material/Box'  
 import Toolbar from '@mui/material/Toolbar'  
-import IconButton from '@mui/material/IconButton'  
 import Typography from '@mui/material/Typography'  
-import Menu from '@mui/material/Menu'  
 import MenuIcon from '@mui/icons-material/Menu'  
 import Container from '@mui/material/Container'  
-import MenuItem from '@mui/material/MenuItem'  
 import Link from 'next/link'  
-import Image from 'next/image'  
-import SettingsIcon from '@mui/icons-material/Settings'  
 import {useRouter} from 'next/router'  
 import styles from '@/styles/NavBar.module.css'  
-import Tooltip from '@mui/material/Tooltip'
-import {  
-	MacIconNavButton
-} from '@/components/MacComponents/MacNavButton'
+import {MacIconNavButton,} from '@/components/MacComponents/MacNavButton'  
+import {useTheme} from '@mui/material/styles'  
+import Tooltip from '@mui/material/Tooltip'  
+import Drawer from "@mui/material/Drawer";  
+import List from "@mui/material/List";  
+import ClearIcon from '@mui/icons-material/Clear';
 ```
 
 Next, create a multi-dimensional array containing the name of each page and its corresponding `.tsx` file:
@@ -200,41 +205,122 @@ We will now create the `Navbar` function which returns the `AppBar` component:
 ```
 {% raw %}
 export default function Navbar() {
-    const [anchorElNav, setAnchorElNav] = React.useState<EventTarget | null>(
-        null
-    )
-
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorElNav(event.currentTarget)
-    }
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null)
-    }
-
     const imgStyle = {
         paddingTop: '10px',
         paddingBottom: '10px',
         paddingRight: '30px',
     }
 
-    const router = useRouter()
-    const currentRoute = router.pathname
+    const [state, setState] = React.useState(false);
+
+    const toggleDrawer =
+        (open: boolean) =>
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event.type === 'keydown' &&
+                    ((event as React.KeyboardEvent).key === 'Tab' ||
+                        (event as React.KeyboardEvent).key === 'Shift')
+                ) {
+                    return;
+                }
+                setState(open);
+            };
+
+
+    const pages_drawer = () => (
+        <Box
+            paddingTop={1}
+            sx={{ width:  250 }}
+            role="presentation"
+            onKeyDown={toggleDrawer(false)}
+        >
+            <List>
+            </List>
+        </Box>
+    );
 
     return (
         <AppBar
-            position="static"
+            position="relative"
             enableColorOnDark
             style={{backgroundImage: 'none'}}
             sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Image
-                        src="/assets/logo.png"
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                        <Tooltip enterDelay={500} title={state ? "Close App Drawer" : "Open App Drawer"}>
+                            <MacIconNavButton
+                                size="large"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={toggleDrawer(!state)}
+                                color="inherit"
+                            >
+                                {state ? <ClearIcon /> : <MenuIcon />}
+                            </MacIconNavButton>
+                        </Tooltip>
+                        <Drawer
+                            anchor={"left"}
+                            open={state}
+                            onClose={toggleDrawer(false)}
+                            sx={{
+                                '& .MuiDrawer-root': {
+                                    position: 'absolute'
+                                },
+                                '& .MuiPaper-root': {
+                                    position: 'absolute',
+                                    borderRadius: 0
+                                },
+                                minWidth: 100,
+                                width: "20%",
+                                position: "absolute",
+                                top: '70px',
+                                display: {xs: 'flex', md: 'none'}
+                            }}
+                        >
+                            {pages_drawer()}
+                        </Drawer>
+                        <Box
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{alignItems: 'center', display: {xs: 'flex', md: 'none'}}}
+                        >
+                            <Box
+                                component="img"
+                                sx={{
+                                    height: 70,
+                                    width: '100%',
+                                }}
+                                alt="McMaster Logo"
+                                src="/assets/logo-small.png"
+                                style={imgStyle}
+                            />
+                            <Typography
+                                variant="h3"
+                                component={Link}
+                                href="/"
+                                sx={{
+                                    mr: 2,
+                                    flexGrow: 1,
+                                    color: 'inherit',
+                                    textDecoration: 'none',
+                                }}
+                                className={styles.title}
+                            >
+                                MacApp
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 78.31,
+                            width: 140,
+                            display: {xs: 'none', md: 'flex'}
+                        }}
                         alt="McMaster Logo"
-                        width={140}
-                        height={78.31}
+                        src="/assets/logo.png"
                         style={imgStyle}
                     />
                     <Typography
@@ -250,44 +336,17 @@ export default function Navbar() {
                         }}
                         className={styles.title}
                     >
-                        MacApp
-                    </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <MacIconNavButton
-                            size="large"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </MacIconNavButton>
-                    </Box>
-                    <Typography
-                        variant="h3"
-                        noWrap
-                        component={Link}
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'flex', md: 'none'},
-                            flexGrow: 1,
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                        className={styles.title}
-                    >
-                        MacApp
+                        MacScribe
                     </Typography>
                 </Toolbar>
             </Container>
         </AppBar>
-    )
+    );
 }
 {% endraw %}
 ```
-So far, our code creates an `AppBar` component with the McMaster logo on the left hand side along with the title of our application (MacApp). The title is a button that can be clicked to go back to the main index page of our application, which in this case is the 'Hello World!' page.
-Notice that the navigation bar has two `Typography` components containing the title of our application. The first `Typography` component is used for medium-sized screen (e.g., tablets, laptops, desktop computers, etc.) whereas the second `Typography` component is used for small screens (e.g., smartphones). The second `Typography` component is also preceded by a `MacIconNavButton` component that will house the navigation links once we implement them. The `handleOpenNavMenu` and `handleCloseNavMenu` functions are used to handle opening and closing the menu shown in the navigation bar on small-sized screens.
+So far, our code creates an `AppBar` component with the McMaster logo on the left hand side along with the title of our application (MacApp). Medium and large displays will show the full-sized McMaster logo, whereas small displays will only show the McMaster crest. We use the `sx` and `md` breakpoints in the `display` field of the `sx` prop to determine which component should b rendered on small and medium displays respectively. The title is a button that can be clicked to go back to the main index page of our application, which in this case is the 'Hello World!' page.
+Notice that the navigation bar has two `Typography` components containing the title of our application. The first `Typography` component is used for medium-sized screen (e.g., tablets, laptops, desktop computers, etc.) whereas the second `Typography` component is used for small screens (e.g., smartphones). On small screens, we render a `MacIconNavButton` component that open an app drawer that houses the navigation links that we will add at a later stage in this workshop. The `toggleDrawer` function is used to handle opening and closing the app drawer shown in the navigation bar on small-sized screens.
 
 ### Import and Use `Navbar`
 The navigation bar should appear on all pages of our website. As such, we will import and use it in the `_app.tsx` file, given that components used in this file are shown on all pages. 
@@ -338,7 +397,7 @@ Start by creating an additional `page` CSS style in `Home.module.css`:
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 164px);
   padding-top: 1rem;
 }
 ```
@@ -460,48 +519,45 @@ The `MacNavButton` component is a styled MUI `Button` that behaves similarly to 
 ### Add Links to the Navigation Bar
 Import the `MacNavButton` components in `Navbar.tsx` by updating the import statement of the `MacIconNavButton` as shown below:
 ```
-import {  
-	MacIconNavButton,  
-	MacNavButton,  
-} from '@/components/MacComponents/MacNavButton'
+import {MacIconNavButton, MacNavButton,} from '@/components/MacComponents/MacNavButton'
 ```
 
-In the `Navbar` function of `Navbar.tsx`, add the following lines of code after the `MacIconNavButton` containing the `MenuItem`:
+Next, add the following additional import statements:
+```
+import ListItem from "@mui/material/ListItem";  
+import ListItemButton from "@mui/material/ListItemButton";  
+import ListItemIcon from "@mui/material/ListItemIcon";  
+import ListItemText from "@mui/material/ListItemText";  
+import LooksOneIcon from '@mui/icons-material/LooksOne';  
+import LooksTwoIcon from '@mui/icons-material/LooksTwo';
+```
+
+In the `Navbar` function of `Navbar.tsx`, add the following lines of code after the `toggleDrawer` function declaration:
 ```
 {% raw %}
-<Menu
-    id="menu-appbar"
-    anchorEl={anchorElNav as Element}
-    anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-    }}
-    keepMounted
-    transformOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
-    }}
-    open={Boolean(anchorElNav)}
-    onClose={handleCloseNavMenu}
-    disableScrollLock={true}
-    sx={{
-        display: {xs: 'block', md: 'none'},
-    }}
->
-    {pages.map(page => (
-        <MenuItem
-            key={page[0]}
-            onClick={handleCloseNavMenu}
-        >
-            <Typography textAlign="center">
-                {page[0]}
-            </Typography>
-        </MenuItem>
-    ))}
-</Menu>
-{% endraw %}s
+const router = useRouter()  
+const currentRoute = router.pathname  
+  
+const icons = [<LooksOneIcon key={'transcripts-page'} />, <LooksTwoIcon key={'privacy-policy'}/>]
+{% endraw %}
 ```
-The code adds a `Menu` component with a `MenuItem` for each page defined in the `pages` array. The menu will only be used on small-sized displays.
+
+The code initializes the router object we will use to determine which page the user is currently on. We also defined an array of icons that we will use in the drawer that is shown on small screens.
+
+Modify the `pages_drawer` constant by adding the following lines of code inside the `List` component:
+```
+ {pages.map((page, index) => (
+	<ListItem key={page[0]} disablePadding>
+		<ListItemButton onClick={toggleDrawer(false)} component={Link} href={page[1]} selected= {currentRoute === page[1]} >
+			<ListItemIcon>
+				{icons[index]}
+			</ListItemIcon>
+			<ListItemText primary={page[0]} />
+		</ListItemButton>
+	</ListItem>
+))}
+```
+We iterate on the `pages` array and add an `ListItem` component for each entry. Each `ListItem` component contains a `ListItemButton`, a `ListItemIcon` and a `ListItemText` component. Each entry is rendered as a clickable link consisting of an icon followed by the name of the page.
 
 Next, we will add the navigation button links shown on medium-sized displays. Add the following code right after the second `Typography` component:
 ```
@@ -510,7 +566,6 @@ Next, we will add the navigation button links shown on medium-sized displays. Ad
     {pages.map(page => (
         <MacNavButton
             key={page[0]}
-            onClick={handleCloseNavMenu}
             component={Link}
             href={page[1]}
             className={
@@ -535,22 +590,23 @@ import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import MenuItem from '@mui/material/MenuItem'
 import Link from 'next/link'
-import Image from 'next/image'
-import SettingsIcon from '@mui/icons-material/Settings'
 import {useRouter} from 'next/router'
-import styles from '@/styles/Navbar.module.css'
+import styles from '@/styles/NavBar.module.css'
+import {MacIconNavButton, MacNavButton,} from '@/components/MacComponents/MacNavButton'
 import Tooltip from '@mui/material/Tooltip'
-import {
-    MacIconNavButton,
-    MacNavButton,
-} from '@/components/MacComponents/MacNavButton'
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ClearIcon from '@mui/icons-material/Clear';
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import LooksOneIcon from '@mui/icons-material/LooksOne';
+import LooksTwoIcon from '@mui/icons-material/LooksTwo';
 
 const pages = [
     ['Page 1', '/page_1'],
@@ -558,41 +614,136 @@ const pages = [
 ]
 
 export default function Navbar() {
-    const [anchorElNav, setAnchorElNav] = React.useState<EventTarget | null>(
-        null
-    )
-
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorElNav(event.currentTarget)
-    }
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null)
-    }
-
     const imgStyle = {
         paddingTop: '10px',
         paddingBottom: '10px',
         paddingRight: '30px',
     }
 
+    const [state, setState] = React.useState(false);
+
+    const toggleDrawer =
+        (open: boolean) =>
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event.type === 'keydown' &&
+                    ((event as React.KeyboardEvent).key === 'Tab' ||
+                        (event as React.KeyboardEvent).key === 'Shift')
+                ) {
+                    return;
+                }
+                setState(open);
+            };
+
     const router = useRouter()
     const currentRoute = router.pathname
 
+    const icons = [<LooksOneIcon key={'transcripts-page'} />, <LooksTwoIcon key={'privacy-policy'}/>]
+
+    const pages_drawer = () => (
+        <Box
+            paddingTop={1}
+            sx={{ width:  250 }}
+            role="presentation"
+            onKeyDown={toggleDrawer(false)}
+        >
+            <List>
+                {pages.map((page, index) => (
+                    <ListItem key={page[0]} disablePadding>
+                        <ListItemButton onClick={toggleDrawer(false)} component={Link} href={page[1]} selected= {currentRoute === page[1]} >
+                            <ListItemIcon>
+                                {icons[index]}
+                            </ListItemIcon>
+                            <ListItemText primary={page[0]} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
+
     return (
         <AppBar
-            position="static"
+            position="relative"
             enableColorOnDark
             style={{backgroundImage: 'none'}}
             sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Image
-                        src="/assets/logo.png"
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                        <Tooltip enterDelay={500} title={state ? "Close App Drawer" : "Open App Drawer"}>
+                            <MacIconNavButton
+                                size="large"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={toggleDrawer(!state)}
+                                color="inherit"
+                            >
+                                {state ? <ClearIcon /> : <MenuIcon />}
+                            </MacIconNavButton>
+                        </Tooltip>
+                        <Drawer
+                            anchor={"left"}
+                            open={state}
+                            onClose={toggleDrawer(false)}
+                            sx={{
+                                '& .MuiDrawer-root': {
+                                    position: 'absolute'
+                                },
+                                '& .MuiPaper-root': {
+                                    position: 'absolute',
+                                    borderRadius: 0
+                                },
+                                minWidth: 100,
+                                width: "20%",
+                                position: "absolute",
+                                top: '70px',
+                                display: {xs: 'flex', md: 'none'}
+                            }}
+                        >
+                            {pages_drawer()}
+                        </Drawer>
+                        <Box
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{alignItems: 'center', display: {xs: 'flex', md: 'none'}}}
+                        >
+                            <Box
+                                component="img"
+                                sx={{
+                                    height: 70,
+                                    width: '100%',
+                                }}
+                                alt="McMaster Logo"
+                                src="/assets/logo-small.png"
+                                style={imgStyle}
+                            />
+                            <Typography
+                                variant="h3"
+                                component={Link}
+                                href="/"
+                                sx={{
+                                    mr: 2,
+                                    flexGrow: 1,
+                                    color: 'inherit',
+                                    textDecoration: 'none',
+                                }}
+                                className={styles.title}
+                            >
+                                MacApp
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 78.31,
+                            width: 140,
+                            display: {xs: 'none', md: 'flex'}
+                        }}
                         alt="McMaster Logo"
-                        width={140}
-                        height={78.31}
+                        src="/assets/logo.png"
                         style={imgStyle}
                     />
                     <Typography
@@ -608,72 +759,12 @@ export default function Navbar() {
                         }}
                         className={styles.title}
                     >
-                        MacApp
-                    </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <MacIconNavButton
-                            size="large"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </MacIconNavButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav as Element}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            disableScrollLock={true}
-                            sx={{
-                                display: {xs: 'block', md: 'none'},
-                            }}
-                        >
-                            {pages.map(page => (
-                                <MenuItem
-                                    key={page[0]}
-                                    onClick={handleCloseNavMenu}
-                                    component={Link}
-                                    href={page[1]}
-                                >
-                                    <Typography textAlign="center">
-                                        {page[0]}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    <Typography
-                        variant="h3"
-                        noWrap
-                        component={Link}
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'flex', md: 'none'},
-                            flexGrow: 1,
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                        className={styles.title}
-                    >
-                        MacApp
+                        MacScribe
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {pages.map(page => (
                             <MacNavButton
                                 key={page[0]}
-                                onClick={handleCloseNavMenu}
                                 component={Link}
                                 href={page[1]}
                                 className={
@@ -690,7 +781,7 @@ export default function Navbar() {
                 </Toolbar>
             </Container>
         </AppBar>
-    )
+    );
 }
 {% endraw %}
 ```
@@ -703,7 +794,7 @@ Clicking on a button will take you to the corresponding page.
 ![page-2](assets/img/page-2.png)
 Notice that the button of the active page has a white background to inform the user which page they are currently on. 
 
-On smaller screen the navigation bar will make use of a menu:
+On smaller screens the navigation bar will make use of an app drawer, where the active page is highlighted:
 ![page-1](assets/img/page-1.png)
 
 ### Adding a Settings Button
@@ -713,9 +804,9 @@ Start by adding the following import statement to `Navbar.tsx`:
 ```
 import SettingsIcon from '@mui/icons-material/Settings'
 ```
-We are importing the MUI "Settings" icon (gear icon) for use in our navigation bar.
+We are importing the MUI "Settings" icon (gear icon) for use in our navigation bar and app drawer.
 
-Add the following lines of code immediately after the `Box` component containing the `MacNavButtons`for "Page 1" and "Page 2":
+Add the following lines of code immediately after the `Box` component containing the `MacNavButtons` for "Page 1" and "Page 2":
 ```
 {% raw %}
 <Box sx={{paddingRight: 1}}>
@@ -741,6 +832,43 @@ Add the following lines of code immediately after the `Box` component containing
 ```
 We are effectively adding a new `Box` component that contains an instance of the `MacIconNavButton` styled component that we created earlier. The `MacIconNavButton` contains the `SettingsIcon` component that appears as a gear icon. Notice the `MacIconNavButton` is wrapped in a `Tooltip` component which allows us to present the user with a tooltip message when they hover over the gear icon. Currently, the settings icon button is set to redirect the user to the `settings` page, which we will create shortly.
 
+On small screens, the settings link should be displayed at the bottom of the app drawer. Modify the `pages_drawer` function to render a settings link as shown below:
+```
+{% raw %}
+const pages_drawer = () => (
+	<Box
+		paddingTop={1}
+		sx={{ width:  250 }}
+		role="presentation"
+		onKeyDown={toggleDrawer(false)}
+>
+		<List>
+			{pages.map((page, index) => (
+				<ListItem key={page[0]} disablePadding>
+					<ListItemButton onClick={toggleDrawer(false)} component={Link} href={page[1]} selected= {currentRoute === page[1]} >
+						<ListItemIcon>
+							{icons[index]}
+						</ListItemIcon>
+						<ListItemText primary={page[0]} />
+					</ListItemButton>
+				</ListItem>
+			))}
+		</List>
+		<List style={{ position: "absolute", bottom: "0", right: "0", left: "0"}}>
+			<ListItem key={'settings'} disablePadding>
+				<ListItemButton onClick={toggleDrawer(false)} component={Link} href={'/settings'} selected= {currentRoute === '/settings'} color="inherit" >
+					<ListItemIcon>
+						<SettingsIcon />
+					</ListItemIcon>
+					<ListItemText primary={'Settings'} />
+				</ListItemButton>
+			</ListItem>
+		</List>
+	</Box>
+);
+{% endraw %}
+```
+
 Your `Navbar.tsx` file should now look like this:
 ```
 {% raw %}
@@ -748,22 +876,24 @@ import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import MenuItem from '@mui/material/MenuItem'
 import Link from 'next/link'
-import Image from 'next/image'
-import SettingsIcon from '@mui/icons-material/Settings'
 import {useRouter} from 'next/router'
-import styles from '@/styles/Navbar.module.css'
+import styles from '@/styles/NavBar.module.css'
+import {MacIconNavButton, MacNavButton,} from '@/components/MacComponents/MacNavButton'
 import Tooltip from '@mui/material/Tooltip'
-import {
-    MacIconNavButton,
-    MacNavButton,
-} from '@/components/MacComponents/MacNavButton'
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ClearIcon from '@mui/icons-material/Clear';
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import LooksOneIcon from '@mui/icons-material/LooksOne';
+import LooksTwoIcon from '@mui/icons-material/LooksTwo';
+import SettingsIcon from '@mui/icons-material/Settings'
 
 const pages = [
     ['Page 1', '/page_1'],
@@ -771,41 +901,146 @@ const pages = [
 ]
 
 export default function Navbar() {
-    const [anchorElNav, setAnchorElNav] = React.useState<EventTarget | null>(
-        null
-    )
-
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorElNav(event.currentTarget)
-    }
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null)
-    }
-
     const imgStyle = {
         paddingTop: '10px',
         paddingBottom: '10px',
         paddingRight: '30px',
     }
 
+    const [state, setState] = React.useState(false);
+
+    const toggleDrawer =
+        (open: boolean) =>
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event.type === 'keydown' &&
+                    ((event as React.KeyboardEvent).key === 'Tab' ||
+                        (event as React.KeyboardEvent).key === 'Shift')
+                ) {
+                    return;
+                }
+                setState(open);
+            };
+
     const router = useRouter()
     const currentRoute = router.pathname
 
+    const icons = [<LooksOneIcon key={'transcripts-page'} />, <LooksTwoIcon key={'privacy-policy'}/>]
+
+    const pages_drawer = () => (
+        <Box
+            paddingTop={1}
+            sx={{ width:  250 }}
+            role="presentation"
+            onKeyDown={toggleDrawer(false)}
+        >
+            <List>
+                {pages.map((page, index) => (
+                    <ListItem key={page[0]} disablePadding>
+                        <ListItemButton onClick={toggleDrawer(false)} component={Link} href={page[1]} selected= {currentRoute === page[1]} >
+                            <ListItemIcon>
+                                {icons[index]}
+                            </ListItemIcon>
+                            <ListItemText primary={page[0]} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+            <List style={{ position: "absolute", bottom: "0", right: "0", left: "0"}}>
+                <ListItem key={'settings'} disablePadding>
+                    <ListItemButton onClick={toggleDrawer(false)} component={Link} href={'/settings'} selected= {currentRoute === '/settings'} color="inherit" >
+                        <ListItemIcon>
+                            <SettingsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Settings'} />
+                    </ListItemButton>
+                </ListItem>
+            </List>
+        </Box>
+    );
+
     return (
         <AppBar
-            position="static"
+            position="relative"
             enableColorOnDark
             style={{backgroundImage: 'none'}}
             sx={{zIndex: theme => theme.zIndex.drawer + 1, borderRadius: 0}}
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Image
-                        src="/assets/logo.png"
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                        <Tooltip enterDelay={500} title={state ? "Close App Drawer" : "Open App Drawer"}>
+                            <MacIconNavButton
+                                size="large"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={toggleDrawer(!state)}
+                                color="inherit"
+                            >
+                                {state ? <ClearIcon /> : <MenuIcon />}
+                            </MacIconNavButton>
+                        </Tooltip>
+                        <Drawer
+                            anchor={"left"}
+                            open={state}
+                            onClose={toggleDrawer(false)}
+                            sx={{
+                                '& .MuiDrawer-root': {
+                                    position: 'absolute'
+                                },
+                                '& .MuiPaper-root': {
+                                    position: 'absolute',
+                                    borderRadius: 0
+                                },
+                                minWidth: 100,
+                                width: "20%",
+                                position: "absolute",
+                                top: '70px',
+                                display: {xs: 'flex', md: 'none'}
+                            }}
+                        >
+                            {pages_drawer()}
+                        </Drawer>
+                        <Box
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{alignItems: 'center', display: {xs: 'flex', md: 'none'}}}
+                        >
+                            <Box
+                                component="img"
+                                sx={{
+                                    height: 70,
+                                    width: '100%',
+                                }}
+                                alt="McMaster Logo"
+                                src="/assets/logo-small.png"
+                                style={imgStyle}
+                            />
+                            <Typography
+                                variant="h3"
+                                component={Link}
+                                href="/"
+                                sx={{
+                                    mr: 2,
+                                    flexGrow: 1,
+                                    color: 'inherit',
+                                    textDecoration: 'none',
+                                }}
+                                className={styles.title}
+                            >
+                                MacApp
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 78.31,
+                            width: 140,
+                            display: {xs: 'none', md: 'flex'}
+                        }}
                         alt="McMaster Logo"
-                        width={140}
-                        height={78.31}
+                        src="/assets/logo.png"
                         style={imgStyle}
                     />
                     <Typography
@@ -821,71 +1056,12 @@ export default function Navbar() {
                         }}
                         className={styles.title}
                     >
-                        MacApp
-                    </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <MacIconNavButton
-                            size="large"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </MacIconNavButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav as Element}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: {xs: 'block', md: 'none'},
-                            }}
-                        >
-                            {pages.map(page => (
-                                <MenuItem
-                                    key={page[0]}
-                                    onClick={handleCloseNavMenu}
-                                    component={Link}
-                                    href={page[1]}
-                                >
-                                    <Typography textAlign="center">
-                                        {page[0]}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    <Typography
-                        variant="h3"
-                        noWrap
-                        component={Link}
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'flex', md: 'none'},
-                            flexGrow: 1,
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                        className={styles.title}
-                    >
-                        MacApp
+                        MacScribe
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {pages.map(page => (
                             <MacNavButton
                                 key={page[0]}
-                                onClick={handleCloseNavMenu}
                                 component={Link}
                                 href={page[1]}
                                 className={
@@ -899,10 +1075,8 @@ export default function Navbar() {
                             </MacNavButton>
                         ))}
                     </Box>
-                    <Box sx={{paddingRight: 1}}>
-                        <Tooltip
-                            title= "Settings"
-                        >
+                    <Box sx={{paddingRight: 1, display: {xs: 'none', md: 'flex'}}}>
+                        <Tooltip title="Settings">
                             <MacIconNavButton
                                 aria-label="settings"
                                 color="inherit"
@@ -921,13 +1095,17 @@ export default function Navbar() {
                 </Toolbar>
             </Container>
         </AppBar>
-    )
+    );
 }
 {% endraw %}
 ```
 
 Your navigation bar should now contain a settings icon on the right hand side. Hovering your mouse over the settings icon will turn it heritage gold and display a tooltip message.
 ![navbar-settings](assets/img/navbar-settings.png)
+Try reducing the width of your browser window to simulate a small-screen device. The app drawer will have a settings link at the bottom of the list.
+
+![drawer-settings](assets/img/drawer-settings.png)
+
 ### Creating the `VerticalTabs` Component
 As previously mentioned, our settings page will make use of vertical tabs to group related controls. We will now create our custom `VerticalTabs` component using the MUI `Tab` component.
 
@@ -941,6 +1119,18 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import SettingsAccessibilityOutlinedIcon from '@mui/icons-material/SettingsAccessibilityOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
+import IconButton from "@mui/material/IconButton";
 
 interface TabPanelProps {
     children?: React.ReactNode
@@ -975,6 +1165,7 @@ function a11yProps(index: number) {
     }
 }
 
+
 export default function VerticalTabs() {
     const [value, setValue] = React.useState(0)
 
@@ -982,52 +1173,137 @@ export default function VerticalTabs() {
         setValue(newValue)
     }
 
-    return (
-        <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex'}}>
-            <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                onChange={handleChange}
-                aria-label="Vertical tabs"
-                sx={{borderRight: 1, borderColor: 'divider'}}
-            >
-                <Tab label="Tab 1" {...a11yProps(0)} />
-                <Tab label="Tab 2" {...a11yProps(1)} />
-                <Tab label="Tab 3" {...a11yProps(2)} />
-                <Tab label="Tab 4" {...a11yProps(3)} />
-                <Tab label="Tab 5" {...a11yProps(4)} />
-                <Tab label="Tab 6" {...a11yProps(5)} />
-                <Tab label="Tab 7" {...a11yProps(6)} />
-            </Tabs>
-            <TabPanel value={value} index={0}>
-                Setttings Pane One
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                Settings Pane Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                Settings Pane Three
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                Settings Pane Four
-            </TabPanel>
-            <TabPanel value={value} index={4}>
-                Settings Pane Five
-            </TabPanel>
-            <TabPanel value={value} index={5}>
-                Settings Pane Six
-            </TabPanel>
-            <TabPanel value={value} index={6}>
-                Settings Pane Seven
-            </TabPanel>
+    const tabs = ['Notifications', 'Privacy', 'Accessibility', 'Account'];
+    const icons = [<NotificationsNoneOutlinedIcon key={'notifications'}/>, <LockOutlinedIcon key={'privacy'}/>, <SettingsAccessibilityOutlinedIcon key={'accessibility'}/>, <ManageAccountsOutlinedIcon key={'account'}/>]
+
+    const handleChangeDrawer = (e: React.MouseEvent<HTMLDivElement>, newValue: number) => {
+        setValue(newValue);
+    }
+
+    const [state, setState] = React.useState(false);
+
+    const toggleDrawer =
+        (open: boolean) =>
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event.type === 'keydown' &&
+                    ((event as React.KeyboardEvent).key === 'Tab' ||
+                        (event as React.KeyboardEvent).key === 'Shift')
+                ) {
+                    return;
+                }
+                setState(open);
+            };
+
+    const list = () => (
+        <Box
+            sx={{ width:  250 }}
+            role="presentation"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+        >
+            <List>
+                {tabs.map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton selected= {value === index} onClick={(e) => handleChangeDrawer(e, index)}>
+                            <ListItemIcon>
+                                {icons[index]}
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
         </Box>
+    );
+
+    return (
+        <>
+            <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex'}}>
+                <Tabs
+                    orientation="vertical"
+                    variant="scrollable"
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="Vertical tabs"
+                    sx={{borderRight: 1, borderColor: 'divider', display: {xs: 'none', md: 'flex'}}}
+                >
+                    {tabs.map((text, index) => (
+                        <Tab key={text} label={text} icon={icons[index]} iconPosition="start" {...a11yProps(index)} sx={{justifyContent: 'left'}} />
+                    ))}
+                </Tabs>
+                <Box sx={{paddingTop: '19px'}}>
+                    <IconButton title="Settings Drawer" aria-label="settings-menu" onClick={toggleDrawer(true)} sx={{ display: {xs: 'inline', md: 'none'}, height:'40px'}}> <FormatListBulletedOutlinedIcon /> </IconButton>
+                </Box>
+                <Drawer
+                    anchor={"left"}
+                    open={state}
+                    onClose={toggleDrawer(false)}
+                    sx={{
+                        '& .MuiDrawer-root': {
+                            position: 'absolute'
+                        },
+                        '& .MuiPaper-root': {
+                            position: 'absolute'
+                        },
+                        minWidth: 100,
+                        width: "20%",
+                        position: "absolute",
+                        top: '230px',
+                        left: '2%',
+                        height: '50%',
+                        display: {xs: 'flex', md: 'none'}
+                    }}                        >
+                    {list()}
+                </Drawer>
+                <TabPanel value={value} index={0}>
+                    <Typography
+                        sx={{display: {xs: 'flex', md: 'none'}, justifyContent: 'left', paddingLeft: '10px'}}
+                        variant="settingTitle"
+                        gutterBottom
+                    >
+                        Notifications
+                    </Typography>
+                    Placeholder
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <Typography
+                        sx={{display: {xs: 'flex', md: 'none'}, justifyContent: 'left', paddingLeft: '10px'}}
+                        variant="settingTitle"
+                        gutterBottom
+                    >
+                        Privacy
+                    </Typography>
+                    Placeholder
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                    <Typography
+                        sx={{display: {xs: 'flex', md: 'none'}, justifyContent: 'left', paddingLeft: '10px'}}
+                        variant="settingTitle"
+                        gutterBottom
+                    >
+                        Accessibility
+                    </Typography>
+                    Placeholder
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                    <Typography
+                        sx={{display: {xs: 'flex', md: 'none'}, justifyContent: 'left', paddingLeft: '10px'}}
+                        variant="settingTitle"
+                        gutterBottom
+                    >
+                        Account
+                    </Typography>
+                    Placeholder
+                </TabPanel>
+            </Box>
+        </>
     )
 }
 {% endraw %}
 ```
 
-We created a custom `TabPanel` component that will house the content of each tab in our panel. We also made use of the MUI `Tabs` component with several children `Tab` components containing the label of each tab. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple string. We will add styled form controls to some of the panels in a later section of this workshop.
+The layout of the `VerticalTabs` changes depending on the display size of the device viewing the page. We created a custom `TabPanel` component that will house the content of each tab in our panel. For medium and large displays, we made use of the MUI `Tabs` component with several children `Tab` components containing the label of each tab. The tabs are displayed vertically on the left hand side of the screen. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple placeholder string. We will add styled form controls to some of the panels in a later section of this workshop. On small screens, the tabs are automatically moved to `Drawer` components that can be activated using an `IconButton`. Switching between the `Tabs` and `Drawer` components by resizing the browser window will save the user's current position (i.e., the current tab that they are on). The current active tab is always highlighted on both the full-sized tabs as well as the drawer.
 
 ### Create the Settings Page
 Start by creating a CSS style for the settings page. Add the following lines to `styles/Home.module.css`:
@@ -1037,7 +1313,7 @@ Start by creating a CSS style for the settings page. Add the following lines to 
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 164px);
   padding-top: 1rem;
   padding-bottom: 2rem;
 }
@@ -1083,5 +1359,8 @@ export default function Settings() {
 ```
 We added `Container` that includes a `Typography` component to display the title of the page using the `h2` variant. We also added a `Box` component containing the `VerticalTabs`. The Effect Hook is used to change the document title shown in the browser tab.
 
-Go back to your browser and try clicking on the settings icon in the navigation bar. You will be redirected to the settings page with the vertical tabs. You can easily switch tabs by clicking on the label of the desired tab.
-![settings](assets/img/settings.png)
+![settings-medium](assets/img/settings-medium.png)
+
+Go back to your browser and try clicking on the settings icon in the navigation bar. You will be redirected to the settings page with the vertical tabs. You can easily switch tabs by clicking on the label of the desired tab. Try shrinking your browser window horizontally and notice how the `VerticalTabs` component scales accordingly. 
+
+![settings-small](assets/img/settings-small.png)
