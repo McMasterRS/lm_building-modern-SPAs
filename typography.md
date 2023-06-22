@@ -140,7 +140,7 @@ Open the `index.tsx` file and add the following import statement to import the M
 ```
 import Typography from '@mui/material/Typography'
 ```
-Delete line 14 and replace it with the following line of code:
+Delete line 15 and replace it with the following line of code:
 ```
 <Typography variant="h1">Hello World!</Typography>
 ```

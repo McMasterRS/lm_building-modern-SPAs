@@ -199,7 +199,7 @@ const pages = [
 	['Page 2', '/page_2'],  
 ]
 ```
-We will create the the `.tsx` files shortly.
+We will create the  `.tsx` files shortly.
 
 We will now create the `Navbar` function which returns the `AppBar` component:
 ```
@@ -336,7 +336,7 @@ export default function Navbar() {
                         }}
                         className={styles.title}
                     >
-                        MacScribe
+                        MacApp
                     </Typography>
                 </Toolbar>
             </Container>
@@ -797,7 +797,7 @@ Notice that the button of the active page has a white background to inform the u
 On smaller screens the navigation bar will make use of an app drawer, where the active page is highlighted:
 ![page-1](assets/img/page-1.png)
 
-### Adding a Settings Button
+### Add a Settings Button
 In this section, we will add an icon button that redirects the user to the "Settings" page of our web application. The "Settings" page will use vertical tabs to display and group related controls. We will also learn how to add a tooltip message to an icon button to help our users understand what each icon in our navigation bar signifies. 
 
 Start by adding the following import statement to `Navbar.tsx`:

@@ -290,7 +290,7 @@ export default function Home() {
 }
 ```
 
-Go back to your browser, your website shold now contain a file input widget after the two buttons. Akin to the buttons, the file input uses rounded corners by default owing to the theme `borderRadius` value of 28.
+Go back to your browser, your website should now contain a file input widget after the two buttons. Akin to the buttons, the file input uses rounded corners by default owing to the theme `borderRadius` value of 28.
 ![file-input](assets/img/file-input.png)
 Clicking on the widget allows you to select one or more files to upload.
 

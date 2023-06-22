@@ -124,6 +124,6 @@ cd mac-branding-mui
 
 Run the following command to add the MUI library to your project using the `npm` package manager: 
 ~~~
-npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
 ~~~
 You will be presented with the following message `added 59 packages, and audited 358 packages in 6s` if the installation is successful. Some of the numbers in the message may be different for you.
