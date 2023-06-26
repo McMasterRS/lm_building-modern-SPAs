@@ -256,6 +256,7 @@ We will now update the `pages_drawer` function to display the dark/light mode to
 
 Your `Navbar.tsx` file should now look like this:
 ```
+{% raw %}
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -524,6 +525,7 @@ export default function Navbar() {
         </AppBar>
     );
 }
+{% endraw %}
 ```
 
 Go back to your browser and try switching mode by using the sundial icon in the navigation bar.
