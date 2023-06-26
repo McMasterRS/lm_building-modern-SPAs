@@ -1,8 +1,8 @@
 # McMaster Branding
 
-Materials for the McMaster Research Software workshop: **McMaster Branding**  
+Materials for the McMaster Research Software learning module: **McMaster Branding**  
 
-This repository contains workshop files, as well as files used to create the [workshop webpage](https://mcmasterrs.github.io/mac-branding-tutorial) with GitHub Pages.  
+This repository contains learning module files, as well as files used to create the [learning module webpage](https://mcmasterrs.github.io/lm_mac-branding) with GitHub Pages.  
 
 Contributions by the following individuals: 
 - Workshop content created by Elias Eid
