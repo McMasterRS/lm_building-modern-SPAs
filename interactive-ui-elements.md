@@ -629,6 +629,7 @@ Modify the `Box` component containing the "Page 1" `Typography` component by add
 
 Finally, add the "Download" `MacButton` and the `StyledMenu` containing the different file formats inside the `Box` component:
 ```
+{% raw %}
   <MacButton
     id="download-button"
     sx={{
@@ -692,12 +693,14 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
         Format 3
     </MenuItem>
 </StyledMenu>
+{% endraw %}
 ```
 
 We used the "secondary" variant of the `MacButton` component. Notice that we used two different variants of the "Download" button depending on the screen size determined using the `display` attribute of the `sx` property. On medium and large displays, the button shows a "Download" text sandwiched between a `startIcon` indicating its function (i.e., the `DownloadIcon`) and an `endIcon` consisting of a downwards pointing arrow to inform the user that it is a menu button. On small screens, we removed the "Download" text from the button and replaced it with a tooltip message. The "Download" button is positioned in the top right corner of the page using the `sx` property on all screen sizes.
 
 Your `pages/page_1/index.tsx` file should now look like this:
 ```
+{% raw %}s
 import React from "react";
 import styles from '@/styles/Home.module.css'
 import Typography from '@mui/material/Typography'
@@ -852,6 +855,7 @@ export default function Page_1() {
     </>
   )
 }
+{% endraw %}
 ```
 
 Save the file and go back to your browser. Navigate to "Page 1" and you will see the button that we just added.
