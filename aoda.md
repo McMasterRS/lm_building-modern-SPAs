@@ -74,6 +74,7 @@ import {useTheme} from '@mui/material/styles'
 ```
 Modify the `MuiFileInput` component by adding an `sx` prop as shown below:
 ```
+{% raw %}
 <MuiFileInput  
 	multiple  
 	placeholder="Click here and select file(s)"  
@@ -86,6 +87,7 @@ Modify the `MuiFileInput` component by adding an `sx` prop as shown below:
 		},  
 	}}  
 />
+{% endraw %}
 ```
 
 Reload the main page in your browser and re-run the Wave tool. The contrast error should now be fixed.
