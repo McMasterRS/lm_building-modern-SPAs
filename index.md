@@ -17,7 +17,7 @@ Learn the basics of styling Material UI components to conform to the McMaster Di
 In this beginner learning module, participants will learn how to create a Next.js application, add the MUI library to it, and style MUI components to fit the McMaster Digital Brand Standards. We will also learn how to ensure that these components scale properly on small screen devices and how to evaluate a website for AODA compliance using the Wave tool. 
 No previous experience with Next.js or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
 
-## Pre-workshop Setup
+## Initial Setup
 
 Please follow these steps to install Node.js and create a Next.js application **before** starting the learning module.
 

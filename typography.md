@@ -88,7 +88,7 @@ const themeOptions = {
 export default themeOptions
 ```
 
-In this code snippet, we are defining the different typography variants that can be used in our application. The heading styles conform to the McMaster Digital Brand Standards. The `button` and `settingTitle` typographies define the font style to use for text located in buttons and setting titles respectively. We will cover styling buttons and the "Settings" page in later sections of this workshop.
+In this code snippet, we are defining the different typography variants that can be used in our application. The heading styles conform to the McMaster Digital Brand Standards. The `button` and `settingTitle` typographies define the font style to use for text located in buttons and setting titles respectively. We will cover styling buttons and the "Settings" page in later sections of this learning module.
 
 ### Creating a Theme Provider
 Open the `_app.tsx_` file located in the `pages` directory and add the following import statements:

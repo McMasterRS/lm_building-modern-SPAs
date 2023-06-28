@@ -5,13 +5,13 @@ nav_order: 3
 ---
 # Outline
 
-## Goal of this workshop
+## Goal of this learning module
 
-The goal of this workshop is to learn how to style **some** MUI components using the McMaster Digital Branding Guidelines. You will not be an expert on MUI by the end of the class and this is okay. We want to cover the basics of MUI styling, but as with any skill, mastering it takes practice. You will also learn the basics of mobile user interface design as well as how to use the Wave tool to evaluate your website for AODA compliance.
+The goal of this learning module is to learn how to style **some** MUI components using the McMaster Digital Branding Guidelines. You will not be an expert on MUI by the end of the class and this is okay. We want to cover the basics of MUI styling, but as with any skill, mastering it takes practice. You will also learn the basics of mobile user interface design as well as how to use the Wave tool to evaluate your website for AODA compliance.
 
 ### Learning Objectives
 
-At the end of this workshop, attendees will be able to:
+At the end of this learning module, attendees will be able to:
 
 - Create a Next.js application
 - Add the MUI library to a Next.js application

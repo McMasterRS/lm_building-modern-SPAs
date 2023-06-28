@@ -21,7 +21,7 @@ Throughout this learning module, we learned the basics of styling Material UI co
 - Vertical tabs that make use of a drawer on mobile devices
 - AODA compliance
 
-While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this workshop provided you with the basic knowledge needed to create your McMaster-branded website. 
+While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this learning module provided you with the basic knowledge needed to create your McMaster-branded website. 
 
 We recommend the following resources if you want to learn more about Next.js, Material UI, the McMaster Brand Standards, and the web accessibility guidelines:
 - [The Official Next.js Docs](https://nextjs.org/docs)
