@@ -193,7 +193,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 ### Add Light/Dark Mode Toggle to Navigation Bar
 We will now add a responsive toggle to our navigation bar that allows the user to easily switch between dark and light mode. 
-Start by adding the following import statement to `Navbar.tsx`:
+Start by adding the following import statements to `Navbar.tsx`:
 ```
 import {useTheme} from '@mui/material/styles'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
@@ -533,7 +533,7 @@ Go back to your browser and try switching mode by using the sundial icon in the 
 
 ![light-mode](assets/img/light-mode.png)
 
-The chosen mode is automatically applied to all pages of the website. Try navigating to "Page1", "Page 1" and the "Settings" page. They will all automatically use the chosen mode and the text and UI element colors will change to maintain readability.
+The chosen mode is automatically applied to all pages of the website. Try navigating to "Page1", "Page 2" and the "Settings" page. They will all automatically use the chosen mode and the text and UI element colors will change to maintain readability.
 
 Try enabling dark mode on your system and then navigate to the website in a new tab or reload the current tab. The website should automatically use dark mode when you first load the page. Note that you can still manually switch to light mode using the sundial icon.
 

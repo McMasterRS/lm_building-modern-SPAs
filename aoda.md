@@ -16,6 +16,8 @@ To evaluate a page, simply click on the extension button in your browser's toolb
 ![wave-button](assets/img/wave-button.png)
 The Wave sidebar will be shown on the left side of your browser. The sidebar includes a summary of all the errors, alerts and features that are present on the page you have open.
 
+You will need to evaluate all pages of your website across their different variations using this tool. For instance, if your website has a light and a dark mode, you will need to evaluate each page in both modes. Furthermore, if you have some UI elements that only appear in certain conditions (e.g., mobile/tablet UI, etc.), you will will have to evaluate each page in all its variations. 
+
 In our case, the Wave tool identifies 1 regular error and 1 contrast error as shown in the image below. 
 ![wave-sidebar](assets/img/wave-sidebar.png)
 
@@ -28,7 +30,7 @@ Pull the website's HTML code by clicking on the turquoise "Code" button at the b
 ### Empty Button Error
 After inspecting the code, we found that the empty button is the "Menu" button that appears on the navigation bar on smaller screens. To fix the issue, we will add a tooltip message to the "Menu" button.
 
-Open the `Navbar.tsx` file located under `Components/Navbar`, and wrap the `IconButton` component containing a `MenuIcon` with a `Tooltip` component as shown below:
+Open the `Navbar.tsx` file located under `components/Navbar`, and wrap the `IconButton` component containing a `MenuIcon` with a `Tooltip` component as shown below:
 ```
 <Tooltip title={"Menu"}>
 	<MacIconNavButton
@@ -60,13 +62,13 @@ Open the `components/BreadCrumbs/BreadCrumbs.tsx` file and locate the `MacButton
 </MacButton>
 ```
 
-Go back to your browser and try hovering over the back button. You will see a the title message appear.
+Go back to your browser and try hovering over the back button. You will see the title message appear.
 Re-run the Wave tool on "Page 1". The empty button error will no longer be shown.
 
 ![page-1-wave-fixed](assets/img/page-1-wave-fixed.png)
 
 ### Contrast Error
-Go back to the main index page and run the Wave tool. You will notice that the tool identifies a contrast error on this page. The contrast error is caused by the shade of grey used for the placeholder text on the file input widget that appears on the main index page of our website. To fix the error, we will modify the file input widget to use a slightly darker shade of grey in light mode that is AODA-compliant for the placeholder text. Dark mode uses a light grey color for the placeholder text to maintain visibility against a dark background.
+Go back to the main index page and run the Wave tool. You will notice that the tool identifies a contrast error on this page. The contrast error is caused by the shade of grey used for the placeholder text on the file input widget that appears on the main index page of our website. To fix the error, we will modify the file input widget to use a slightly darker shade of grey in light mode that is AODA compliant for the placeholder text. Dark mode uses a light grey color for the placeholder text to maintain visibility against a dark background.
 
 Open the `pages/index.tsx` file and add the following import statement:
 ```
@@ -89,6 +91,8 @@ Modify the `MuiFileInput` component by adding an `sx` prop as shown below:
 />
 {% endraw %}
 ```
+
+We used the `sx` prop to modify the color of the `placeholder` text depending on which theme mode (light/dark) is currently active. Note that we had to use the `important` CSS rule to modify the placeholder text color. Using the `important` CSS rule is often not required for standard MUI components, but it is required in this case because the `MuiFileInput` component is a third-party library that comes with some default styles that cannot be overridden without the  `important` CSS rule. 
 
 Reload the main page in your browser and re-run the Wave tool. The contrast error should now be fixed.
 

@@ -6,7 +6,7 @@ nav_order: 10
 
 # Interactive UI Elements
 
-Modern websites requires the use of UI elements that not only allow the user to perform a wide range of functions, but also react to the user's actions in an intuitive manner. MUI offers a wide range of customizable built-in components that adhere to the Material Design Language. In this section, we will learn how to style certain MUI components to conform to the stylistic guidelines set by McMaster Digital Brand Standards Manual. The aim of this section is not to provide a comprehensive tutorial on how to use these different MUI components (this information is covered in the [Material UI Documentation](https://mui.com/material-ui/getting-started/overview/) ), but to modify the components' behavior and appearance to fit the McMaster Digital Brand Standards. 
+Modern websites requires the use of UI elements that not only allow the user to perform a wide range of functions, but also react to the user's actions in an intuitive manner. MUI offers a number of customizable built-in components that adhere to the Material Design Language. In this section, we will learn how to style certain MUI components to conform to the stylistic guidelines set by McMaster Digital Brand Standards Manual. The aim of this section is not to provide a comprehensive tutorial on how to use these different MUI components (this information is covered in the [Material UI Documentation](https://mui.com/material-ui/getting-started/overview/) ), but to modify the components' behavior and appearance to fit the McMaster Digital Brand Standards. 
 
 ### Buttons
 We have already create a styled `MuiButton` component called `MacButton` in the "Breadcrumbs With a Universal Back Button" section. We will now show a couple more examples of how we can use the styled `MacButton` component in different ways.
@@ -558,7 +558,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import {alpha, styled} from '@mui/material/styles';
 ```
 
-Next we will create a styled menu that follows the standards recommended by the official MUI documentation.
+Next, we will create a styled menu that follows the standards recommended by the official MUI documentation.
 Add the `StyledMenu` constant declaration before the `Page_1()` function declaration:
 ```
 const StyledMenu = styled((props: MenuProps) => (
@@ -630,28 +630,7 @@ Modify the `Box` component containing the "Page 1" `Typography` component by add
 Finally, add the "Download" `MacButton` and the `StyledMenu` containing the different file formats inside the `Box` component:
 ```
 {% raw %}
-  <MacButton
-    id="download-button"
-    sx={{
-        position: 'fixed',
-        top: 20,
-        right: 10,
-        zIndex: 2000,
-    }}
-    aria-controls={
-        openMenu ? 'download-menu' : undefined
-    }
-    aria-haspopup="true"
-    aria-expanded={openMenu ? 'true' : undefined}
-    variant="contained"
-    mainColor="secondary"
-    onClick={handleClickMenu}
-    startIcon={<DownloadIcon />}
-    endIcon={<KeyboardArrowDownIcon />}
->
-    Download
-</MacButton>
-<Tooltip title={"Download"} >
+<Tooltip title={useMediaQuery(useTheme().breakpoints.down('md')) ? 'Download' : ''} >
   <MacButton
 	  id="download-button"
 	  sx={{
@@ -659,7 +638,7 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
 		  top: 20,
 		  right: 10,
 		  zIndex: 2000,
-		  display: {xs: 'flex', md: 'none'}
+		  display: 'flex'
 	  }}
 	  aria-controls={
 		  openMenu ? 'download-menu' : undefined
@@ -667,13 +646,15 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
 	  aria-haspopup="true"
 	  aria-expanded={openMenu ? 'true' : undefined}
 	  variant="contained"
-	  mainColor="secondary"
 	  onClick={handleClickMenu}
+	  startIcon={<DownloadIcon />}
 	  endIcon={<KeyboardArrowDownIcon />}
+	  mainColor="secondary"
 >
-	  <DownloadIcon />
+	  {useMediaQuery(useTheme().breakpoints.up('md')) ? 'Download' : ''}
   </MacButton>
 </Tooltip>
+                  
 <StyledMenu
     id="download-menu"
     MenuListProps={{
@@ -696,7 +677,7 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
 {% endraw %}
 ```
 
-We used the "secondary" variant of the `MacButton` component. Notice that we used two different variants of the "Download" button depending on the screen size determined using the `display` attribute of the `sx` property. On medium and large displays, the button shows a "Download" text sandwiched between a `startIcon` indicating its function (i.e., the `DownloadIcon`) and an `endIcon` consisting of a downwards pointing arrow to inform the user that it is a menu button. On small screens, we removed the "Download" text from the button and replaced it with a tooltip message. The "Download" button is positioned in the top right corner of the page using the `sx` property on all screen sizes.
+We used the "secondary" variant of the `MacButton` component. Notice that we used the `useMediaQuery` function in conjunction with breakpoints to determine if the button should have a tooltip or a "Download" string in it depending on the screen size. On medium and large displays, the button shows a "Download" text sandwiched between a `startIcon` indicating its function (i.e., the `DownloadIcon`) and an `endIcon` consisting of a downwards pointing arrow to inform the user that it is a menu button. On small screens, we removed the "Download" text from the button and replaced it with a tooltip message. The "Download" button is positioned in the top right corner of the page using the `sx` property on all screen sizes.
 
 Your `pages/page_1/index.tsx` file should now look like this:
 ```
@@ -784,30 +765,7 @@ export default function Page_1() {
                   justifyContent="center"
                   alignItems="center">
                   <Typography variant="h1">Page 1</Typography>
-                  <MacButton
-                      id="download-button"
-                      sx={{
-                          position: 'fixed',
-                          top: 20,
-                          right: 10,
-                          zIndex: 2000,
-                          display: {xs: 'none', md: 'flex'}
-                      }}
-                      aria-controls={
-                          openMenu ? 'download-menu' : undefined
-                      }
-                      aria-haspopup="true"
-                      aria-expanded={openMenu ? 'true' : undefined}
-                      variant="contained"
-                      mainColor="secondary"
-                      onClick={handleClickMenu}
-                      startIcon={<DownloadIcon />}
-                      endIcon={<KeyboardArrowDownIcon />}
-                  >
-                      Download
-                  </MacButton>
-
-                  <Tooltip title={"Download"} >
+                  <Tooltip title={useMediaQuery(useTheme().breakpoints.down('md')) ? 'Download' : ''} >
                       <MacButton
                           id="download-button"
                           sx={{
@@ -815,7 +773,7 @@ export default function Page_1() {
                               top: 20,
                               right: 10,
                               zIndex: 2000,
-                              display: {xs: 'flex', md: 'none'}
+                              display: 'flex'
                           }}
                           aria-controls={
                               openMenu ? 'download-menu' : undefined
@@ -823,11 +781,12 @@ export default function Page_1() {
                           aria-haspopup="true"
                           aria-expanded={openMenu ? 'true' : undefined}
                           variant="contained"
-                          mainColor="secondary"
                           onClick={handleClickMenu}
+                          startIcon={<DownloadIcon />}
                           endIcon={<KeyboardArrowDownIcon />}
+                          mainColor="secondary"
                       >
-                          <DownloadIcon />
+                          {useMediaQuery(useTheme().breakpoints.up('md')) ? 'Download' : ''}
                       </MacButton>
                   </Tooltip>
                   <StyledMenu
@@ -867,7 +826,7 @@ Try shrinking your browser window horizontally and notice how the button is auto
 ![download](assets/img/download-small.png)
 
 ### Speed Dials
-Material UI offers a speed `SpeedDial` component that allows developers to create a floating action button, which can display related actions. The `SpeedDial` component is often used to group action that manipulate the state of an object e.g., "edit", "delete", and "save". We will now learn how to create a styled `SpeedDial` component that adheres to McMaster Branding Standards.
+Material UI offers a `SpeedDial` component that allows developers to create a floating action button containing related actions. The `SpeedDial` component is often used to group action that manipulate the state of an object e.g., "edit", "delete", and "save". We will now learn how to create a styled `SpeedDial` component that adheres to McMaster Branding Standards.
 
 Create a `MacSpeedDial.tsx` file in the `components/MacComponents` directory and add the following lines of code to it:
 ```
@@ -924,7 +883,7 @@ const actions = [
 ]
 ```
 
-Modify the `Box` component containing the "Page 22" `Typography` component by adding the `sx` property as shown below:
+Modify the `Box` component containing the "Page 2" `Typography` component by adding the `sx` property as shown below:
 ```
 <Box sx={{height: 78, transform: 'translateZ(0px)', flexGrow: 1}}
 	  display="flex"

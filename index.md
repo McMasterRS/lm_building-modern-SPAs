@@ -4,7 +4,9 @@ title: Introduction
 nav_order: 1
 ---
 
-The [McMaster Digital Brand Standards](https://brand.mcmaster.ca/app/uploads/2019/04/digital-guidelines.pdf) PDF document provides a good overview of the brand guidelines designed to ensure recognition of the McMaster University brand and consistency of its message. The design guidelines presented in this workshop were pulled from this PDF document and modified to apply to Material UI (MUI) components.
+The [McMaster Digital Brand Standards](https://brand.mcmaster.ca/app/uploads/2019/04/digital-guidelines.pdf) PDF document provides a good overview of the brand guidelines designed to ensure recognition of the McMaster University brand and consistency of its message. The design guidelines presented in this learning module were pulled from this PDF document and modified to apply to Material UI (MUI) components.
+
+This learning module uses the Next.js framework in conjunction with the Material UI (MUI) library. If you are using a different tech stack or framework that the ones in this learning module, please feel free to book a consultation with the Research Software Development team by emailing [rsd@mcmaster.ca](mailto:rsd@mcmaster.ca).
 
 # Introduction to Material UI (MUI)
 
@@ -12,11 +14,12 @@ The [McMaster Digital Brand Standards](https://brand.mcmaster.ca/app/uploads/201
 
 Learn the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. Material UI is a widely used open-source React component library that implements Google's [Material Design](https://m2.material.io/). The library includes an extensive collection of prebuilt components that are ready for use in production right out of the box. Material UI offers comprehensive styling tools that allow you to customize the design system of its components. Material UI allows you to build websites faster and enjoys a great deal of support in the React community given that it is the largest UI community in the React ecosystem. MUI also reduces the barrier to entry by providing an intuitive development experience for less technical designers and developers. The official MUI documentation includes code snippets for all its components to help developers use them effectively when creating their websites.
 
-In this beginner workshop, participants will learn how to create a Next.js application, add the MUI library to it, and style MUI components to fit the McMaster Digital Brand Standards. No previous experience with Next.js or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
+In this beginner learning module, participants will learn how to create a Next.js application, add the MUI library to it, and style MUI components to fit the McMaster Digital Brand Standards. We will also learn how to ensure that these components scale properly on small screen devices and how to evaluate a website for AODA compliance using the Wave tool. 
+No previous experience with Next.js or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
 
 ## Pre-workshop Setup
 
-Please follow these steps to install Node.js and create a Next.js application **before** starting the workshop.
+Please follow these steps to install Node.js and create a Next.js application **before** starting the learning module.
 
 If you are using Windows or MacOS, use one of the installers from the [Node.js download page](https://nodejs.org/en/download/). Be sure to install the version labeled **LTS**. Other versions have not yet been tested with `npm`.
 
@@ -48,7 +51,7 @@ You will need to pick a name for your application and specify a few preferences 
 ### Start the Development Server
 `cd` into the your project directory: 
 ~~~
-cd mac-branding-mui
+cd lmr_mac-branding
 ~~~
 Start the development server:
 ~~~
@@ -119,7 +122,7 @@ Go back to your browser tab, the page should now look like this:
 ### Add the Material UI Library to Your Application
 Navigate to the your project's directory if you are not already in it: 
 ~~~
-cd mac-branding-mui
+cd lmr_mac-branding
 ~~~
 
 Run the following command to add the MUI library to your project using the `npm` package manager: 

@@ -22,7 +22,7 @@ palette: {
 	}  
 },
 ```
-In this code snippet, we are defining the primary and secondary colors of our website using the hex values that corresponding to the McMaster Heritage Maroon and Heritage Gold colors.
+In this code snippet, we are defining the primary and secondary colors of our website using the hex values that correspond to the McMaster Heritage Maroon and Heritage Gold colors.
 
 Next, we will set the border radius in the them to 28 and the border radius for the `MuiPaper` component to 8 inside `themeOptions`:
 ```
@@ -99,24 +99,10 @@ const themeOptions = {
 export default themeOptions
 ```
 
-### Add the Material Icons Library to Your Application
-Our navigation bar will include icons that link to a page. Material UI offers a complete library of icons known as Material Icons that conform to the Material UI design language. We will add this library to our project so that we can use the icons in our navigation bar.
-
-Navigate to the your project's directory if you are not already in it: 
-~~~
-cd mac-branding-mui
-~~~
-
-Run the following command to add the MUI library to your project using the `npm` package manager: 
-~~~
-npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
-~~~
-You will be presented with the following message `added 1 package, changed 14 packages, and audited 359 packages in 22s` if the installation is successful. Some of the numbers in the message may be different for you.
-
 ### Create `Navbar.module.css`
 In the `styles` directory of your project, create a new file called `Navbar.module.css`. This file will contain the CSS styles used for the links in our navigation bar. We will define the colors of the links in their active, non-active and hover states:
-- Non-active links should be white and turn heritage gold when you hover over them.
-- Active links should have a white background and the link text should be heritage maroon.
+- Non-active links should be white and turn Heritage Gold when you hover over them.
+- Active links should have a white background and the link text should be Heritage Maroon.
 
 Add the following lines to `Navbar.module.css`:
 
@@ -146,11 +132,11 @@ Add the following lines to `Navbar.module.css`:
 Download the McMaster logo using the [Brand Standards](https://brand-resources.mcmaster.ca/asset-bank/action/viewAsset?id=7000&index=3&total=17&view=viewSearchItem)website. Note that you will need to sign in with your MacID to download the logo. Rename the downloaded file to `logo.png`.
 In the `public` directory of your project, create a new directory called `assets`. Place `logo.png` in the `assets` directory.
 
-We will also need the McMaster crest logo that can be downloaded from the following [link](https://www.pngwing.com/en/free-png-mqbcf).   Rename the downloaded file to `logo-small.png` and place it in the `assets` directory.
+We will also need the McMaster crest logo that can be downloaded from the following [link](https://www.pngwing.com/en/free-png-mqbcf).  Rename the downloaded file to `logo-small.png` and place it in the `assets` directory.
 
 ### Create Styled Icon Buttons
 We will now proceed to create a styled  `IconButton` for use in our navigation bar.
-Create a new directory called `MacComponents` inside the `components` directory. Create a new file in this directory called `MacNavButton.tsx` and add the following code to it:
+In the root directory of your project, create a `components` directory. Create a new directory called `MacComponents` inside the `components` directory. Create a new file in this directory called `MacNavButton.tsx` and add the following code to it:
 ```
 {% raw %}
 import {styled, useTheme} from '@mui/material/styles'
@@ -167,10 +153,10 @@ export const MacIconNavButton = styled(IconButton)(props => ({
 })) as typeof IconButton
 {% endraw %}
 ```
-The `MacIconNavButton` component is a styled MUI `IconButton`. We set the icon color to heritage gold and make the background transparent when hovering over the icon button. We also added a ripple affect to the icon button that appears when the user clicks on it. 
+The `MacIconNavButton` component is a styled MUI `IconButton`. We set the icon color to Heritage Gold and made the background transparent when hovering over the icon button. We also added a ripple affect to the icon button that appears when the user clicks on it. 
 
 ### Create the `NavBar` Component
-In the root directory of your project, create a `components` directory. Create another directory inside the `components` directory called `Navbar`. Create a file named `Navbar.tsx` in this directory.
+Create another directory inside the `components` directory called `Navbar`. Create a file named `Navbar.tsx` in this directory.
 
 Add the following import statements to to `Navbar.tsx`:
 ```
@@ -345,8 +331,8 @@ export default function Navbar() {
 }
 {% endraw %}
 ```
-So far, our code creates an `AppBar` component with the McMaster logo on the left hand side along with the title of our application (MacApp). Medium and large displays will show the full-sized McMaster logo, whereas small displays will only show the McMaster crest. We use the `sx` and `md` breakpoints in the `display` field of the `sx` prop to determine which component should b rendered on small and medium displays respectively. The title is a button that can be clicked to go back to the main index page of our application, which in this case is the 'Hello World!' page.
-Notice that the navigation bar has two `Typography` components containing the title of our application. The first `Typography` component is used for medium-sized screen (e.g., tablets, laptops, desktop computers, etc.) whereas the second `Typography` component is used for small screens (e.g., smartphones). On small screens, we render a `MacIconNavButton` component that open an app drawer that houses the navigation links that we will add at a later stage in this workshop. The `toggleDrawer` function is used to handle opening and closing the app drawer shown in the navigation bar on small-sized screens.
+So far, our code creates an `AppBar` component with the McMaster logo on the left hand side along with the title of our application (MacApp). Medium and large displays will show the full-sized McMaster logo, whereas small displays will only show the McMaster crest. We use the `sx` and `md` breakpoints in the `display` field of the `sx` prop to determine which component should be rendered on small and medium displays respectively. The title is a button that can be clicked to go back to the main index page of our application, which in this case is the 'Hello World!' page.
+Notice that the navigation bar has two `Typography` components containing the title of our application. The first `Typography` component is used for medium-sized screens (e.g., tablets, laptops, desktop computers, etc.) whereas the second `Typography` component is used for small screens (e.g., smartphones). On small screens, we render a `MacIconNavButton` component that opens an app drawer containing the navigation links that we will add at a later stage in this learning module. The `toggleDrawer` function is used to handle opening and closing the app drawer shown in the navigation bar on small screens.
 
 ### Import and Use `Navbar`
 The navigation bar should appear on all pages of our website. As such, we will import and use it in the `_app.tsx` file, given that components used in this file are shown on all pages. 
@@ -384,9 +370,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
 Go back to your browser, the page should now have a McMaster-branded navigation bar:
 ![navbar-1](assets/img/navbar-1.png)
-If you hover over the "MacApp" button, the text should turn heritage gold indicating that this is a clickable link.
+If you hover over the "MacApp" button, the text should turn Heritage Gold indicating that this is a clickable link.
 
-Try decreasing the width of your window and notice how the title of the app title will be centered and a new menu icon will be shown:
+Try decreasing the width of your window and notice how a new menu icon will be shown along with a smaller logo:
 ![navbar-2](assets/img/navbar-2.png)
 
 ### Create Additional Pages
@@ -514,7 +500,7 @@ export const MacIconNavButton = styled(IconButton)(props => ({
 })) as typeof IconButton
 {% endraw %}
 ```
-The `MacNavButton` component is a styled MUI `Button` that behaves similarly to the `MacIconNavButton`. The text color of the button turns to heritage gold when hovering over it. We also added a ripple affect to the button that appears when the user clicks the button. 
+The `MacNavButton` component is a styled MUI `Button` that behaves similarly to the `MacIconNavButton`. The text color of the button turns to Heritage Gold when hovering over it. We also added a ripple affect to the button that appears when the user clicks the button. 
 
 ### Add Links to the Navigation Bar
 Import the `MacNavButton` components in `Navbar.tsx` by updating the import statement of the `MacIconNavButton` as shown below:
@@ -786,7 +772,7 @@ export default function Navbar() {
 {% endraw %}
 ```
 
-Your webpage should now have two button links in the navigation bar. The buttons will turn heritage gold when you hover over them. 
+Your webpage should now have two button links in the navigation bar. The buttons will turn Heritage Gold when you hover over them. 
 
 ![hovering-button](assets/img/hovering-button.png)
 
@@ -794,7 +780,7 @@ Clicking on a button will take you to the corresponding page.
 ![page-2](assets/img/page-2.png)
 Notice that the button of the active page has a white background to inform the user which page they are currently on. 
 
-On smaller screens the navigation bar will make use of an app drawer, where the active page is highlighted:
+On smaller screens the navigation bar will make use of an app drawer where the active page is highlighted:
 ![page-1](assets/img/page-1.png)
 
 ### Add a Settings Button
@@ -1100,14 +1086,14 @@ export default function Navbar() {
 {% endraw %}
 ```
 
-Your navigation bar should now contain a settings icon on the right hand side. Hovering your mouse over the settings icon will turn it heritage gold and display a tooltip message.
+Your navigation bar will now contain a settings icon on the right hand side. Hovering your mouse over the settings icon will turn it Heritage Gold and display a tooltip message.
 ![navbar-settings](assets/img/navbar-settings.png)
 Try reducing the width of your browser window to simulate a small-screen device. The app drawer will have a settings link at the bottom of the list.
 
 ![drawer-settings](assets/img/drawer-settings.png)
 
 ### Creating the `VerticalTabs` Component
-As previously mentioned, our settings page will make use of vertical tabs to group related controls. We will now create our custom `VerticalTabs` component using the MUI `Tab` component.
+As previously mentioned, our settings page will make use of vertical tabs to group related controls. We will now create our custom `VerticalTabs` component using the MUI `Tab` component for medium and large display and a small drawer for mobile devices.
 
 In the `components` directory, create a subdirectory called `TabPanel`. Inside this new subdirectory, create a file called `VerticalTabs.tsx`.
 
@@ -1303,7 +1289,7 @@ export default function VerticalTabs() {
 {% endraw %}
 ```
 
-The layout of the `VerticalTabs` changes depending on the display size of the device viewing the page. We created a custom `TabPanel` component that will house the content of each tab in our panel. For medium and large displays, we made use of the MUI `Tabs` component with several children `Tab` components containing the label of each tab. The tabs are displayed vertically on the left hand side of the screen. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple placeholder string. We will add styled form controls to some of the panels in a later section of this workshop. On small screens, the tabs are automatically moved to `Drawer` components that can be activated using an `IconButton`. Switching between the `Tabs` and `Drawer` components by resizing the browser window will save the user's current position (i.e., the current tab that they are on). The current active tab is always highlighted on both the full-sized tabs as well as the drawer.
+The layout of the `VerticalTabs` changes depending on the display size of the device viewing the page. We created a custom `TabPanel` component that will house the content of each tab in our panel. For medium and large displays, we made use of the MUI `Tabs` component with several children `Tab` components containing the label of each tab. The tabs are displayed vertically on the left hand side of the screen. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple placeholder string. We will add styled form controls to some of the panels in a later section of this workshop. On small screens, the tabs are automatically moved to a `Drawer` component that can be activated using an `IconButton`. Switching between the `Tabs` and `Drawer` components by resizing the browser window will save the user's current position (i.e., the current tab that they are on). The current active tab is always highlighted on both the full-sized tabs as well as the drawer.
 
 ### Create the Settings Page
 Start by creating a CSS style for the settings page. Add the following lines to `styles/Home.module.css`:
