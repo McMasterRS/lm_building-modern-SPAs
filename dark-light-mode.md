@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Dark and Light Mode
-nav_order: 7
+nav_order: 8
 ---
 
 # Dark and Light Mode

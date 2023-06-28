@@ -1,7 +1,7 @@
 ---
 layout: default
 title: AODA Compliance
-nav_order: 10
+nav_order: 11
 ---
 
 # AODA Compliance 
@@ -83,7 +83,7 @@ Modify the `MuiFileInput` component by adding an `sx` prop as shown below:
 	hideSizeText  
 	sx={{  
 		"& .MuiFileInput-placeholder": {  
-		color:  useTheme().palette.mode === 'light' ? '#767676' : '#d3d3d3' + '!important', 
+		color:  (useTheme().palette.mode === 'light' ? '#767676' : '#d3d3d3') + '!important', 
 		},  
 	}}  
 />

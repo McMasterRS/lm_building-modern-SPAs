@@ -1,23 +1,27 @@
 ---
 layout: default
 title: Conclusion
-nav_order: 11
+nav_order: 12
 ---
 
 # Conclusion
 
-Throughout this workshop, we learned the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. You created a website using Next.js and MUI that contains the following UI elements and features:
+Throughout this learning module, we learned the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. We also covered the basics of mobile user interface design and we learned how to evaluate a website for AODA compliance using the Wave tool. You created a single-page application using Next.js and MUI that contains the following UI elements and features:
+- A McMaster favicon
 - Styled text using the `Typography` component
-- A responsive navigation bar with styled buttons and icon buttons
-- A persistent footer
+- A theme that uses the McMaster Heritage Maroon and Heritage Gold colors
+- A styled responsive navigation bar with two configurations depending on the screen size
+-  A responsive footer that adapts its layout and position to the device's screen size
 - Support for dark and light mode (in addition to following the user preference)
 - Breadcrumbs with a styled universal back button
-- Styled buttons
+- Styled buttons using a custom `MacButton` component
+- A styled speed dial component
 - A styled file input widget
 - A styled dropdown menu
+- Vertical tabs that make use of a drawer on mobile devices
 - AODA compliance
 
-While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this workshop provided you with the basic knowledge needed create your McMaster-branded website. 
+While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this workshop provided you with the basic knowledge needed to create your McMaster-branded website. 
 
 We recommend the following resources if you want to learn more about Next.js, Material UI, the McMaster Brand Standards, and the web accessibility guidelines:
 - [The Official Next.js Docs](https://nextjs.org/docs)
@@ -25,4 +29,4 @@ We recommend the following resources if you want to learn more about Next.js, Ma
 - [McMaster Brand Standards](https://brand.mcmaster.ca/)
 - [Web Content Accessibility Guidelines version 2.0 (Level AA)](https://www.w3.org/WAI/WCAG21/quickref/)
 
-The final version of this demo website is available on GitHub: [McMasterRS/mac-branding-mui](https://github.com/McMasterRS/mac-branding-mui).
+The final version of this demo website is available on GitHub: [McMasterRS/lmr_mac-branding](https://github.com/McMasterRS/lmr_mac-branding)
