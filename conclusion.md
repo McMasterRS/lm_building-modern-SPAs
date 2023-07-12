@@ -29,6 +29,8 @@ We recommend the following resources if you want to learn more about Next.js, Ma
 - [McMaster Brand Standards](https://brand.mcmaster.ca/)
 - [Web Content Accessibility Guidelines version 2.0 (Level AA)](https://www.w3.org/WAI/WCAG21/quickref/)
 
+You can also use the [PageSpeed Insights](https://pagespeed.web.dev/) tool to assess your website in terms of performance, accessibility, best practices and SEO score. The tool can grade the mobile and desktop versions of your website. Please note that your website needs to be web accessible without the need for a VPN connection or login credentials for this tool to work. 
+
 The final version of this demo website is available on GitHub: [McMasterRS/lmr_mac-branding](https://github.com/McMasterRS/lmr_mac-branding).
 
 If you require additional help with styling your McMaster website or if you happen to be using a different tech stack or framework that the ones covered in this learning module, please feel free to book a consultation with the Research Software Development team by emailing [rsd@mcmaster.ca](mailto:rsd@mcmaster.ca).
