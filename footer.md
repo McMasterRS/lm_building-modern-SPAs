@@ -186,12 +186,14 @@ export default function Footer() {
 We used the `outlined` variant of the MUI `Paper` component to create a footer that is affixed to the bottom of the page. Akin to the navigation bar, the footer has two different layouts depending on the screen size. On large screens, the footer contains a `Grid` with three evenly spaced horizontal `Grid items`. The first `Grid item` is a link to the "Help and Support" page. The middle `Grid item` contains the copyright notice, whereas the last `Grid item` is a "Contact Us" link that starts a new email to the specified email address. On the other hand, small screens will show the same three links stacked vertically using the MUI `Stack` component. 
 
 ### Create the Support Page
-We will now create a the "Help and Support" page used in the first link of the footer. Create a new subdirectory under the `pages` directory called `support`. Create a new `index.tsx` file inside the `support` directory. 
+We will now create a the "Help and Support" page used in the first link of the footer. Create a new subdirectory under the `app` directory called `support`. Create a new `page.tsx` file inside the `support` directory. 
 
-Add the following lines of code the `pages/support/index.tsx`:
+Add the following lines of code the `app/support/page.tsx`:
 ```
 {% raw %}
-import styles from '@/styles/Home.module.css'
+'use client';
+
+import styles from '@/styles/page.module.css'
 import Typography from '@mui/material/Typography'
 import {useEffect} from "react";
 import Container from "@mui/material/Container";
@@ -223,92 +225,40 @@ export default function Support() {
 This file creates a simple page that shows a title in the middle of the screen. We use the React Effect Hook to add a document title on the page that will be shown as the tab name in your browser.
 
 ### Importing and Using the `Footer` Component
-The footer should appear on all pages of our website. Hence, we will import and use it in the `_app.tsx` file, given that components used in this file are shown on all pages. 
+The footer should appear on all pages of our website. Hence, we will import and use it in the `template.tsx` file, given that components used in this file are shown on all pages. 
 
-Open the `_app.tsx` file and import `Footer`:
+Open the `template.tsx` file and import `Footer`:
 ```
 import Footer from "@/components/Footer/Footer";
 ```
-Add the following line of code after `<Component {...pageProps} />`:
+Add the following line of code after `{children}`:
 ```
 <Footer />
 ```
-Your `_app.tsx` file should now look like this:
+Your `template.tsx` file should now look like this:
 ```
 {% raw %}
-import React from 'react'
-import type { AppProps } from 'next/app'
-import CssBaseline from '@mui/material/CssBaseline'
-import {createTheme, ThemeProvider, useTheme} from '@mui/material/styles'
-import themeOptions from '@/config/theme'
+'use client';  
+
 import Navbar from "@/components/Navbar/Navbar";
-import useMediaQuery from '@mui/material/useMediaQuery'
 import Footer from "@/components/Footer/Footer";
-
-export const ColorModeContext = React.createContext({
-    toggleColorMode: () => {},
-})
-
-export default function App({ Component, pageProps }: AppProps) {
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-
-    const [themeMode, setThemeMode] = React.useState<'light' | 'dark' | null>(null)
-
-    const theme = React.useMemo(
-        () =>
-            createTheme({
-                ...themeOptions,
-                palette: {
-                    mode:
-                        themeMode == null
-                            ? prefersDarkMode
-                                ? 'dark'
-                                : 'light'
-                            : themeMode,
-                    primary: {
-                        main:
-                            themeMode == null
-                                ? prefersDarkMode
-                                    ? '#86174E'
-                                    : '#7a003c'
-                                : themeMode == 'light'
-                                    ? '#7a003c'
-                                    : '#86174E',
-                    },
-                    secondary: {
-                        main:
-                            themeMode == null
-                                ? prefersDarkMode
-                                    ? '#FDC566'
-                                    : '#fdbf57'
-                                : themeMode == 'light'
-                                    ? '#fdbf57'
-                                    : '#FDC566',
-                    },
-                },
-            }),
-        [themeMode, prefersDarkMode]
-    )
-
-    const colorMode = React.useMemo(
-        () => ({
-            toggleColorMode: () => {
-                setThemeMode(prevMode => (prevMode == null ? (theme.palette.mode === 'dark' ? 'light' : 'dark') : prevMode === 'light' ? 'dark' : 'light'))
-            },
-        }),
-        [theme]
-    )
-
-    return <>
-        <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
-                <Navbar />
-                <CssBaseline />
-                <Component {...pageProps} />
-                <Footer />
-            </ThemeProvider>
-        </ColorModeContext.Provider>
-    </>
+import CssBaseline from "@mui/material/CssBaseline";  
+import React from "react";
+import {createTheme, ThemeProvider} from '@mui/material/styles'  
+import themeOptions from '@/config/theme'  
+  
+export default function Template({children}: {children?: React.ReactNode} ) {
+	const theme = createTheme({  
+		...themeOptions  
+	});  
+	return <>  
+		<ThemeProvider theme={theme}>
+			<Navbar />
+			<CssBaseline />
+			{children}
+			<Footer />
+        </ThemeProvider>
+	</>  
 }
 {% endraw %}
 ```

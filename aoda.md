@@ -32,7 +32,7 @@ After inspecting the code, we found that the empty button is the "Menu" button t
 
 Open the `Navbar.tsx` file located under `components/Navbar`, and wrap the `IconButton` component containing a `MenuIcon` with a `Tooltip` component as shown below:
 ```
-<Tooltip title={"Menu"}>
+<Tooltip enterDelay={500} title={state ? "Close App Drawer" : "Open App Drawer"}>
 	<MacIconNavButton
 		size="large"
 		aria-controls="menu-appbar"
@@ -70,7 +70,7 @@ Re-run the Wave tool on "Page 1". The empty button error will no longer be shown
 ### Contrast Error
 Go back to the main index page and run the Wave tool. You will notice that the tool identifies a contrast error on this page. The contrast error is caused by the shade of grey used for the placeholder text on the file input widget that appears on the main index page of our website. To fix the error, we will modify the file input widget to use a slightly darker shade of grey in light mode that is AODA compliant for the placeholder text. Dark mode uses a light grey color for the placeholder text to maintain visibility against a dark background.
 
-Open the `pages/index.tsx` file and add the following import statement:
+Open the `app/page.tsx` file and add the following import statement:
 ```
 import {useTheme} from '@mui/material/styles'
 ```

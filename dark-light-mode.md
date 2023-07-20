@@ -24,14 +24,13 @@ palette: {
 ```
 
 
-### Modify `_app.tsx`
-Open `pages/_app.tsx` and add the following import statements:
+### Modify `template.tsx`
+Open `app/template.tsx` and add the following import statements:
 ```
-import React from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 ```
 
-Create and export the `ColorModeContext` constant, which will allow us to read and modify the theme mode of our website from the navigation bar. The following code should be added before the `App` function declaration:
+Create and export the `ColorModeContext` constant, which will allow us to read and modify the theme mode of our website from the navigation bar. The following code should be added before the `Template` function declaration:
 ```
 export const ColorModeContext = React.createContext({
     toggleColorMode: () => {},
@@ -40,7 +39,7 @@ export const ColorModeContext = React.createContext({
 
 Next, we will read the value of the media `prefers-color-scheme` query and save it as a Boolean constant whose value is true if the user currently has dark mode enabled on their system. We will also use the React state hook to create a `mode` constant with a `null` initial value and a `setColor` function that is used to update the `mode` constant.
 
-Add the following lines of the code at the top of the `App` function:
+Add the following lines of the code at the top of the `Template` function:
 ```
 const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
@@ -110,26 +109,29 @@ return <>
             <ThemeProvider theme={theme}>
               <Navbar />
               <CssBaseline />
-              <Component {...pageProps} />
+              {children}
+              <Footer />
           </ThemeProvider>
         </ColorModeContext.Provider>
     </>
 ```
-Your `_app.tsx` file should now look like this:
+Your `template.tsx` file should now look like this:
 ```
+'use client';
+
 import React from 'react'
-import type { AppProps } from 'next/app'
 import CssBaseline from '@mui/material/CssBaseline'
-import {createTheme, ThemeProvider, useTheme} from '@mui/material/styles'
+import {createTheme, ThemeProvider} from '@mui/material/styles'
 import themeOptions from '@/config/theme'
 import Navbar from "@/components/Navbar/Navbar";
 import useMediaQuery from '@mui/material/useMediaQuery'
+import Footer from "@/components/Footer/Footer";
 
 export const ColorModeContext = React.createContext({
     toggleColorMode: () => {},
 })
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function Template({children}: {children?: React.ReactNode} ) {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
     const [themeMode, setThemeMode] = React.useState<'light' | 'dark' | null>(null)
@@ -182,10 +184,11 @@ export default function App({ Component, pageProps }: AppProps) {
     return <>
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
-              <Navbar />
-              <CssBaseline />
-              <Component {...pageProps} />
-          </ThemeProvider>
+                <Navbar />
+                <CssBaseline />
+                {children}
+                <Footer />
+            </ThemeProvider>
         </ColorModeContext.Provider>
     </>
 }
@@ -198,10 +201,10 @@ Start by adding the following import statements to `Navbar.tsx`:
 import {useTheme} from '@mui/material/styles'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
-import {ColorModeContext} from '@/pages/_app'
+import {ColorModeContext} from '@/app/template'
 ```
 
-Next, we will use the `useTheme` hook to access the theme variables in `Navbar.tsx` in addition to the `useContext` hook to grab the current context value of the `ColorModeContext` imported from `pages/_app.tsx`.
+Next, we will use the `useTheme` hook to access the theme variables in `Navbar.tsx` in addition to the `useContext` hook to grab the current context value of the `ColorModeContext` imported from `app/template.tsx`.
 
 Add the following two lines to the top of the `Navbar` function:
 ```
@@ -257,7 +260,6 @@ We will now update the `pages_drawer` function to display the dark/light mode to
 Your `Navbar.tsx` file should now look like this:
 ```
 {% raw %}
-import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -265,7 +267,7 @@ import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
+import {usePathname, useRouter} from 'next/navigation'
 import styles from '@/styles/NavBar.module.css'
 import {MacIconNavButton, MacNavButton,} from '@/components/MacComponents/MacNavButton'
 import Tooltip from '@mui/material/Tooltip'
@@ -282,7 +284,8 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import {useTheme} from '@mui/material/styles'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
-import {ColorModeContext} from '@/pages/_app'
+import {ColorModeContext} from "@/app/template";
+import React from "react";
 
 const pages = [
     ['Page 1', '/page_1'],
@@ -315,7 +318,7 @@ export default function Navbar() {
             };
 
     const router = useRouter()
-    const currentRoute = router.pathname
+    const currentRoute = usePathname()
 
     const icons = [<LooksOneIcon key={'transcripts-page'} />, <LooksTwoIcon key={'privacy-policy'}/>]
 
@@ -463,7 +466,7 @@ export default function Navbar() {
                         }}
                         className={styles.title}
                     >
-                        MacScribe
+                        MacApp
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {pages.map(page => (

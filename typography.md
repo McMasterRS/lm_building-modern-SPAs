@@ -12,42 +12,24 @@ McMaster recommends the use of the Roboto family of fonts on all websites associ
 In the root directory of your project, create a new directory named `config`. You can create the folder using the command line (`mkdir config`) or the GUI.
 Navigate to the newly created `config` directory, and create a new file called `theme.ts` in this directory.
 
-### Define the Typography Styles
-Open the `_document.tsx` file located in the `pages` directory and modify line 6 as follows by deleting `<Head />` and replacing it with:
-```
-<Head >  
-	<link  
-	rel="stylesheet"  
-	href="https://fonts.googleapis.com/css?family=Roboto:300,300i,700,700i|Roboto+Condensed:400,400i,700,700i|&display=swap"  
-	/>  
-</Head>
-```
-This line of code downloads the needed Roboto font variants from Google Fonts.
-
-The `_document.tsx` file should now contain the following code:
-```
-import { Html, Head, Main, NextScript } from 'next/document'  
-  
-export default function Document() {  
-	return (  
-		<Html lang="en">  
-			<Head >  
-				<link  
-					rel="stylesheet"  
-					href="https://fonts.googleapis.com/css?family=Roboto:300,300i,700,700i|Roboto+Condensed:400,400i,700,700i|&display=swap"  
-				/>  
-			</Head>  
-			<body>  
-				<Main />  
-				<NextScript />  
-			</body>  
-		</Html>  
-	)  
-}
-```
-
 Add the following code snippet to  `theme.ts`:
 ```
+import {Roboto, Roboto_Condensed} from "next/font/google";
+
+const roboto = Roboto({
+    weight: ['300', '700'],
+    style: ['normal', 'italic'],
+    subsets: ['latin'],
+    display: 'swap',
+})
+
+const roboto_condensed = Roboto_Condensed({
+    weight: ['400', '700'],
+    style: ['normal', 'italic'],
+    subsets: ['latin'],
+    display: 'swap',
+})
+
 declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides {
         settingTitle: true;
@@ -57,86 +39,73 @@ declare module '@mui/material/Typography' {
 const themeOptions = {
     typography: {
         h1: {
-            fontFamily: 'Roboto Condensed',
+            fontFamily: roboto_condensed.style.fontFamily,
             fontSize: '50pt',
         },
         h2: {
-            fontFamily: 'Roboto Condensed',
+            fontFamily: roboto_condensed.style.fontFamily,
             fontSize: '28pt',
             fontWeight: 400,
         },
         h3: {
-            fontFamily: 'Roboto Condensed',
+            fontFamily: roboto_condensed.style.fontFamily,
             fontSize: '20pt',
         },
         h4: {
-            fontFamily: 'Roboto',
+            fontFamily: roboto.style.fontFamily,
             fontSize: '13pt',
             fontWeight: 900,
         },
         button: {
-            fontFamily: 'Roboto Condensed',
+            fontFamily: roboto_condensed.style.fontFamily,
             fontWeight: 700,
         },
-        settingTitle: {  
-			fontFamily: 'Roboto Condensed',  
-			fontSize: '15pt',  
-		},
+        settingTitle: {
+            fontFamily: roboto_condensed.style.fontFamily,
+            fontSize: '15pt',
+        },
     },
 }
 
 export default themeOptions
 ```
 
-In this code snippet, we are defining the different typography variants that can be used in our application. The heading styles conform to the McMaster Digital Brand Standards. The `button` and `settingTitle` typographies define the font style to use for text located in buttons and setting titles respectively. We will cover styling buttons and the "Settings" page in later sections of this learning module.
+In this code snippet, we start by importing the Roboto font variants that we need using the `next/font/google` package. We then define the different typography variants that can be used in our application. The heading styles conform to the McMaster Digital Brand Standards. The `button` and `settingTitle` typographies define the font style to use for text located in buttons and setting titles respectively. We will cover styling buttons and the "Settings" page in later sections of this learning module.
 
 ### Creating a Theme Provider
-Open the `_app.tsx_` file located in the `pages` directory and add the following import statements:
+Create a `template.tsx` file in the `app` directory.
+
+Open the `template.tsx` file and add the following statements:
 ```
-import CssBaseline from '@mui/material/CssBaseline'  
+'use client';  
+  
+import CssBaseline from "@mui/material/CssBaseline";  
+import React from "react";
 import {createTheme, ThemeProvider} from '@mui/material/styles'  
 import themeOptions from '@/config/theme'
 ```
-
-Create the `theme` constant in the `App` function (before the `return` statement):
+Add the `Template` function:
 ```
-const theme = createTheme({  
-...themeOptions  
-});
+export default function Template({children}: {children?: React.ReactNode} ) {
+	const theme = createTheme({ 
+		...themeOptions  
+	});
+
+
+	return (
+	        <>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					{children}
+				</ThemeProvider>
+	        </>
+	    )
+}
 ```
 Notice that the theme uses the `themeOptions` defined in and imported from `theme.ts`.
 
-Update the return statement as shown below:
-```
-return <>  
-	<ThemeProvider theme={theme}>  
-		<CssBaseline />  
-		<Component {...pageProps} />  
-	</ThemeProvider>  
-</>
-```
-Your `_app.tsx` file should now look like this:
-```
-import type { AppProps } from 'next/app'  
-import CssBaseline from '@mui/material/CssBaseline'  
-import {createTheme, ThemeProvider} from '@mui/material/styles'  
-import themeOptions from '@/config/theme'  
-  
-export default function App({ Component, pageProps }: AppProps) {  
-	const theme = createTheme({  
-		...themeOptions  
-	});  
-	return <>  
-		<ThemeProvider theme={theme}>  
-			<CssBaseline />  
-			<Component {...pageProps} />  
-		</ThemeProvider>  
-	</>  
-}
-```
-
 ### Using the Typography Component
-Open the `index.tsx` file and add the following import statement to import the MUI Typography component:
+Open the `page.tsx` file and add the following import statement to import the MUI Typography component:
 ```
 import Typography from '@mui/material/Typography'
 ```

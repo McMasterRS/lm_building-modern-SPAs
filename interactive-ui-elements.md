@@ -11,7 +11,7 @@ Modern websites requires the use of UI elements that not only allow the user to 
 ### Buttons
 We have already create a styled `MuiButton` component called `MacButton` in the "Breadcrumbs With a Universal Back Button" section. We will now show a couple more examples of how we can use the styled `MacButton` component in different ways.
 
-Open the `pages/index.tsx` file and add the following import statements:
+Open the `app/page.tsx` file and add the following import statements:
 ```
 import React from "react";
 import Stack from "@mui/material/Stack";  
@@ -35,7 +35,7 @@ export interface State {
 
 ```
 
-Add the following lines of code at the top of the `Home` function:
+Add the following lines of code at the top of the `Page` function:
 ```
 const [snackPack, setSnackPack] = React.useState<readonly SnackbarMessage[]>([]);
 const [open, setOpen] = React.useState(false);
@@ -136,7 +136,7 @@ Start by installing the MUI file input widget by navigating to the root director
 npm install mui-file-input --save
 ```
 
-Next, open the `pages/index.tsx` file and add the following import statement:
+Next, open the `app/page.tsx` file and add the following import statement:
 ```
 import {MuiFileInput} from 'mui-file-input'
 ```
@@ -165,11 +165,13 @@ Finally add the following lines of code right after the closing tag of the `Stac
 ```
 The `multiple` prop indicates that the file input widget can accept multiple files at the same time. The `hideSizeText` prop prevents the widget from showing the size of the uploaded file(s).
 
-Your `pages/index.tsx` file should now contain the following lines of code:
+Your `app/page.tsx` file should now contain the following lines of code:
 ```
+'use client';
+
 import React from "react";
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/page.module.css'
 import Typography from '@mui/material/Typography'
 import {MacButton} from "@/components/MacComponents/MacButton";
 import Stack from "@mui/material/Stack";
@@ -189,7 +191,7 @@ export interface State {
     messageInfo?: SnackbarMessage;
 }
 
-export default function Home() {
+export default function Page() {
     const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
     const [snackPack, setSnackPack] = React.useState<readonly SnackbarMessage[]>([]);
     const [open, setOpen] = React.useState(false);
@@ -478,16 +480,13 @@ export default function VerticalTabs() {
                         Notifications
                     </Typography>
                     <FormControl sx={{m: 1, minWidth: 300}}>
-                        <InputLabel id="demo-simple-select-label" htmlFor="demo-simple-select">
+                        <InputLabel id="demo-simple-select-label">
                             Demo Dropdown Menu
                         </InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             label="Demo Dropdown Menu"
-                            inputProps={{
-                                id:'demo-simple-select',
-                            }}
                         >
                             <MenuItem value={1}>Option 1</MenuItem>
                             <MenuItem value={2}>Option 2</MenuItem>
@@ -547,7 +546,7 @@ Try shrinking the browser window to see how the dropdown menu looks on devices w
 ### Buttons With a Dropdown Menu
 The styled `MacButton` that we created earlier can be combined with a dropdown menu to create a button that allows the user to execute mutually exclusive functions that fall under the same category e.g., a download button that lets the user choose the file format. We will add this type of button to the "Page 1".
 
-Open the `pages/page_1/index.tsx` file and add the following import statements:
+Open the `app/page_1/page.tsx` file and add the following import statements:
 ```
 import React from "react";
 import {MacButton} from "@/components/MacComponents/MacButton";  
@@ -679,11 +678,13 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
 
 We used the "secondary" variant of the `MacButton` component. Notice that we used the `useMediaQuery` function in conjunction with breakpoints to determine if the button should have a tooltip or a "Download" string in it depending on the screen size. On medium and large displays, the button shows a "Download" text sandwiched between a `startIcon` indicating its function (i.e., the `DownloadIcon`) and an `endIcon` consisting of a downwards pointing arrow to inform the user that it is a menu button. On small screens, we removed the "Download" text from the button and replaced it with a tooltip message. The "Download" button is positioned in the top right corner of the page using the `sx` property on all screen sizes.
 
-Your `pages/page_1/index.tsx` file should now look like this:
+Your `app/page_1/page.tsx` file should now look like this:
 ```
-{% raw %}s
+{% raw %}
+'use client';
+
 import React from "react";
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/page.module.css'
 import Typography from '@mui/material/Typography'
 import {useEffect} from "react";
 import Container from "@mui/material/Container";
@@ -858,7 +859,7 @@ export const MacSpeedDial = styled(SpeedDial, {shouldForwardProp: (prop) => prop
 
 We added a `mainColor` prop to the `MacSpeedDial` component that will determine the background color, text/icon color and hover color of the button. Akin to the `MacButton` component, if the `mainColor` prop is `'primary'`, then the background color will be Heritage Maroon, the text/icon color will be white and the speed dial will turn a medium shade of grey when the user hovers over it as required by the McMaster Digital Brand Standards guide. Otherwise, if the `mainColor` prop is `'secondary'`, then the background color will be Heritage Gold, the text/icon color will be dark grey and the button will turn light grey when the user hovers the mouse over it.
 
-We will now use the `MacSpeedDial` component on "Page 2". Open the `pages/page_2/index.tsx` file and add the following import statements:
+We will now use the `MacSpeedDial` component on "Page 2". Open the `app/page_2/page.tsx` file and add the following import statements:
 ```
 import React from "react";
 import {MacSpeedDial} from '@/components/MacComponents/MacSpeedDial'  
@@ -919,10 +920,12 @@ Finally, add the `MacSpeedDial` containing the actions defined in the `actions` 
 </MacSpeedDial>
 ```
 
-Your `pages/page_2/index.tsx` file should now look like this:
+Your `app/page_2/page.tsx` file should now look like this:
 ```
+'use client';
+
 import React from "react";
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/page.module.css'
 import Typography from '@mui/material/Typography'
 import {useEffect} from "react";
 import Container from "@mui/material/Container";

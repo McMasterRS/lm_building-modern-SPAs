@@ -43,6 +43,22 @@ Note that the shape `borderRadius` sets the global value of the border radius fo
 
 Your `theme.ts` file should now look like this:
 ```
+import {Roboto, Roboto_Condensed} from "next/font/google";
+
+const roboto = Roboto({
+    weight: ['300', '700'],
+    style: ['normal', 'italic'],
+    subsets: ['latin'],
+    display: 'swap',
+})
+
+const roboto_condensed = Roboto_Condensed({
+    weight: ['400', '700'],
+    style: ['normal', 'italic'],
+    subsets: ['latin'],
+    display: 'swap',
+})
+
 declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides {
         settingTitle: true;
@@ -60,26 +76,30 @@ const themeOptions = {
 	},
     typography: {
         h1: {
-            fontFamily: 'Roboto Condensed',
+            fontFamily: roboto_condensed.style.fontFamily,
             fontSize: '50pt',
         },
         h2: {
-            fontFamily: 'Roboto Condensed',
+            fontFamily: roboto_condensed.style.fontFamily,
             fontSize: '28pt',
             fontWeight: 400,
         },
         h3: {
-            fontFamily: 'Roboto Condensed',
+            fontFamily: roboto_condensed.style.fontFamily,
             fontSize: '20pt',
         },
         h4: {
-            fontFamily: 'Roboto',
+            fontFamily: roboto.style.fontFamily,
             fontSize: '13pt',
             fontWeight: 900,
         },
         button: {
-            fontFamily: 'Roboto Condensed',
+            fontFamily: roboto_condensed.style.fontFamily,
             fontWeight: 700,
+        },
+        settingTitle: {
+            fontFamily: roboto_condensed.style.fontFamily,
+            fontSize: '15pt',
         },
     },
     shape: {  
@@ -168,7 +188,7 @@ import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'  
 import Container from '@mui/material/Container'  
 import Link from 'next/link'  
-import {useRouter} from 'next/router'  
+import {usePathname, useRouter} from 'next/navigation'
 import styles from '@/styles/NavBar.module.css'  
 import {MacIconNavButton,} from '@/components/MacComponents/MacNavButton'  
 import {useTheme} from '@mui/material/styles'  
@@ -235,17 +255,15 @@ export default function Navbar() {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <Tooltip enterDelay={500} title={state ? "Close App Drawer" : "Open App Drawer"}>
-                            <MacIconNavButton
-                                size="large"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={toggleDrawer(!state)}
-                                color="inherit"
-                            >
-                                {state ? <ClearIcon /> : <MenuIcon />}
-                            </MacIconNavButton>
-                        </Tooltip>
+						<MacIconNavButton
+							size="large"
+							aria-controls="menu-appbar"
+							aria-haspopup="true"
+							onClick={toggleDrawer(!state)}
+							color="inherit"
+>
+							{state ? <ClearIcon /> : <MenuIcon />}
+						</MacIconNavButton>
                         <Drawer
                             anchor={"left"}
                             open={state}
@@ -335,9 +353,9 @@ So far, our code creates an `AppBar` component with the McMaster logo on the lef
 Notice that the navigation bar has two `Typography` components containing the title of our application. The first `Typography` component is used for medium-sized screens (e.g., tablets, laptops, desktop computers, etc.) whereas the second `Typography` component is used for small screens (e.g., smartphones). On small screens, we render a `MacIconNavButton` component that opens an app drawer containing the navigation links that we will add at a later stage in this learning module. The `toggleDrawer` function is used to handle opening and closing the app drawer shown in the navigation bar on small screens.
 
 ### Import and Use `Navbar`
-The navigation bar should appear on all pages of our website. As such, we will import and use it in the `_app.tsx` file, given that components used in this file are shown on all pages. 
+The navigation bar should appear on all pages of our website. As such, we will import and use it in the `template.tsx` file, given that components used in this file are shown on all pages. 
 
-Open the `_app.tsx` file and import `NavBar`:
+Open the `template.tsx` file and import `NavBar`:
 ```
 import Navbar from "@/components/Navbar/Navbar";
 ```
@@ -345,24 +363,27 @@ Add the following line of code before `<CssBaseline />`:
 ```
 <Navbar />
 ```
-Your `_app.tsx` file should now look like this:
+Your `template.tsx` file should now look like this:
 ```
 {% raw %}
-import type { AppProps } from 'next/app'  
-import CssBaseline from '@mui/material/CssBaseline'  
+'use client';  
+  
+import Navbar from "@/components/Navbar/Navbar";
+import CssBaseline from "@mui/material/CssBaseline";  
+import React from "react";
 import {createTheme, ThemeProvider} from '@mui/material/styles'  
 import themeOptions from '@/config/theme'  
   
-export default function App({ Component, pageProps }: AppProps) {  
+export default function Template({children}: {children?: React.ReactNode} ) {
 	const theme = createTheme({  
 		...themeOptions  
 	});  
 	return <>  
-		<ThemeProvider theme={theme}>  
+		<ThemeProvider theme={theme}>
 			<Navbar />
-			<CssBaseline />  
-			<Component {...pageProps} />  
-		</ThemeProvider>  
+			<CssBaseline />
+			{children}
+        </ThemeProvider>
 	</>  
 }
 {% endraw %}
@@ -376,7 +397,7 @@ Try decreasing the width of your window and notice how a new menu icon will be s
 ![navbar-2](assets/img/navbar-2.png)
 
 ### Create Additional Pages
-Start by creating an additional `page` CSS style in `Home.module.css`:
+Start by creating an additional `page` CSS style in `page.module.css`:
 ```
 .page {
   display: flex;
@@ -389,11 +410,13 @@ Start by creating an additional `page` CSS style in `Home.module.css`:
 ```
 We reduced the padding compared to the `main` style.
 
-In the `pages` directory of your project, create a new directory called `page_1`. Create an `index.tsx` file in the `page_1` directory.
-Add the following code to the `page_1/index.tsx` file:
+In the `app` directory of your project, create a new directory called `page_1`. Create an `page.tsx` file in the `page_1` directory.
+Add the following code to the `page_1/page.tsx` file:
 ```
 {% raw %}
-import styles from '@/styles/Home.module.css'
+'use client';
+
+import styles from '@/styles/page.module.css'
 import Typography from '@mui/material/Typography'
 import {useEffect} from "react";
 import Container from "@mui/material/Container";
@@ -421,9 +444,11 @@ export default function Page_1() {
 }
 ```
 
-Create another directory in `pages` called `page_2` with an `index.tsx` file in it. Add the following code to `page_2/index.tsx`:
+Create another directory in `app` called `page_2` with an `page.tsx` file in it. Add the following code to `page_2/page.tsx`:
 ```
-import styles from '@/styles/Home.module.css'
+'use client';
+
+import styles from '@/styles/page.module.css'
 import Typography from '@mui/material/Typography'
 import {useEffect} from "react";
 import Container from "@mui/material/Container";
@@ -522,13 +547,13 @@ In the `Navbar` function of `Navbar.tsx`, add the following lines of code after 
 ```
 {% raw %}
 const router = useRouter()  
-const currentRoute = router.pathname  
+const currentRoute = usePathname()
   
 const icons = [<LooksOneIcon key={'transcripts-page'} />, <LooksTwoIcon key={'privacy-policy'}/>]
 {% endraw %}
 ```
 
-The code initializes the router object we will use to determine which page the user is currently on. We also defined an array of icons that we will use in the drawer that is shown on small screens.
+The code initializes the router object and determines which page the user is currently on. We also defined an array of icons that we will use in the drawer that is shown on small screens.
 
 Modify the `pages_drawer` constant by adding the following lines of code inside the `List` component:
 ```
@@ -580,7 +605,7 @@ import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
+import {usePathname, useRouter} from 'next/navigation'
 import styles from '@/styles/NavBar.module.css'
 import {MacIconNavButton, MacNavButton,} from '@/components/MacComponents/MacNavButton'
 import Tooltip from '@mui/material/Tooltip'
@@ -622,7 +647,7 @@ export default function Navbar() {
             };
 
     const router = useRouter()
-    const currentRoute = router.pathname
+    const currentRoute = usePathname()
 
     const icons = [<LooksOneIcon key={'transcripts-page'} />, <LooksTwoIcon key={'privacy-policy'}/>]
 
@@ -658,17 +683,15 @@ export default function Navbar() {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <Tooltip enterDelay={500} title={state ? "Close App Drawer" : "Open App Drawer"}>
-                            <MacIconNavButton
-                                size="large"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={toggleDrawer(!state)}
-                                color="inherit"
-                            >
-                                {state ? <ClearIcon /> : <MenuIcon />}
-                            </MacIconNavButton>
-                        </Tooltip>
+						<MacIconNavButton
+							size="large"
+							aria-controls="menu-appbar"
+							aria-haspopup="true"
+							onClick={toggleDrawer(!state)}
+							color="inherit"
+>
+							{state ? <ClearIcon /> : <MenuIcon />}
+						</MacIconNavButton>
                         <Drawer
                             anchor={"left"}
                             open={state}
@@ -866,7 +889,7 @@ import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
+import {usePathname, useRouter} from 'next/navigation'
 import styles from '@/styles/NavBar.module.css'
 import {MacIconNavButton, MacNavButton,} from '@/components/MacComponents/MacNavButton'
 import Tooltip from '@mui/material/Tooltip'
@@ -909,7 +932,7 @@ export default function Navbar() {
             };
 
     const router = useRouter()
-    const currentRoute = router.pathname
+    const currentRoute = usePathname()
 
     const icons = [<LooksOneIcon key={'transcripts-page'} />, <LooksTwoIcon key={'privacy-policy'}/>]
 
@@ -955,17 +978,15 @@ export default function Navbar() {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <Tooltip enterDelay={500} title={state ? "Close App Drawer" : "Open App Drawer"}>
-                            <MacIconNavButton
-                                size="large"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={toggleDrawer(!state)}
-                                color="inherit"
-                            >
-                                {state ? <ClearIcon /> : <MenuIcon />}
-                            </MacIconNavButton>
-                        </Tooltip>
+						<MacIconNavButton
+							size="large"
+							aria-controls="menu-appbar"
+							aria-haspopup="true"
+							onClick={toggleDrawer(!state)}
+							color="inherit"
+>
+							{state ? <ClearIcon /> : <MenuIcon />}
+						</MacIconNavButton>
                         <Drawer
                             anchor={"left"}
                             open={state}
@@ -1292,7 +1313,7 @@ export default function VerticalTabs() {
 The layout of the `VerticalTabs` changes depending on the display size of the device viewing the page. We created a custom `TabPanel` component that will house the content of each tab in our panel. For medium and large displays, we made use of the MUI `Tabs` component with several children `Tab` components containing the label of each tab. The tabs are displayed vertically on the left hand side of the screen. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple placeholder string. We will add styled form controls to some of the panels in a later section of this learning module. On small screens, the tabs are automatically moved to a `Drawer` component that can be activated using an `IconButton`. Switching between the `Tabs` and `Drawer` components by resizing the browser window will save the user's current position (i.e., the current tab that they are on). The current active tab is always highlighted on both the full-sized tabs as well as the drawer.
 
 ### Create the Settings Page
-Start by creating a CSS style for the settings page. Add the following lines to `styles/Home.module.css`:
+Start by creating a CSS style for the settings page. Add the following lines to `styles/page.module.css`:
 ```
 .settings {
   display: flex;
@@ -1306,12 +1327,14 @@ Start by creating a CSS style for the settings page. Add the following lines to 
 ```
 We reduced the padding used at the top and bottom of the settings page compared to the `.main` style.
 
-Now that our `VerticalTabs` component is complete, we will create the settings page index file. In the `pages` directory of your project, create a new `settings` subdirectory. Create an `index.tsx` file in this directory.
+Now that our `VerticalTabs` component is complete, we will create the settings page index file. In the `app` directory of your project, create a new `settings` subdirectory. Create an `page.tsx` file in this directory.
 
-Add the following code to `settings/index.tsx`:
+Add the following code to `settings/page.tsx`:
 ```
 {% raw %}
-import styles from '@/styles/Home.module.css'
+'use client';
+
+import styles from '@/styles/page.module.css'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import {useEffect} from 'react'
