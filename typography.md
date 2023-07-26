@@ -1,12 +1,12 @@
 ---
 layout: default
 title: Typography
-nav_order: 5
+nav_order: 6
 ---
 
 # Typography
 
-McMaster recommends the use of the Roboto family of fonts on all websites associated with the university. Roboto is a neo-grotesque sans-serif typeface family developed by Google. There are multiple variants of the Roboto font that are used for different headlines, subheads and body text when designing a new webpage. In this section, we will learn how to use the MUI Typography component to define different heading styles.
+We will now learn how to use custom fonts and typography styles in a web application. McMaster recommends the use of the Roboto family of fonts on all websites associated with the university. Roboto is a neo-grotesque sans-serif typeface family developed by Google. There are multiple variants of the Roboto font that are used for different headlines, subheads and body text when designing a new webpage. In this section, we will learn how to use the MUI Typography component to define different heading styles.
 
 ### Create `theme.ts`
 In the root directory of your project, create a new directory named `config`. You can create the folder using the command line (`mkdir config`) or the GUI.

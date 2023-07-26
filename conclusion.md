@@ -1,13 +1,13 @@
 ---
 layout: default
 title: Conclusion
-nav_order: 12
+nav_order: 13
 ---
 
 # Conclusion
 
-Throughout this learning module, we learned the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. We also covered the basics of mobile user interface design and we learned how to evaluate a website for AODA compliance using the Wave tool. You created a single-page application using Next.js and MUI that contains the following UI elements and features:
-- A McMaster favicon
+Throughout this learning module, we learned the basics of styling Material UI components using the McMaster Digital Brand Standards as an example of a consistent theme. We also covered the basics of mobile user interface design and we learned how to evaluate a website for AODA compliance using the Wave tool. You created a single-page application using Next.js and MUI that contains the following UI elements and features:
+- A custom favicon
 - Styled text using the `Typography` component
 - A theme that uses the McMaster Heritage Maroon and Heritage Gold colors
 - A styled responsive navigation bar with two configurations depending on the screen size
@@ -21,7 +21,7 @@ Throughout this learning module, we learned the basics of styling Material UI co
 - Vertical tabs that make use of a drawer on mobile devices
 - AODA compliance
 
-While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this learning module provided you with the basic knowledge needed to create your McMaster-branded website. 
+While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this learning module provided you with the basic knowledge needed to create modern and responsive websites. 
 
 We recommend the following resources if you want to learn more about Next.js, Material UI, the McMaster Brand Standards, and the web accessibility guidelines:
 - [The Official Next.js Docs](https://nextjs.org/docs)

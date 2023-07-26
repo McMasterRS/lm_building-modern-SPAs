@@ -1,7 +1,7 @@
 ---
 layout: default
 title: AODA Compliance
-nav_order: 11
+nav_order: 12
 ---
 
 # AODA Compliance 

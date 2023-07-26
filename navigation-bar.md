@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Navigation Bar
-nav_order: 6
+nav_order: 7
 ---
 
 # Navigation Bar

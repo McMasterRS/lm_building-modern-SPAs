@@ -4,18 +4,25 @@ title: Introduction
 nav_order: 1
 ---
 
-The [McMaster Digital Brand Standards](https://brand.mcmaster.ca/app/uploads/2019/04/digital-guidelines.pdf) PDF document provides a good overview of the brand guidelines designed to ensure recognition of the McMaster University brand and consistency of its message. The design guidelines presented in this learning module were pulled from this PDF document and modified to apply to Material UI (MUI) components.
+# Building Modern Single-Page Applications
 
-This learning module uses the Next.js framework in conjunction with the Material UI (MUI) library. If you are using a different tech stack or framework that the ones in this learning module, please feel free to book a consultation with the Research Software Development team by emailing [rsd@mcmaster.ca](mailto:rsd@mcmaster.ca).
+
+![intro-image](assets/img/intro-img.png)
+_Image retrieved from [tillerdigital.com]([7 challenges in web application design and development | Tiller Digital](https://tillerdigital.com/blog/7-challenges-in-web-application-development/))_
 
 # Introduction to Material UI (MUI)
 
 ![NextJS-MUI](assets/img/nextjs-mui.png)_Image retrieved from [itnext.io](https://itnext.io/next-js-with-material-ui-7a7f6485f671)_
 
-Learn the basics of styling Material UI components to conform to the McMaster Digital Brand Standards. Material UI is a widely used open-source React component library that implements Google's [Material Design](https://m2.material.io/). The library includes an extensive collection of prebuilt components that are ready for use in production right out of the box. Material UI offers comprehensive styling tools that allow you to customize the design system of its components. Material UI allows you to build websites faster and enjoys a great deal of support in the React community given that it is the largest UI community in the React ecosystem. MUI also reduces the barrier to entry by providing an intuitive development experience for less technical designers and developers. The official MUI documentation includes code snippets for all its components to help developers use them effectively when creating their websites.
 
-In this beginner learning module, participants will learn how to create a Next.js application, add the MUI library to it, and style MUI components to fit the McMaster Digital Brand Standards. We will also learn how to ensure that these components scale properly on small screen devices and how to evaluate a website for AODA compliance using the Wave tool. 
-No previous experience with Next.js or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
+In this learning module, we will take a deep dive into the process of designing and building responsive single-page applications from scratch. We will explore the different ways you can style your web applications to adhere to a consistent theme that is reflected throughout the user interface. We will add support for light and dark mode in our web application to give users the flexibility of choosing the viewing experience that best suits their preferences and light conditions. We will learn how to style visual components and modify their behavior to ensure that they react to the user’s actions in an intuitive matter. We will also explore the various design patterns that you can adopt to ensure that your web application scales appropriately on mobile devices with small screens without any loss of functionality. Finally, we will learn how to evaluate a web page to ensure that it meets the standards required by the Accessibility for Ontarians with Disabilities Act (AODA).
+
+This workshop uses the Next.js framework in conjunction with the Material UI (MUI) library. If you are using a different tech stack or framework that the ones in this workshop, please feel free to book a consultation with the Research Software Development team by emailing [rsd@mcmaster.ca](mailto:rsd@mcmaster.ca). No previous experience with Next.js or MUI is required. Familiarity with TypeScript and React will be helpful but is not necessary.
+
+## Prerequisites
+- **Git**: Git should be installed on your local machine to clone the workshop web application repository. Please consult the following [guide](https://github.com/git-guides/install-git) if you need help installing git on your machine.
+- **IDE (Integrated Development Environment)**: You will need to have an IDE installed on your computer to easily modify the workshop web application files. We recommend using [Visual Studio Code](https://code.visualstudio.com/) or [WebStorm](https://www.jetbrains.com/webstorm/).
+- **Node.js**: We will be using Node.js in this workshop. Please consult the [Pre-module Material](pre-module.md) section if you need help installing Node.js on your machine.
 
 ## Initial Setup
 
