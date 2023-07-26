@@ -58,7 +58,7 @@ You will need to pick a name for your application and specify a few preferences 
 ### Start the Development Server
 `cd` into the your project directory: 
 ~~~
-cd lmr_mac-branding
+cd lmr_building-modern-spas
 ~~~
 Start the development server:
 ~~~
@@ -170,7 +170,7 @@ Go back to your browser tab, the page should now look like this:
 ### Add the Material UI Library to Your Application
 Navigate to the your project's directory if you are not already in it: 
 ~~~
-cd lmr_mac-branding
+cd lmr_building-modern-spas
 ~~~
 
 Run the following command to add the MUI library to your project using the `npm` package manager: 
