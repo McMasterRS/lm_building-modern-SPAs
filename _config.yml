@@ -1,6 +1,6 @@
 title: Building Modern Single-Page Applications # *** Enter workshop title here
-github_repo_url: "https://mcmasterrs.github.io/lm_mac-branding" # ***Enter workshop URL (in github pages) here
-gh_edit_repository: "https://github.com/McMasterRS/lm_mac-branding" #*** ENTER the github URL for your repo
+github_repo_url: "https://mcmasterrs.github.io/lm_building_modern_SPAs/" # ***Enter workshop URL (in github pages) here
+gh_edit_repository: "https://github.com/McMasterRS/lm_building_modern_SPAs/" #*** ENTER the github URL for your repo
 
 subtitle: "Research Software Development Learning Module - Building Modern Single-Page Applications"
 favicon_ico: "https://raw.githubusercontent.com/McMasterRS/workshop-template/main/assets/img/favicon.ico"
