@@ -8,11 +8,11 @@ nav_order: 8
 
 A website footer provides users with a sense of consistency, as the same information will appear at the bottom of every single page. A footer typically contains copyright notices, disclaimers, and other fine print items. Additionally, footers may also contain links to a support page, contact form or social media accounts. In this section, we will add a footer to our Material UI website using the `Paper` component. 
 
-### Create the `Footer` Component
+## Create the `Footer` Component
 Create a new directory inside the `components` directory of your project called `Footer`. Create a file named `Footer.tsx` in this directory.
 
 Add the following code to `Footer.tsx`:
-```
+```ts
 {% raw %}
 import React from 'react'
 import Container from '@mui/material/Container'
@@ -185,11 +185,11 @@ export default function Footer() {
 
 We used the `outlined` variant of the MUI `Paper` component to create a footer that is affixed to the bottom of the page. Akin to the navigation bar, the footer has two different layouts depending on the screen size. On large screens, the footer contains a `Grid` with three evenly spaced horizontal `Grid items`. The first `Grid item` is a link to the "Help and Support" page. The middle `Grid item` contains the copyright notice, whereas the last `Grid item` is a "Contact Us" link that starts a new email to the specified email address. On the other hand, small screens will show the same three links stacked vertically using the MUI `Stack` component. 
 
-### Create the Support Page
+## Create the Support Page
 We will now create a the "Help and Support" page used in the first link of the footer. Create a new subdirectory under the `app` directory called `support`. Create a new `page.tsx` file inside the `support` directory. 
 
 Add the following lines of code the `app/support/page.tsx`:
-```
+```ts
 {% raw %}
 'use client';
 
@@ -224,19 +224,19 @@ export default function Support() {
 
 This file creates a simple page that shows a title in the middle of the screen. We use the React Effect Hook to add a document title on the page that will be shown as the tab name in your browser.
 
-### Importing and Using the `Footer` Component
+## Importing and Using the `Footer` Component
 The footer should appear on all pages of our website. Hence, we will import and use it in the `template.tsx` file, given that components used in this file are shown on all pages. 
 
 Open the `template.tsx` file and import `Footer`:
-```
+```ts
 import Footer from "@/components/Footer/Footer";
 ```
 Add the following line of code after `{children}`:
-```
+```ts
 <Footer />
 ```
 Your `template.tsx` file should now look like this:
-```
+```ts
 {% raw %}
 'use client';  
 

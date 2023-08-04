@@ -8,11 +8,11 @@ nav_order: 11
 
 Modern websites requires the use of UI elements that not only allow the user to perform a wide range of functions, but also react to the user's actions in an intuitive manner. MUI offers a number of customizable built-in components that adhere to the Material Design Language. In this section, we will learn how to style certain MUI components to conform to the stylistic guidelines set by McMaster Digital Brand Standards Manual. The aim of this section is not to provide a comprehensive tutorial on how to use these different MUI components (this information is covered in the [Material UI Documentation](https://mui.com/material-ui/getting-started/overview/) ), but to modify the components' behavior and appearance to fit the McMaster Digital Brand Standards. 
 
-### Buttons
+## Buttons
 We have already create a styled `MuiButton` component called `MacButton` in the "Breadcrumbs With a Universal Back Button" section. We will now show a couple more examples of how we can use the styled `MacButton` component in different ways.
 
 Open the `app/page.tsx` file and add the following import statements:
-```
+```ts
 import React from "react";
 import Stack from "@mui/material/Stack";  
 import Snackbar from '@mui/material/Snackbar';  
@@ -21,7 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 ```
 
 Declare and export these two interfaces above the `Home` function:
-```
+```ts
 export interface SnackbarMessage {
     message: string;
     key: number;
@@ -36,7 +36,7 @@ export interface State {
 ```
 
 Add the following lines of code at the top of the `Page` function:
-```
+```ts
 const [snackPack, setSnackPack] = React.useState<readonly SnackbarMessage[]>([]);
 const [open, setOpen] = React.useState(false);
 const [messageInfo, setMessageInfo] = React.useState<SnackbarMessage | undefined>(
@@ -86,7 +86,7 @@ const action = (
 This code snippet is used to handle opening and closing the popup message that will be shown when clicking the `MacButton` components that we will add shortly.
 
 Delete the line containing the `Typography` component and replace it with the following lines of code:
-```
+```ts
 <Snackbar
     sx={ {paddingTop: 10} }
     open={open}
@@ -128,33 +128,33 @@ Hovering over the Heritage Maroon button will turn cause it to turn dark grey:
 
 Similarly, hovering over the "Secondary" button will turn cause it to turn light grey:
 ![hover-gold](assets/img/hover-gold.png)
-### File Input Widget
+## File Input Widget
 Material UI does not offer a native file input widget. However, there exists a third-party widget called [MUI file input](https://viclafouch.github.io/mui-file-input/) that follows the Material Design guidelines and allows the end user to upload files to a website. We will now explain how to use this widget and how to style it to conform to the McMaster Digital Standards.
 
 Start by installing the MUI file input widget by navigating to the root directory of your project and running the following command:
-```
+```shell
 npm install mui-file-input --save
 ```
 
 Next, open the `app/page.tsx` file and add the following import statement:
-```
+```ts
 import {MuiFileInput} from 'mui-file-input'
 ```
 
 Declare the `selectedFiles` constant and `setSelectedFiles` function at the top of the `Home` function the using the React state hook:
-```
+```ts
 const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
 ```
 
 We will also need to create a `handleChange` function inside the `Home` function to handle the file upload:
-```
+```ts
 const handleChange = (newFiles: File[]) => {
 	setSelectedFiles(newFiles);
 }
 ```
 
 Finally add the following lines of code right after the closing tag of the `Stack` containing the two buttons:
-```
+```ts
 <MuiFileInput  
 	multiple  
 	placeholder="Click here and select file(s)"  
@@ -166,7 +166,7 @@ Finally add the following lines of code right after the closing tag of the `Stac
 The `multiple` prop indicates that the file input widget can accept multiple files at the same time. The `hideSizeText` prop prevents the widget from showing the size of the uploaded file(s).
 
 Your `app/page.tsx` file should now contain the following lines of code:
-```
+```ts
 'use client';
 
 import React from "react";
@@ -296,16 +296,16 @@ Go back to your browser, your website should now contain a file input widget aft
 ![file-input](assets/img/file-input.png)
 Clicking on the widget allows you to select one or more files to upload.
 
-### Dropdown Menu
+## Dropdown Menu
 Dropdown menus allow the user to select an option from a given list. Material UI provides a `Select` component that can be used to generate dropdown menus. In this section, we will learn how to implement a dropdown menu in MUI and how to style it to fit the McMaster Digital Brand Standards. We will add the dropdown menu to the "Notifications" tab of the settings page.
 
 Open the `components/TabPanel/VerticalTabs.tsx` file and add the following import statement:
-```
+```ts
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material'
 ```
 
 Next, replace the `Placeholder 1` line after `<TabPanel value={value} index={0}>` with the following lines of code:
-```
+```ts
 {% raw %}
 <FormControl sx={{m: 1, minWidth: 300}}>  
 	<InputLabel id="demo-simple-select-label">  
@@ -326,7 +326,7 @@ Next, replace the `Placeholder 1` line after `<TabPanel value={value} index={0}>
 We wrapped our dropdown in a `FormControl` component, which is a utility that wraps an input component with other associated components in order to make the state of the input available to those components. We also used the `InputLabel` component to display the name of the dropdown menu (i.e., the `Select` component). We also make use of the `MenuItem` component to add options to the dropdown menu. Notice that the value associated with each option is set using the `value` prop.
 
 Your `components/TabPanel/VerticalTabs.tsx` file should now contain the following lines:
-```
+```ts
 {% raw %}
 import * as React from 'react'
 import Tabs from '@mui/material/Tabs'
@@ -543,11 +543,11 @@ Try shrinking the browser window to see how the dropdown menu looks on devices w
 
 ![dropdown-list-small](assets/img/dropdown-list-small.png)
 
-### Buttons With a Dropdown Menu
+## Buttons With a Dropdown Menu
 The styled `MacButton` that we created earlier can be combined with a dropdown menu to create a button that allows the user to execute mutually exclusive functions that fall under the same category e.g., a download button that lets the user choose the file format. We will add this type of button to the "Page 1".
 
 Open the `app/page_1/page.tsx` file and add the following import statements:
-```
+```ts
 import React from "react";
 import {MacButton} from "@/components/MacComponents/MacButton";  
 import Menu, {MenuProps} from '@mui/material/Menu';  
@@ -559,7 +559,7 @@ import {alpha, styled} from '@mui/material/styles';
 
 Next, we will create a styled menu that follows the standards recommended by the official MUI documentation.
 Add the `StyledMenu` constant declaration before the `Page_1()` function declaration:
-```
+```ts
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
         elevation={0}
@@ -607,7 +607,7 @@ const StyledMenu = styled((props: MenuProps) => (
 
 We will now use the React State Hook to create the anchor element used when opening and closing the download menu.
 Add the following lines of code inside the body of the `Page_1()` function (before the return statement): 
-```
+```ts
 const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 const openMenu = Boolean(anchorEl)
 const handleClickMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -619,7 +619,7 @@ const handleCloseMenu = () => {
 ```
 
 Modify the `Box` component containing the "Page 1" `Typography` component by adding the `sx` property as shown below:
-```
+```ts
 <Box sx={{height: 78, transform: 'translateZ(0px)', flexGrow: 1}}
 	  display="flex"
 	  justifyContent="center"
@@ -627,7 +627,7 @@ Modify the `Box` component containing the "Page 1" `Typography` component by add
 ```
 
 Finally, add the "Download" `MacButton` and the `StyledMenu` containing the different file formats inside the `Box` component:
-```
+```ts
 {% raw %}
 <Tooltip title={useMediaQuery(useTheme().breakpoints.down('md')) ? 'Download' : ''} >
   <MacButton
@@ -679,7 +679,7 @@ Finally, add the "Download" `MacButton` and the `StyledMenu` containing the diff
 We used the "secondary" variant of the `MacButton` component. Notice that we used the `useMediaQuery` function in conjunction with breakpoints to determine if the button should have a tooltip or a "Download" string in it depending on the screen size. On medium and large displays, the button shows a "Download" text sandwiched between a `startIcon` indicating its function (i.e., the `DownloadIcon`) and an `endIcon` consisting of a downwards pointing arrow to inform the user that it is a menu button. On small screens, we removed the "Download" text from the button and replaced it with a tooltip message. The "Download" button is positioned in the top right corner of the page using the `sx` property on all screen sizes.
 
 Your `app/page_1/page.tsx` file should now look like this:
-```
+```ts
 {% raw %}
 'use client';
 
@@ -826,11 +826,11 @@ Try shrinking your browser window horizontally and notice how the button is auto
 
 ![download](assets/img/download-small.png)
 
-### Speed Dials
+## Speed Dials
 Material UI offers a `SpeedDial` component that allows developers to create a floating action button containing related actions. The `SpeedDial` component is often used to group action that manipulate the state of an object e.g., "edit", "delete", and "save". We will now learn how to create a styled `SpeedDial` component that adheres to McMaster Branding Standards.
 
 Create a `MacSpeedDial.tsx` file in the `components/MacComponents` directory and add the following lines of code to it:
-```
+```ts
 import {useTheme} from '@mui/material/styles'
 import styled from '@emotion/styled'
 import SpeedDial, {SpeedDialProps} from '@mui/material/SpeedDial'
@@ -860,7 +860,7 @@ export const MacSpeedDial = styled(SpeedDial, {shouldForwardProp: (prop) => prop
 We added a `mainColor` prop to the `MacSpeedDial` component that will determine the background color, text/icon color and hover color of the button. Akin to the `MacButton` component, if the `mainColor` prop is `'primary'`, then the background color will be Heritage Maroon, the text/icon color will be white and the speed dial will turn a medium shade of grey when the user hovers over it as required by the McMaster Digital Brand Standards guide. Otherwise, if the `mainColor` prop is `'secondary'`, then the background color will be Heritage Gold, the text/icon color will be dark grey and the button will turn light grey when the user hovers the mouse over it.
 
 We will now use the `MacSpeedDial` component on "Page 2". Open the `app/page_2/page.tsx` file and add the following import statements:
-```
+```ts
 import React from "react";
 import {MacSpeedDial} from '@/components/MacComponents/MacSpeedDial'  
 import EditIcon from '@mui/icons-material/Edit';  
@@ -872,7 +872,7 @@ import {SpeedDialAction, SpeedDialIcon} from "@mui/material";
 Next, we will create the `openSD` constant used to track the state of the speed dial using the React State Hook. We will also create the functions that open and close the speed dial in addition to the `action` array containing the option that should appear inside the speed dial. 
 
 Add the following lines of code inside the `Page_2()` function (before the return statement):
-```
+```ts
 const [openSD, setOpenSD] = React.useState(false)  
 const handleOpenSD = () => setOpenSD(true)  
 const handleCloseSD = () => setOpenSD(false)  
@@ -885,7 +885,7 @@ const actions = [
 ```
 
 Modify the `Box` component containing the "Page 2" `Typography` component by adding the `sx` property as shown below:
-```
+```ts
 <Box sx={{height: 78, transform: 'translateZ(0px)', flexGrow: 1}}
 	  display="flex"
 	  justifyContent="center"
@@ -893,7 +893,7 @@ Modify the `Box` component containing the "Page 2" `Typography` component by add
 ```
 
 Finally, add the `MacSpeedDial` containing the actions defined in the `actions` array inside the `Box` component:
-```
+```ts
 <MacSpeedDial
     ariaLabel="Demo SpeedDial"
     sx={{
@@ -921,7 +921,7 @@ Finally, add the `MacSpeedDial` containing the actions defined in the `actions` 
 ```
 
 Your `app/page_2/page.tsx` file should now look like this:
-```
+```ts
 'use client';
 
 import React from "react";

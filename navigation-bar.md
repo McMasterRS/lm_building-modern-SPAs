@@ -8,11 +8,11 @@ nav_order: 7
 
 When most people visit a website for the first time, the navigation bar (NavBar) is the first element that catches their attention. A responsive navigation bar links the different pages of a website together and provides the user with contextual information to identify which page they are currently on in addition to helping them understand the structure of the website. Consequently, having a responsive navigation bar is integral for creating a website that is intuitive and easy to navigate. In this section, we will learn how to create a responsive navigation bar using the [`AppBar`](https://mui.com/material-ui/react-app-bar/) component of Material UI. 
 
-### Define the Palette Colors & Border Radius
+## Define the Palette Colors & Border Radius
 Start by defining the primary and secondary colors of your theme. The McMaster Digital Brand Standards specify that the primary color should be McMaster Heritage Maroon and the secondary color is McMaster Heritage Gold.
 
 Modify `theme.ts` by adding the following code at the beginning of the `themeOptions` object:
-```
+```css
 palette: {  
 	primary: {  
 		main: "#7a003c"  
@@ -25,7 +25,7 @@ palette: {
 In this code snippet, we are defining the primary and secondary colors of our website using the hex values that correspond to the McMaster Heritage Maroon and Heritage Gold colors.
 
 Next, we will set the border radius in the them to 28 and the border radius for the `MuiPaper` component to 8 inside `themeOptions`:
-```
+```css
 shape: {  
 	borderRadius: 28,  
 },
@@ -42,11 +42,11 @@ components: {
 Note that the shape `borderRadius` sets the global value of the border radius for all MUI components, we will modify the border radius of individual components as needed just like we did for the `MuiPaper` component.
 
 Your `theme.ts` file should now look like this:
-```
+```cs
 import {Roboto, Roboto_Condensed} from "next/font/google";
 
 const roboto = Roboto({
-    weight: ['300', '700'],
+    weight: ['400', '900'],
     style: ['normal', 'italic'],
     subsets: ['latin'],
     display: 'swap',
@@ -78,6 +78,7 @@ const themeOptions = {
         h1: {
             fontFamily: roboto_condensed.style.fontFamily,
             fontSize: '50pt',
+            fontWeight: 400,
         },
         h2: {
             fontFamily: roboto_condensed.style.fontFamily,
@@ -87,6 +88,7 @@ const themeOptions = {
         h3: {
             fontFamily: roboto_condensed.style.fontFamily,
             fontSize: '20pt',
+            fontWeight: 400,
         },
         h4: {
             fontFamily: roboto.style.fontFamily,
@@ -119,14 +121,14 @@ const themeOptions = {
 export default themeOptions
 ```
 
-### Create `Navbar.module.css`
+## Create `Navbar.module.css`
 In the `styles` directory of your project, create a new file called `Navbar.module.css`. This file will contain the CSS styles used for the links in our navigation bar. We will define the colors of the links in their active, non-active and hover states:
 - Non-active links should be white and turn Heritage Gold when you hover over them.
 - Active links should have a white background and the link text should be Heritage Maroon.
 
 Add the following lines to `Navbar.module.css`:
 
-```
+```css
 /* Specific styles for non-active navbar links */
 .nonActive {
     color: white;
@@ -142,22 +144,18 @@ Add the following lines to `Navbar.module.css`:
     color: #7a003c;
     background: white;
 }
-
-.title:hover {
-    color: #fdbf57;
-}
 ```
 
-### Download the McMaster Logo
+## Download the McMaster Logo
 Download the McMaster logo using the [Brand Standards](https://brand-resources.mcmaster.ca/asset-bank/action/viewAsset?id=7000&index=3&total=17&view=viewSearchItem)website. Note that you will need to sign in with your MacID to download the logo. Rename the downloaded file to `logo.png`.
 In the `public` directory of your project, create a new directory called `assets`. Place `logo.png` in the `assets` directory.
 
 We will also need the McMaster crest logo that can be downloaded from the following [link](https://www.pngwing.com/en/free-png-mqbcf).  Rename the downloaded file to `logo-small.png` and place it in the `assets` directory.
 
-### Create Styled Icon Buttons
+## Create Styled Icon Buttons
 We will now proceed to create a styled  `IconButton` for use in our navigation bar.
 In the root directory of your project, create a `components` directory. Create a new directory called `MacComponents` inside the `components` directory. Create a new file in this directory called `MacNavButton.tsx` and add the following code to it:
-```
+```ts
 {% raw %}
 import {styled, useTheme} from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
@@ -175,11 +173,11 @@ export const MacIconNavButton = styled(IconButton)(props => ({
 ```
 The `MacIconNavButton` component is a styled MUI `IconButton`. We set the icon color to Heritage Gold and made the background transparent when hovering over the icon button. We also added a ripple affect to the icon button that appears when the user clicks on it. 
 
-### Create the `NavBar` Component
+## Create the `NavBar` Component
 Create another directory inside the `components` directory called `Navbar`. Create a file named `Navbar.tsx` in this directory.
 
 Add the following import statements to to `Navbar.tsx`:
-```
+```ts
 import * as React from 'react'  
 import AppBar from '@mui/material/AppBar'  
 import Box from '@mui/material/Box'  
@@ -199,7 +197,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 ```
 
 Next, create a multi-dimensional array containing the name of each page and its corresponding `.tsx` file:
-```
+```ts
 const pages = [  
 	['Page 1', '/page_1'],  
 	['Page 2', '/page_2'],  
@@ -208,7 +206,7 @@ const pages = [
 We will create the  `.tsx` files shortly.
 
 We will now create the `Navbar` function which returns the `AppBar` component:
-```
+```ts
 {% raw %}
 export default function Navbar() {
     const imgStyle = {
@@ -309,8 +307,10 @@ export default function Navbar() {
                                     flexGrow: 1,
                                     color: 'inherit',
                                     textDecoration: 'none',
+                                    "&:hover": {
+										color: useTheme().palette.secondary.main
+									}
                                 }}
-                                className={styles.title}
                             >
                                 MacApp
                             </Typography>
@@ -337,8 +337,10 @@ export default function Navbar() {
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
+                            "&:hover": {
+								color: useTheme().palette.secondary.main
+							}
                         }}
-                        className={styles.title}
                     >
                         MacApp
                     </Typography>
@@ -352,19 +354,19 @@ export default function Navbar() {
 So far, our code creates an `AppBar` component with the McMaster logo on the left hand side along with the title of our application (MacApp). Medium and large displays will show the full-sized McMaster logo, whereas small displays will only show the McMaster crest. We use the `sx` and `md` breakpoints in the `display` field of the `sx` prop to determine which component should be rendered on small and medium displays respectively. The title is a button that can be clicked to go back to the main index page of our application, which in this case is the 'Hello World!' page.
 Notice that the navigation bar has two `Typography` components containing the title of our application. The first `Typography` component is used for medium-sized screens (e.g., tablets, laptops, desktop computers, etc.) whereas the second `Typography` component is used for small screens (e.g., smartphones). On small screens, we render a `MacIconNavButton` component that opens an app drawer containing the navigation links that we will add at a later stage in this learning module. The `toggleDrawer` function is used to handle opening and closing the app drawer shown in the navigation bar on small screens.
 
-### Import and Use `Navbar`
+## Import and Use `Navbar`
 The navigation bar should appear on all pages of our website. As such, we will import and use it in the `template.tsx` file, given that components used in this file are shown on all pages. 
 
 Open the `template.tsx` file and import `NavBar`:
-```
+```ts
 import Navbar from "@/components/Navbar/Navbar";
 ```
 Add the following line of code before `<CssBaseline />`:
-```
+```ts
 <Navbar />
 ```
 Your `template.tsx` file should now look like this:
-```
+```ts
 {% raw %}
 'use client';  
   
@@ -396,9 +398,9 @@ If you hover over the "MacApp" button, the text should turn Heritage Gold indica
 Try decreasing the width of your window and notice how a new menu icon will be shown along with a smaller logo:
 ![navbar-2](assets/img/navbar-2.png)
 
-### Create Additional Pages
+## Create Additional Pages
 Start by creating an additional `page` CSS style in `page.module.css`:
-```
+```css
 .page {
   display: flex;
   flex-direction: column;
@@ -412,7 +414,7 @@ We reduced the padding compared to the `main` style.
 
 In the `app` directory of your project, create a new directory called `page_1`. Create an `page.tsx` file in the `page_1` directory.
 Add the following code to the `page_1/page.tsx` file:
-```
+```ts
 {% raw %}
 'use client';
 
@@ -445,7 +447,7 @@ export default function Page_1() {
 ```
 
 Create another directory in `app` called `page_2` with an `page.tsx` file in it. Add the following code to `page_2/page.tsx`:
-```
+```ts
 'use client';
 
 import styles from '@/styles/page.module.css'
@@ -477,15 +479,15 @@ export default function Page_2() {
 ```
 These two files create two simple pages that show a title in the middle akin to the main "Hello World!" page. We use the React Effect Hook to add a document title on each page that will be shown as the tab name in your browser.
 
-### Create Styled Buttons
+## Create Styled Buttons
 We will now create a styled `Button` for use in our navigation bar.
 Inside the previously created `MacComponents/MacNavButton.tsx` file, add the following import statement:
-```
+```ts
 import Button from '@mui/material/Button'
 ```
 
 Next, create and export the styled `MacNavButton` component:
-```
+```ts
 export const MacNavButton = styled(Button)(props => ({
     ':hover': {
         backgroundColor: "transparent",
@@ -498,7 +500,7 @@ export const MacNavButton = styled(Button)(props => ({
 ```
 
 Your `MacComponents/MacNavButton.tsx` file should now containing the following lines of code:
-```
+```ts
 {% raw %}
 import {styled, useTheme} from '@mui/material/styles'
 import Button from '@mui/material/Button'
@@ -527,14 +529,14 @@ export const MacIconNavButton = styled(IconButton)(props => ({
 ```
 The `MacNavButton` component is a styled MUI `Button` that behaves similarly to the `MacIconNavButton`. The text color of the button turns to Heritage Gold when hovering over it. We also added a ripple affect to the button that appears when the user clicks the button. 
 
-### Add Links to the Navigation Bar
+## Add Links to the Navigation Bar
 Import the `MacNavButton` components in `Navbar.tsx` by updating the import statement of the `MacIconNavButton` as shown below:
-```
+```ts
 import {MacIconNavButton, MacNavButton,} from '@/components/MacComponents/MacNavButton'
 ```
 
 Next, add the following additional import statements:
-```
+```ts
 import ListItem from "@mui/material/ListItem";  
 import ListItemButton from "@mui/material/ListItemButton";  
 import ListItemIcon from "@mui/material/ListItemIcon";  
@@ -544,7 +546,7 @@ import LooksTwoIcon from '@mui/icons-material/LooksTwo';
 ```
 
 In the `Navbar` function of `Navbar.tsx`, add the following lines of code after the `toggleDrawer` function declaration:
-```
+```ts
 {% raw %}
 const router = useRouter()  
 const currentRoute = usePathname()
@@ -556,7 +558,7 @@ const icons = [<LooksOneIcon key={'transcripts-page'} />, <LooksTwoIcon key={'pr
 The code initializes the router object and determines which page the user is currently on. We also defined an array of icons that we will use in the drawer that is shown on small screens.
 
 Modify the `pages_drawer` constant by adding the following lines of code inside the `List` component:
-```
+```ts
  {pages.map((page, index) => (
 	<ListItem key={page[0]} disablePadding>
 		<ListItemButton onClick={toggleDrawer(false)} component={Link} href={page[1]} selected= {currentRoute === page[1]} >
@@ -571,7 +573,7 @@ Modify the `pages_drawer` constant by adding the following lines of code inside 
 We iterate on the `pages` array and add an `ListItem` component for each entry. Each `ListItem` component contains a `ListItemButton`, a `ListItemIcon` and a `ListItemText` component. Each entry is rendered as a clickable link consisting of an icon followed by the name of the page.
 
 Next, we will add the navigation button links shown on medium-sized displays. Add the following code right after the second `Typography` component:
-```
+```ts
 {% raw %}
 <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
     {pages.map(page => (
@@ -595,7 +597,7 @@ Next, we will add the navigation button links shown on medium-sized displays. Ad
 We modify the `className` of the `MacNavButton` component depending on which page the user is currently on to specify if the button should use the `active` style or the `nonActive` style.
 
 The `Navbar.tsx` file should now contain the following code:
-```
+```ts
 {% raw %}
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
@@ -737,8 +739,10 @@ export default function Navbar() {
                                     flexGrow: 1,
                                     color: 'inherit',
                                     textDecoration: 'none',
+                                    "&:hover": {
+										color: useTheme().palette.secondary.main
+									}
                                 }}
-                                className={styles.title}
                             >
                                 MacApp
                             </Typography>
@@ -765,8 +769,10 @@ export default function Navbar() {
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
+                            "&:hover": {
+								color: useTheme().palette.secondary.main
+							}
                         }}
-                        className={styles.title}
                     >
                         MacScribe
                     </Typography>
@@ -806,7 +812,7 @@ Notice that the button of the active page has a white background to inform the u
 On smaller screens the navigation bar will make use of an app drawer where the active page is highlighted:
 ![page-1](assets/img/page-1.png)
 
-### Add a Settings Button
+## Add a Settings Button
 In this section, we will add an icon button that redirects the user to the "Settings" page of our web application. The "Settings" page will use vertical tabs to display and group related controls. We will also learn how to add a tooltip message to an icon button to help our users understand what each icon in our navigation bar signifies. 
 
 Start by adding the following import statement to `Navbar.tsx`:
@@ -816,7 +822,7 @@ import SettingsIcon from '@mui/icons-material/Settings'
 We are importing the MUI "Settings" icon (gear icon) for use in our navigation bar and app drawer.
 
 Add the following lines of code immediately after the `Box` component containing the `MacNavButtons` for "Page 1" and "Page 2":
-```
+```ts
 {% raw %}
 <Box sx={{paddingRight: 1}}>
     <Tooltip
@@ -842,7 +848,7 @@ Add the following lines of code immediately after the `Box` component containing
 We are effectively adding a new `Box` component that contains an instance of the `MacIconNavButton` styled component that we created earlier. The `MacIconNavButton` contains the `SettingsIcon` component that appears as a gear icon. Notice the `MacIconNavButton` is wrapped in a `Tooltip` component which allows us to present the user with a tooltip message when they hover over the gear icon. Currently, the settings icon button is set to redirect the user to the `settings` page, which we will create shortly.
 
 On small screens, the settings link should be displayed at the bottom of the app drawer. Modify the `pages_drawer` function to render a settings link as shown below:
-```
+```ts
 {% raw %}
 const pages_drawer = () => (
 	<Box
@@ -879,7 +885,7 @@ const pages_drawer = () => (
 ```
 
 Your `Navbar.tsx` file should now look like this:
-```
+```ts
 {% raw %}
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
@@ -1032,8 +1038,10 @@ export default function Navbar() {
                                     flexGrow: 1,
                                     color: 'inherit',
                                     textDecoration: 'none',
+                                    "&:hover": {
+										color: useTheme().palette.secondary.main
+									}
                                 }}
-                                className={styles.title}
                             >
                                 MacApp
                             </Typography>
@@ -1060,8 +1068,10 @@ export default function Navbar() {
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
+                            "&:hover": {
+								color: useTheme().palette.secondary.main
+							}
                         }}
-                        className={styles.title}
                     >
                         MacScribe
                     </Typography>
@@ -1113,13 +1123,13 @@ Try reducing the width of your browser window to simulate a small-screen device.
 
 ![drawer-settings](assets/img/drawer-settings.png)
 
-### Creating the `VerticalTabs` Component
+## Creating the `VerticalTabs` Component
 As previously mentioned, our settings page will make use of vertical tabs to group related controls. We will now create our custom `VerticalTabs` component using the MUI `Tab` component for medium and large display and a small drawer for mobile devices.
 
 In the `components` directory, create a subdirectory called `TabPanel`. Inside this new subdirectory, create a file called `VerticalTabs.tsx`.
 
 Add the following code to `VerticalTabs.tsx`:
-```
+```ts
 {% raw %}
 import * as React from 'react'
 import Tabs from '@mui/material/Tabs'
@@ -1312,9 +1322,9 @@ export default function VerticalTabs() {
 
 The layout of the `VerticalTabs` changes depending on the display size of the device viewing the page. We created a custom `TabPanel` component that will house the content of each tab in our panel. For medium and large displays, we made use of the MUI `Tabs` component with several children `Tab` components containing the label of each tab. The tabs are displayed vertically on the left hand side of the screen. The `handleChange` function allows the user to easily switch between the tabs by clicking on the desired label. Currently, each tab panel contains a simple placeholder string. We will add styled form controls to some of the panels in a later section of this learning module. On small screens, the tabs are automatically moved to a `Drawer` component that can be activated using an `IconButton`. Switching between the `Tabs` and `Drawer` components by resizing the browser window will save the user's current position (i.e., the current tab that they are on). The current active tab is always highlighted on both the full-sized tabs as well as the drawer.
 
-### Create the Settings Page
+## Create the Settings Page
 Start by creating a CSS style for the settings page. Add the following lines to `styles/page.module.css`:
-```
+```css
 .settings {
   display: flex;
   flex-direction: column;
@@ -1330,7 +1340,7 @@ We reduced the padding used at the top and bottom of the settings page compared 
 Now that our `VerticalTabs` component is complete, we will create the settings page index file. In the `app` directory of your project, create a new `settings` subdirectory. Create an `page.tsx` file in this directory.
 
 Add the following code to `settings/page.tsx`:
-```
+```ts
 {% raw %}
 'use client';
 

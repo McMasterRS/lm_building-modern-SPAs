@@ -8,10 +8,10 @@ nav_order: 12
 
 The Information and Communications Standard is part of the AODA Integrated Standards Regulation released in June 2011 by the Ontario legislative body. It requires McMaster University to provide information in an accessible format, which includes web sites and information published on them. In this section, we will learn how to evaluate a website for AODA compliance and how to address some common AODA errors related to MUI components.
 
-### Installing the Wave Browser Extension
+## Installing the Wave Browser Extension
 Open the [WAVE Extensions ](https://wave.webaim.org/extension/) webpage and install the Wave extension for the browser that you are currently using. 
 
-### Using the Wave Browser Extension
+## Using the Wave Browser Extension
 To evaluate a page, simply click on the extension button in your browser's toolbar.
 ![wave-button](assets/img/wave-button.png)
 The Wave sidebar will be shown on the left side of your browser. The sidebar includes a summary of all the errors, alerts and features that are present on the page you have open.
@@ -27,11 +27,11 @@ Pull the website's HTML code by clicking on the turquoise "Code" button at the b
 
 ![empty-button](assets/img/empty-button.png)
 
-### Empty Button Error
+## Empty Button Error
 After inspecting the code, we found that the empty button is the "Menu" button that appears on the navigation bar on smaller screens. To fix the issue, we will add a tooltip message to the "Menu" button.
 
 Open the `Navbar.tsx` file located under `components/Navbar`, and wrap the `IconButton` component containing a `MenuIcon` with a `Tooltip` component as shown below:
-```
+```ts
 <Tooltip enterDelay={500} title={state ? "Close App Drawer" : "Open App Drawer"}>
 	<MacIconNavButton
 		size="large"
@@ -56,7 +56,7 @@ Navigate to "Page 1" and re-evaluate the page using the Wave tool. The summary p
 While we can use a tooltip message to resolve this issue, we will show another way of addressing the problem.
 
 Open the `components/BreadCrumbs/BreadCrumbs.tsx` file and locate the `MacButton` component containing an `ArrowBackIcon`. Add a `title` prop to the `MacButton` component:
-```
+```ts
 <MacButton variant="contained" mainColor="primary" onClick={() => router.back()} title={"Back"}>
     <ArrowBackIcon />
 </MacButton>
@@ -71,11 +71,11 @@ Re-run the Wave tool on "Page 1". The empty button error will no longer be shown
 Go back to the main index page and run the Wave tool. You will notice that the tool identifies a contrast error on this page. The contrast error is caused by the shade of grey used for the placeholder text on the file input widget that appears on the main index page of our website. To fix the error, we will modify the file input widget to use a slightly darker shade of grey in light mode that is AODA compliant for the placeholder text. Dark mode uses a light grey color for the placeholder text to maintain visibility against a dark background.
 
 Open the `app/page.tsx` file and add the following import statement:
-```
+```ts
 import {useTheme} from '@mui/material/styles'
 ```
 Modify the `MuiFileInput` component by adding an `sx` prop as shown below:
-```
+```ts
 {% raw %}
 <MuiFileInput  
 	multiple  
@@ -107,14 +107,14 @@ Navigate to the "Settings" page by clicking on the gear icon and evaluate the pa
 This error is caused by the dropdown menu component (i.e., the `Select` component) not having an `id` that matches that of its corresponding `InputLabel`. To fix this issue, simply open the `components/TabPanel/VerticalTabs.tsx` file and locate the `InputLabel` and `Select` components.
 
 Add an `htmlFor` prop to the `InputLabel` component as shown below:
-```
+```ts
 <InputLabel id="demo-simple-select-label" htmlFor="demo-simple-select">
 	Demo Dropdown Menu
 </InputLabel>
 ```
 
 Next, we will add an `id` to the `Select` component using `inputProps`. The `id` of the `Select` component has to match the one enter in the `htmlFor` field of the `InputLabel`:
-```
+```ts
 <Select
 	labelId="demo-simple-select-label"
 	id="demo-simple-select"

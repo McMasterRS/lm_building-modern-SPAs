@@ -8,11 +8,11 @@ nav_order: 9
 
 A responsive website should follow the theme preference set by the user on their operating system (OS) or web browser. Material UI allows us to switch between light and dark themes based on user preference by using the `ThemeProvider` component and a toggle switch. In this section, we will add a light/dark mode toggle to our navigation bar and we will learn how to leverage the `useMediaQuery` hook and the `prefers-color-scheme` media query to enable dark mode automatically by checking the user's preference in their OS or browser settings.
 
-### Modify `theme.ts`
+## Modify `theme.ts`
 We had previously set the primary and secondary colors of our theme in the `config/theme.ts` file. However, when using dark mode in our website, we will need to desaturate these colors to maintain a satisfactory level of contrast between the elements on screen and improve readability. Therefore, we will need to remove the primary and secondary color definitions from `theme.ts` since these values will now be set programmatically depending on the theme mode used.
 
 **Delete** the following lines from `theme.ts`:
-```
+```ts
 palette: {
     primary: {
         main: "#7a003c"
@@ -23,15 +23,21 @@ palette: {
 },
 ```
 
+## Determine Desaturated Theme Colors
+We will use the [MUI Color Palette Tool](https://m2.material.io/inline-tools/color/) to determine the desaturated variant of our theme colors.
 
-### Modify `template.tsx`
+![color-palettes](assets/img/color-palettes.png)
+
+Colors in the `[200,50]` range can be used in dark mode.
+For our theme, the desaturated primary color is `#ed89a3`, and the desaturated secondary color is `#fdd287`.
+## Modify `template.tsx`
 Open `app/template.tsx` and add the following import statements:
-```
+```ts
 import useMediaQuery from '@mui/material/useMediaQuery'
 ```
 
 Create and export the `ColorModeContext` constant, which will allow us to read and modify the theme mode of our website from the navigation bar. The following code should be added before the `Template` function declaration:
-```
+```ts
 export const ColorModeContext = React.createContext({
     toggleColorMode: () => {},
 })
@@ -40,49 +46,51 @@ export const ColorModeContext = React.createContext({
 Next, we will read the value of the media `prefers-color-scheme` query and save it as a Boolean constant whose value is true if the user currently has dark mode enabled on their system. We will also use the React state hook to create a `mode` constant with a `null` initial value and a `setColor` function that is used to update the `mode` constant.
 
 Add the following lines of the code at the top of the `Template` function:
-```
+```ts
 const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
 const [mode, setMode] = React.useState<'light' | 'dark' | null>(null)
 ```
 
-Replace the `const theme` declaration with the following updated declaration:
-```
+Define the primary and secondary colors and replace the `const theme` declaration with the following updated declaration:
+```ts
+const primary_color = themeMode == null
+        ? prefersDarkMode
+            ? '#ed89a3'
+            : '#7a003c'
+        : themeMode == 'light'
+            ? '#7a003c'
+            : '#ed89a3';
+
+const secondary_color = themeMode == null
+	? prefersDarkMode
+		? '#fdd287'
+		: '#fdbf57'
+	: themeMode == 'light'
+		? '#fdbf57'
+		: '#fdd287';
+            
 const theme = React.useMemo(
-    () =>
-        createTheme({
-            ...themeOptions,
-            palette: {
-                mode:
-                    mode == null
-                        ? prefersDarkMode
-                            ? 'dark'
-                            : 'light'
-                        : mode,
-                primary: {
-                    main:
-                        mode == null
+        () =>
+            createTheme({
+                ...themeOptions,
+                palette: {
+                    mode:
+                        themeMode == null
                             ? prefersDarkMode
-                                ? '#86174E'
-                                : '#7a003c'
-                            : mode == 'light'
-                                ? '#7a003c'
-                                : '#86174E',
+                                ? 'dark'
+                                : 'light'
+                            : themeMode,
+                    primary: {
+                        main: primary_color
+                    },
+                    secondary: {
+                        main: secondary_color
+                    },
                 },
-                secondary: {
-                    main:
-                        mode == null
-                            ? prefersDarkMode
-                                ? '#FDC566'
-                                : '#fdbf57'
-                            : mode == 'light'
-                                ? '#fdbf57'
-                                : '#FDC566',
-                },
-            },
-        }),
-    [mode, prefersDarkMode]
-);
+            }),
+        [themeMode, prefersDarkMode]
+    )
 ```
 This updated declaration utilizes the React `useMemo` hook to create and cache a theme value. The value of the `mode` attribute is determined by examining the the value of the `themeMode` constant we created earlier. The diagram below explains the conditional logic used to determine the value of `mode`:
 ![logic-mode](assets/img/logic-mode.png)
@@ -91,7 +99,7 @@ When using dark mode, the primary and secondary colors of our theme are desatura
 ![logic-mode](assets/img/logic-secondary.png)
 
 We will now make use of the React `useMemo` hook to calculate and cache the value of the `colorMode` constant. Add the following lines of code **after** the `theme` declaration:
-```
+```ts
  const colorMode = React.useMemo(
         () => ({
             toggleColorMode: () => {
@@ -103,7 +111,7 @@ We will now make use of the React `useMemo` hook to calculate and cache the valu
 ```
 
 Finally, wrap the returned elements of the `App` function with the `ColorModeContext.Provider`:
-```
+```ts
 return <>
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
@@ -116,7 +124,7 @@ return <>
     </>
 ```
 Your `template.tsx` file should now look like this:
-```
+```ts
 'use client';
 
 import React from 'react'
@@ -133,44 +141,45 @@ export const ColorModeContext = React.createContext({
 
 export default function Template({children}: {children?: React.ReactNode} ) {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-
     const [themeMode, setThemeMode] = React.useState<'light' | 'dark' | null>(null)
-
-    const theme = React.useMemo(
-        () =>
-            createTheme({
-                ...themeOptions,
-                palette: {
-                    mode:
-                        themeMode == null
-                            ? prefersDarkMode
-                                ? 'dark'
-                                : 'light'
-                            : themeMode,
-                    primary: {
-                        main:
-                            themeMode == null
-                                ? prefersDarkMode
-                                    ? '#86174E'
-                                    : '#7a003c'
-                                : themeMode == 'light'
-                                    ? '#7a003c'
-                                    : '#86174E',
-                    },
-                    secondary: {
-                        main:
-                            themeMode == null
-                                ? prefersDarkMode
-                                    ? '#FDC566'
-                                    : '#fdbf57'
-                                : themeMode == 'light'
-                                    ? '#fdbf57'
-                                    : '#FDC566',
-                    },
-                },
-            }),
-        [themeMode, prefersDarkMode]
-    )
+	
+	const primary_color = themeMode == null
+	        ? prefersDarkMode
+	            ? '#ed89a3'
+	            : '#7a003c'
+	        : themeMode == 'light'
+	            ? '#7a003c'
+	            : '#ed89a3';
+	
+	const secondary_color = themeMode == null
+		? prefersDarkMode
+			? '#fdd287'
+			: '#fdbf57'
+		: themeMode == 'light'
+			? '#fdbf57'
+			: '#fdd287';
+	            
+	const theme = React.useMemo(
+	        () =>
+	            createTheme({
+	                ...themeOptions,
+	                palette: {
+	                    mode:
+	                        themeMode == null
+	                            ? prefersDarkMode
+	                                ? 'dark'
+	                                : 'light'
+	                            : themeMode,
+	                    primary: {
+	                        main: primary_color
+	                    },
+	                    secondary: {
+	                        main: secondary_color
+	                    },
+	                },
+	            }),
+	        [themeMode, prefersDarkMode]
+	    )
 
     const colorMode = React.useMemo(
         () => ({
@@ -194,10 +203,10 @@ export default function Template({children}: {children?: React.ReactNode} ) {
 }
 ```
 
-### Add Light/Dark Mode Toggle to Navigation Bar
+## Add Light/Dark Mode Toggle to Navigation Bar
 We will now add a responsive toggle to our navigation bar that allows the user to easily switch between dark and light mode. 
 Start by adding the following import statements to `Navbar.tsx`:
-```
+```ts
 import {useTheme} from '@mui/material/styles'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
@@ -207,13 +216,13 @@ import {ColorModeContext} from '@/app/template'
 Next, we will use the `useTheme` hook to access the theme variables in `Navbar.tsx` in addition to the `useContext` hook to grab the current context value of the `ColorModeContext` imported from `app/template.tsx`.
 
 Add the following two lines to the top of the `Navbar` function:
-```
+```ts
 const theme = useTheme()
 const colorMode = React.useContext(ColorModeContext)
 ```
 
 We will now add the toggle button to the navigation bar. Add the following lines of code before the `Box` containing the settings icon:
-```
+```ts
 <Box sx={{paddingRight: 1, display: {xs: 'none', md: 'flex'}}}>
     <Tooltip
         title={
@@ -239,7 +248,7 @@ We will now add the toggle button to the navigation bar. Add the following lines
 We are a use the custom `MacIconNavButton` component that we created earlier and the MUI `Tooltip` component. Notice that the icon and the tooltip message displayed change according to the value of the current theme.
 
 We will now update the `pages_drawer` function to display the dark/light mode toggle in the app drawer. Add the following lines of code to the `pages_drawer` function at the top of the second `List` component:
-```
+```ts
 <ListItem key={'mode'} disablePadding>
 	<ListItemButton onClick={colorMode.toggleColorMode}
 					color="inherit" >
@@ -258,7 +267,7 @@ We will now update the `pages_drawer` function to display the dark/light mode to
 ```
 
 Your `Navbar.tsx` file should now look like this:
-```
+```ts
 {% raw %}
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -435,8 +444,10 @@ export default function Navbar() {
                                     flexGrow: 1,
                                     color: 'inherit',
                                     textDecoration: 'none',
+                                    "&:hover": {
+										color: useTheme().palette.secondary.main
+									}
                                 }}
-                                className={styles.title}
                             >
                                 MacApp
                             </Typography>
@@ -463,8 +474,10 @@ export default function Navbar() {
                             display: {xs: 'none', md: 'flex'},
                             textDecoration: 'none',
                             color: 'inherit',
+                            "&:hover": {
+								color: useTheme().palette.secondary.main
+							}
                         }}
-                        className={styles.title}
                     >
                         MacApp
                     </Typography>
