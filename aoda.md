@@ -108,7 +108,7 @@ This error is caused by the dropdown menu component (i.e., the `Select` componen
 
 Add an `htmlFor` prop to the `InputLabel` component as shown below:
 ```ts
-<InputLabel id="demo-simple-select-label" htmlFor="demo-simple-select">
+<InputLabel id="demo-simple-select-label" htmlFor="demo-simple-select-input">
 	Demo Dropdown Menu
 </InputLabel>
 ```
@@ -120,7 +120,7 @@ Next, we will add an `id` to the `Select` component using `inputProps`. The `id`
 	id="demo-simple-select"
 	label="Demo Dropdown Menu"
 	inputProps={{
-		id:'demo-simple-select',
+		id:'demo-simple-select-input',
 	}}
 >
 	<MenuItem value={1}>Option 1</MenuItem>
