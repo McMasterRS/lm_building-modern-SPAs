@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Accessible Focus Indicators
+title: "Skip to Main" Content Button
 nav_order: 14
 ---
 # "Skip to Main" Content Button
