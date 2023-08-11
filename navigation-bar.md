@@ -586,7 +586,7 @@ Next, we will add the navigation button links shown on medium-sized displays. Ad
                     ? styles.active
                     : styles.nonActive
             }
-            sx={{my: 2, color: 'white', display: 'block'}}
+            sx={{mx: 0.3, my: 2, color: 'white', display: 'block'}}
         >
             {page[0]}
         </MacNavButton>

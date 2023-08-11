@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Pre-workshop Material
+title: Pre-module Material
 nav_order: 3
 ---
 
 # Pre-module Material
 
-We will start by providing a brief introduction to the programming languages, frameworks and tools used in this workshop. We will also guide you through the process of creating and setting up the single-page application used in this learning module on your local machine.
+We will start by providing a brief introduction to the programming languages, frameworks and tools used in this learning module. We will also guide you through the process of creating and setting up the single-page application used in this learning module on your local machine.
 
 ![NextJS-MUI](assets/img/nextjs-mui.png)_Image retrieved from [itnext.io](https://itnext.io/next-js-with-material-ui-7a7f6485f671)_
 
