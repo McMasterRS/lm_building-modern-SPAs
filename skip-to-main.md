@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 'Skip to Main' Content Button
+title: Skip to Main Content Button
 nav_order: 14
 ---
 # "Skip to Main" Content Button
