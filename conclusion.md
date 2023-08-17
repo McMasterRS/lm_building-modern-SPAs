@@ -20,12 +20,15 @@ Throughout this learning module, we learned the basics of styling Material UI co
 - A styled dropdown menu
 - Vertical tabs that make use of a drawer on mobile devices
 - AODA compliance
+- Accessible focus indicators
+- A "Skip to Main Content" button
 
 While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this learning module provided you with the basic knowledge needed to create modern and responsive websites. 
 
 We recommend the following resources if you want to learn more about Next.js, Material UI, the McMaster Brand Standards, and the web accessibility guidelines:
 - [The Official Next.js Docs](https://nextjs.org/docs)
 - [The Official MUI Documentation](https://mui.com/material-ui/getting-started/overview/)
+- [MUI GitHub Issues](https://github.com/mui/material-ui/issues)
 - [McMaster Brand Standards](https://brand.mcmaster.ca/)
 - [Web Content Accessibility Guidelines version 2.0 (Level AA)](https://www.w3.org/WAI/WCAG21/quickref/)
 
