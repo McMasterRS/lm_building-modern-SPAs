@@ -9,7 +9,7 @@ According the [World Wide Web Consortium(W3C)](https://www.w3.org/International/
 
 ## Install `next-intl`
 
-Next.js has built-in support for internationalized [(i18n)][https://en.wikipedia.org/wiki/Internationalization_and_localization#Naming] routing. However, it currently only supports when your application's pages and components are rendered from the server side. For applications that are rendered from client side, they will require support from other packages to localize the applications. In this learning module, we will be using a package called `next-intl`.  
+Next.js has built-in support for internationalized [(i18n)](https://en.wikipedia.org/wiki/Internationalization_and_localization#Naming) routing. However, it currently only supports when your application's pages and components are rendered from the server side. For applications that are rendered from client side, they will require support from other packages to localize the applications. In this learning module, we will be using a package called `next-intl`.  
 
 To install `next-intl`, go to the root directory of your project and run the following command.  
 
