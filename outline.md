@@ -19,6 +19,7 @@ At the end of this learning module, attendees will be able to:
 - Create navigation components for your webpage including a navigation bar, footer, breadcrumbs and a universal back button.
 - Style common interactive UI elements like buttons, tabs and file input widgets
 - Evaluate your website for AODA compliance and fix common accessibility errors
+- Apply French translation to a Next.js application
 
 ## Table of Content
 
@@ -35,4 +36,5 @@ At the end of this learning module, attendees will be able to:
 	4. [Buttons With a Dropdown Menu](interactive-ui-elements.md#buttons-with-a-dropdown-menu)
 	5. [Speed Dials](interactive-ui-elements.md#speed-dials)
 8. [AODA Compliance](aoda.md)
-9. [Conclusion](conclusion.md)
+9. [Localization](localization.md)
+10. [Conclusion](conclusion.md)
