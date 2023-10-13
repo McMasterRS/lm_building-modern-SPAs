@@ -22,6 +22,7 @@ Throughout this learning module, we learned the basics of styling Material UI co
 - AODA compliance
 - Accessible focus indicators
 - A "Skip to Main Content" button
+- Localized (Canadian French) pages
 
 While we only scratched the surface of what you can do with Next.js and Material UI, we hope that this learning module provided you with the basic knowledge needed to create modern and responsive websites. 
 
