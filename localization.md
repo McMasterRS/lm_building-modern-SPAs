@@ -5,7 +5,7 @@ nav_order: 15
 ---
 # Localization
 
-According the [World Wide Web Consortium(W3C)](https://www.w3.org/International/questions/qa-i18n), localization refers to the adaptation of a product, application or document content to meet **language**, cultural and other requirements of a specific target market (or i.e. "locale"). In Canada, English and French are the two official languages at the federal level. While there may not be a strict legal requirement to have a French version of your website across all of Canada, it's a strategic decision that can be based on your target audience, business goals, and the regions you operate in. In this section, we will learn how to localize the application for French-speaking Canadian.  
+According the [World Wide Web Consortium(W3C)](https://www.w3.org/International/questions/qa-i18n), localization refers to the adaptation of a product, application or document content to meet **language**, cultural and other requirements of a specific target market (or i.e. "locale"). In Canada, English and French are the two official languages at the federal level. While there may not be a strict legal requirement to have a French version of your website across all of Canada, it helps you connect with a broader audience, enhances the user experience, and demonstrates cultural sensitivity. These factors can collectively improve accessibility and make your website more welcoming and relevant to Canadians who prefer or require content in French. In this section, we will learn how to localize the application for French-speaking Canadian.  
 
 ## Install `next-intl`
 
@@ -25,7 +25,11 @@ In SSR, the web server generates the HTML content for a page and sends it to the
 
 In CSR, the initial HTML is often minimal, and the client's browser is responsible for rendering the page content. The browser loads the necessary JavaScript, which then fetches data and builds the page on the client-side. CSR can result in slower initial page loads because the client has to make additional requests for data and execute JavaScript code to render the page. This can lead to a "flash of empty content" as the page loads.  
 
+So how does localization works in both server-side rendering and client-side rendering pages? In SSR, the localized text strings will be localized and embedded in the HTML contents before sending it back to the client's browser. While in CSR, the localization methods will be embedded in the JavaScript logic of the application and client's browser will request the localized text strings once it received the basic HTML and JavaScript contents.  
+
 ## Create Locale Routing Middleware
+
+To localize your application with `next-intl`, we will need to create a routing middleware that helps to handle all the pages' redirects and rewrites based on the locale the user select manually or by default.  
 
 Create a `[locale]` directory in the `app` directory. Then create the `layout.tsx` and `template.tsx` in the `[locale]` directory and move all your `page.tsx` files in there.  
 
@@ -54,6 +58,8 @@ Here, we create a routing middleware, which handles redirects and rewrites based
 Now when you enter the website using URL [`localhost:3000/en-CA`](localhost:3000/en-CA), it will direct you the English version of the site, and to the French version one if you enter [`localhost:3000/fr-CA`](localhost:3000/fr-CA). And if you do not include a locale in the URL, i.e. [`localhost:3000`](localhost:3000), it will direct you to the English version by default as declared in the `defaultLocale` attribute above.  
 
 ## Modify `template.tsx` and `layout.tsx`
+
+We will need to use `NextIntlClientProvider` to wrap the entire application so the localization would be applied to all the pages and components.  
 
 Open `app/template.tsx` and edit its contents to the following:  
 
@@ -135,6 +141,8 @@ export default async function LocalizationLayout({
 Here, we utilize the `NextIntlClientProvider` hook from `next-intl` to load dictionaries (`../../dictionaries/${params.locale}.json`) and send to all templates and pages within the `app/[locale]` directory.  
 
 ## Create Dictionaries
+
+A dictionary of a language contains all the text strings used in the website with standard labels for them. `next-intl` will later read the text string from the corresponding dictionary using the label.  
 
 We will create a `dictionaries` directory in the root directory of the project and add two new files in it, `en-CA.json` and `fr-CA.json`.  
 
