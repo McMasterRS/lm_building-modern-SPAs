@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Footer
-nav_order: 8
+parent: Styling Modern Web Apps
+nav_order: 4
 ---
 
 # Footer

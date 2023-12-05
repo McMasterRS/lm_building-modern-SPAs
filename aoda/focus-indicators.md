@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Accessible Focus Indicators
-nav_order: 13
+parent: Building Accessible Web Apps
+nav_order: 2
 ---
 
 # Accessible Focus Indicators

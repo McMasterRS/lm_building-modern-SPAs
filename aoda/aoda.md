@@ -1,7 +1,8 @@
 ---
 layout: default
 title: AODA Compliance
-nav_order: 12
+parent: Building Accessible Web Apps
+nav_order: 1
 ---
 
 # AODA Compliance 

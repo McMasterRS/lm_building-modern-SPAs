@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Favicon
-nav_order: 5
+parent: Styling Modern Web Apps
+nav_order: 1
 ---
 # Update the Favicon
 

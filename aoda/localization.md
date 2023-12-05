@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Localization
-nav_order: 15
+parent: Building Accessible Web Apps
+nav_order: 4
 ---
 # Localization
 

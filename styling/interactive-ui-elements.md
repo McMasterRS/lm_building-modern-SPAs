@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Interactive UI Elements
-nav_order: 11
+parent: Styling Modern Web Apps
+nav_order: 6
 ---
 
 # Interactive UI Elements

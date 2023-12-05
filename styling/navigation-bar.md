@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Navigation Bar
-nav_order: 7
+parent: Styling Modern Web Apps
+nav_order: 3
 ---
 
 # Navigation Bar
