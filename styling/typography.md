@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Typography
-nav_order: 6
+parent: Styling Modern Web Apps
+nav_order: 2
 ---
 
 # Typography

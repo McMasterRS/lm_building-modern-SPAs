@@ -1,7 +1,8 @@
 ---
 layout: default
 title: AODA Compliance
-nav_order: 12
+parent: Building Accessible Web Apps
+nav_order: 1
 ---
 
 # AODA Compliance 
@@ -9,16 +10,17 @@ nav_order: 12
 Accessibility is crucial for websites as it ensures that everyone, regardless of their abilities or disabilities, can perceive, navigate, and interact with digital content effectively. Prioritising accessibility aligns with ethical and legal obligations, such as the AODA Integrated Standards Regulation released in June 2011 by the Ontario legislative body, which requires McMaster University to provide information in an accessible format. Implementing accessibility features, such as alt text for images, captions for videos, keyboard navigation, and clear, structured content, not only enables people with disabilities to access information but also enhances the user experience for all visitors. Ultimately, accessibility isn't just a checkbox; it's a fundamental aspect that empowers individuals and contributes to a more accessible and welcoming digital landscape. In this section, we will learn how to evaluate a website for AODA compliance and how to address some common AODA errors related to MUI components, ensuring the website's accessibility and compliance with AODA standards.
 
 ## Installing the Wave Browser Extension
-Open the [WAVE Extensions ](https://wave.webaim.org/extension/) webpage and install the Wave extension for the browser that you are currently using. 
+Open the [WAVE Extensions](https://wave.webaim.org/extension/) webpage and install the Wave extension for the browser that you are currently using. 
 
 ## Using the Wave Browser Extension
-To evaluate a page, simply click on the extension button in your browser's toolbar.
+To evaluate a page, simply click on the extension button in your browser's toolbar.  
 ![wave-button](assets/img/wave-button.png)
+
 The Wave sidebar will be shown on the left side of your browser. The sidebar includes a summary of all the errors, alerts and features that are present on the page you have open.
 
 You will need to evaluate all pages of your website across their different variations using this tool. For instance, if your website has a light and a dark mode, you will need to evaluate each page in both modes. Furthermore, if you have some UI elements that only appear in certain conditions (e.g., mobile/tablet UI, etc.), you will will have to evaluate each page in all its variations. 
 
-In our case, the Wave tool identifies 1 regular error and 1 contrast error as shown in the image below. 
+In our case, the Wave tool identifies 1 regular error and 1 contrast error as shown in the image below.  
 ![wave-sidebar](assets/img/wave-sidebar.png)
 
 Open the "Details" tab in the Wave sidebar to find more details regarding the errors and alerts. We can now see that the error is caused by an empty button, i.e., a button without any text or tooltip message. Screen readers cannot properly process empty buttons, so we will need to address this issue to ensure that our website meets the accessibility standards.
@@ -129,5 +131,4 @@ Next, we will add an `id` to the `Select` component using `inputProps`. The `id`
 </Select>
 ```
 
-Reload the "Settings" page in your browser and re-run the Wave tool. The missing form label error should now be fixed.
-
+Reload the "Settings" page in your browser and re-run the Wave tool. The missing form label error should now be fixed.  

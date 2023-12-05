@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Skip to Main Content Button
-nav_order: 14
+parent: Building Accessible Web Apps
+nav_order: 3
 ---
 # "Skip to Main" Content Button
 

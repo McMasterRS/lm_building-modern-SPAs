@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Breadcrumbs With a Universal Back Button
-nav_order: 10
+parent: Styling Modern Web Apps
+nav_order: 7
 ---
 
 # Breadcrumbs With a Universal Back Button

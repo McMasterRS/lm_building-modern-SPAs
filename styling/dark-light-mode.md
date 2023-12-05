@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Dark and Light Mode
-nav_order: 9
+parent: Styling Modern Web Apps
+nav_order: 5
 ---
 
 # Dark and Light Mode
