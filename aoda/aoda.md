@@ -6,7 +6,7 @@ nav_order: 12
 
 # AODA Compliance 
 
-The Information and Communications Standard is part of the AODA Integrated Standards Regulation released in June 2011 by the Ontario legislative body. It requires McMaster University to provide information in an accessible format, which includes web sites and information published on them. In this section, we will learn how to evaluate a website for AODA compliance and how to address some common AODA errors related to MUI components.
+Accessibility is crucial for websites as it ensures that everyone, regardless of their abilities or disabilities, can perceive, navigate, and interact with digital content effectively. Prioritising accessibility aligns with ethical and legal obligations, such as the AODA Integrated Standards Regulation released in June 2011 by the Ontario legislative body, which requires McMaster University to provide information in an accessible format. Implementing accessibility features, such as alt text for images, captions for videos, keyboard navigation, and clear, structured content, not only enables people with disabilities to access information but also enhances the user experience for all visitors. Ultimately, accessibility isn't just a checkbox; it's a fundamental aspect that empowers individuals and contributes to a more accessible and welcoming digital landscape. In this section, we will learn how to evaluate a website for AODA compliance and how to address some common AODA errors related to MUI components, ensuring the website's accessibility and compliance with AODA standards.
 
 ## Installing the Wave Browser Extension
 Open the [WAVE Extensions](https://wave.webaim.org/extension/) webpage and install the Wave extension for the browser that you are currently using. 

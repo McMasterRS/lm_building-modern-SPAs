@@ -32,6 +32,10 @@ We recommend the following resources if you want to learn more about Next.js, Ma
 - [MUI GitHub Issues](https://github.com/mui/material-ui/issues)
 - [McMaster Brand Standards](https://brand.mcmaster.ca/)
 - [Web Content Accessibility Guidelines version 2.0 (Level AA)](https://www.w3.org/WAI/WCAG21/quickref/)
+- [MUL Library Accessibility Services](https://library.mcmaster.ca/spaces/las)
+- [Mac Accessibility Hub](https://accessibility.mcmaster.ca/)
+- [Accessibility in Ontario](https://www.ontario.ca/page/about-accessibility-laws)
+
 
 You can also use the [PageSpeed Insights](https://pagespeed.web.dev/) tool to assess your website in terms of performance, accessibility, best practices and SEO score. The tool can grade the mobile and desktop versions of your website. Please note that your website needs to be web accessible without the need for a VPN connection or login credentials for this tool to work. Alternatively, you can use the [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) tool that is built into the Google Chrome browser to assess any website that requires logging in using credentials.
 
